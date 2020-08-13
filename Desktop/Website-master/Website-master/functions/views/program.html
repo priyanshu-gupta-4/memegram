@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>MentorMitr</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/home.css">
+
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <!-- <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script> -->
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+    <style>
+        .li {
+            float: left;
+        }
+        
+        .li a {
+            display: block;
+            text-decoration: none;
+            padding: 14px 16px;
+            text-align: center;
+        }
+        
+        .li a:hover:not(.active) {
+            background-color: #FCA819;
+        }
+        
+        .a.active {
+            background-color: #EAB126;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        /* Full-width input fields */
+        
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        /* Set a style for all buttons */
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            opacity: 0.8;
+        }
+        /* Extra styles for the cancel button */
+        
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+        /* Center the image and position the close button */
+        
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+        
+        img.avatar {
+            width: 40%;
+            border-radius: 50%;
+        }
+        
+        .container {
+            padding: 16px;
+        }
+        
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+        /* The Modal (background) */
+        
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+            padding-top: 60px;
+        }
+        /* Modal Content/Box */
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto;
+            /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 80%;
+            /* Could be more or less, depending on screen size */
+        }
+        /* The Close Button (x) */
+        
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+        /* Add Zoom Animation */
+        
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+        
+        @-webkit-keyframes animatezoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+        
+        @keyframes animatezoom {
+            from {
+                transform: scale(0)
+            }
+            to {
+                transform: scale(1)
+            }
+        }
+        /* Change styles for span and cancel button on extra small screens */
+        
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+            .cancelbtn {
+                width: 100%;
+            }
+        }
+        
+        .open-button {
+            background-color: #fca819;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+        /* The popup chat - hidden by default */
+        
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+        /* Add styles to the form container */
+        
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+        /* Full-width textarea */
+        
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+        /* When the textarea gets focus, do something */
+        
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        /* Set a style for the submit/send button */
+        
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        /* Add a red background color to the cancel button */
+        
+        .form-container .cancel {
+            background-color: red;
+        }
+        /* Add some hover effects to buttons */
+        
+        .form-container .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+        
+        .img {
+            background: lightblue url("images/image1 1.png");
+            position: absolute;
+            width: 780px;
+            height: 450px;
+            left: 644px;
+            top: 342px;
+        }
+        
+        .imgs {
+            position: absolute;
+            left: 10.5%;
+            right: 40.5%;
+            top: 25%;
+            bottom: 25%;
+        }
+        
+        .time {
+            position: absolute;
+            width: 241px;
+            height: 185px;
+            left: 220px;
+            top: 1935px;
+            background: url(images/image4.png);
+        }
+        
+        .emo {
+            position: absolute;
+            width: 190px;
+            height: 180px;
+            left: 851px;
+            top: 1980px;
+            background: url(images/3744483.png);
+        }
+        
+        .per {
+            position: absolute;
+            width: 232px;
+            height: 211px;
+            left: 223px;
+            top: 2389px;
+            background: url(images/image3.png);
+        }
+        
+        .pri {
+            position: absolute;
+            width: 232px;
+            height: 211px;
+            left: 223px;
+            top: 2789px;
+            background: url(images/image3.png);
+        }
+        
+        .soft {
+            position: absolute;
+            width: 285px;
+            height: 148px;
+            left: 802px;
+            top: 2400px;
+            background: url(images/3553075.png);
+        }
+        
+        .goals {
+            position: absolute;
+            width: 285px;
+            height: 148px;
+            left: 802px;
+            top: 2800px;
+            background: url(images/3553075.png);
+        }
+        
+        .student {
+            position: absolute;
+            width: 512px;
+            height: 410px;
+            left: 220px;
+            top: 3000.82px;
+            background: url(images/5293-removebg-preview.png);
+        }
+        
+        .college {
+            position: absolute;
+            width: 508px;
+            height: 324px;
+            left: 852px;
+            top: 3610px;
+            background: url(images/5853-removebg-preview.png);
+        }
+        
+        .work {
+            position: absolute;
+            width: 431px;
+            height: 280px;
+            left: 260px;
+            top: 4280px;
+            background: url(images/3372240.png);
+        }
+
+        .selected {
+            background-color: #ffef96;
+        }
+         .nav-link {
+            padding-left: 8px;
+            padding-right: 8px;
+            margin-left: 8px;
+            margin-right: 8px;
+            border-radius: 2px;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <%- include ("partials/nav.html") %>
+    <%- include ("partials/loginButton.html") %>
+
+
+
+
+    <p style="margin-left:10px">
+
+        <img src="images/Rectangle 46.svg" style="position: absolute;width: 1133px;height: 70px;left: 113px;top: 196px;background: rgba(189, 255, 251, 0.62);border-radius: 25px;">
+        <a>
+            <p style="position: absolute;width: 202px;height: 48px;left: 216px;top: 206px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
+/* identical to box height, or 48px */color: #000000;" onclick="school()">School Student</p>
+        </a>
+        
+        <img src="images/Vector 57.svg" style="position: absolute;width: 0px;height: 67px;left: 465px;top: 195px;border: 1px solid #000000;">
+        
+        <a>
+            <p style="position: absolute;width: 212px;height: 48px;left: 565px;top: 206px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
+/* identical to box height, or 48px */color: #000000;" onclick="college()">College Student</p>
+        </a>
+        
+        <img src="images/Vector 57.svg" style="position: absolute;width: 0px;height: 67.5px;left: 852px;top: 195px;border: 1px solid #000000;">
+        
+        <a>
+            <p style="position: absolute;width: 299px;height: 48px;left: 913px;top: 206px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
+/* identical to box height, or 48px */color: #000000;" onclick="workp()">Working Professional</p>
+        </a>
+    </p>
+
+        <div id="sc">
+            <!-- <p>SCCC</p> -->
+            <p>SCHOOL STUDENTS ARE WELCOME</p>
+            <img src="images/Rectangle 49.svg" style="position: absolute;width: 499px;height: 1010px;left: 122.5px;top: 370px;background: rgba(121, 239, 255, 0.34);border-radius: 50px;">
+    <p style="position: absolute;width: 306px;height: 77px;left: 199px;top: 390px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 48px;line-height: 160%;
+/* identical to box height, or 77px */color: #000000;">Habit Forming</p>
+    <p style="position: absolute;width: 232px;height: 58px;left: 197px;top: 690px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 36px;line-height: 160%;
+/* identical to box height, or 58px */color: #000000;">Specifications</p>
+
+    <img src="images/Rectangle 51.svg" style="position: absolute;width: 305px;height: 50px;left: 216px;top: 1260px;background: rgba(127, 251, 30, 0.54);border-radius: 40px;">
+    <p style="position: absolute;width: 178px;height: 48px;left: 280px;top: 1262px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
+/* identical to box height, or 48px */text-align: center;">Start Journey</p>
+
+    <img src="images/Rectangle 49.svg" style="position: absolute;width: 499px;height: 1010px;left: 763px;top: 370px;background: rgba(121, 239, 255, 0.37);border-radius: 50px;">
+    <p style="position: absolute;width: 221px;height: 77px;left: 840px;top: 380px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 48px;line-height: 160%;
+/* identical to box height, or 77px */color: #000000;">Long Term</p>
+    <p style="position: absolute;width: 232px;height: 58px;left: 847.5px;top: 690px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 36px;line-height: 160%;
+/* identical to box height, or 58px */color: #000000;">Specifications</p>
+    <img src="images/Rectangle 51.svg" style="position: absolute;width: 305px;height: 50px;left: 868px;top: 1261px;background: rgba(127, 251, 30, 0.54);border-radius: 40px;">
+
+    <p style="position: absolute;width: 178px;height: 48px;left: 932px;top: 1262px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
+/* identical to box height, or 48px */text-align: center;color: #000000;">Start Journey</p>
+
+    </div>
+
+
+    <div id="cg" style="display:none;">
+        <p>COLLEGE STUDENTS ARE WELCOME</p>
+        <img src="images/Rectangle 49.svg" style="position: absolute;width: 499px;height: 1010px;left: 122.5px;top: 370px;background: rgba(121, 239, 255, 0.34);border-radius: 50px;">
+        </p>
+        <p style="position: absolute;width: 306px;height: 77px;left: 199px;top: 390px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 48px;line-height: 160%;
+/* identical to box height, or 77px */color: #000000;">Habit Forming</p>
+        <p style="position: absolute;width: 232px;height: 58px;left: 197px;top: 690px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 36px;line-height: 160%;
+/* identical to box height, or 58px */color: #000000;">Specifications</p>
+
+        <img src="images/Rectangle 51.svg" style="position: absolute;width: 305px;height: 50px;left: 216px;top: 1260px;background: rgba(127, 251, 30, 0.54);border-radius: 40px;">
+        <p style="position: absolute;width: 178px;height: 48px;left: 280px;top: 1262px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
+/* identical to box height, or 48px */text-align: center;">Start Journey</p>
+
+        <img src="images/Rectangle 49.svg" style="position: absolute;width: 499px;height: 1010px;left: 763px;top: 370px;background: rgba(121, 239, 255, 0.37);border-radius: 50px;">
+        <p style="position: absolute;width: 221px;height: 77px;left: 840px;top: 380px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 48px;line-height: 160%;
+/* identical to box height, or 77px */color: #000000;">Long Term</p>
+        <p style="position: absolute;width: 232px;height: 58px;left: 847.5px;top: 690px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 36px;line-height: 160%;
+/* identical to box height, or 58px */color: #000000;">Specifications</p>
+        <img src="images/Rectangle 51.svg" style="position: absolute;width: 305px;height: 50px;left: 868px;top: 1261px;background: rgba(127, 251, 30, 0.54);border-radius: 40px;">
+
+        <p style="position: absolute;width: 178px;height: 48px;left: 932px;top: 1262px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
+/* identical to box height, or 48px */text-align: center;color: #000000;">Start Journey</p>
+    </div>
+
+
+    <div id="workingPro" style="display:none;">
+        <p>WORKING PROFESSIONAL ARE WELCOME</p>
+        <img src="images/Rectangle 49.svg" style="position: absolute;width: 499px;height: 1010px;left: 122.5px;top: 370px;background: rgba(121, 239, 255, 0.34);border-radius: 50px;">
+        <p style="position: absolute;width: 306px;height: 77px;left: 199px;top: 390px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 48px;line-height: 160%;
+    /* identical to box height, or 77px */color: #000000;">Habit Forming</p>
+        <p style="position: absolute;width: 232px;height: 58px;left: 197px;top: 690px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 36px;line-height: 160%;
+    /* identical to box height, or 58px */color: #000000;">Specifications</p>
+    
+        <img src="images/Rectangle 51.svg" style="position: absolute;width: 305px;height: 50px;left: 216px;top: 1260px;background: rgba(127, 251, 30, 0.54);border-radius: 40px;">
+        <p style="position: absolute;width: 178px;height: 48px;left: 280px;top: 1262px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
+    /* identical to box height, or 48px */text-align: center;">Start Journey</p>
+    
+        <img src="images/Rectangle 49.svg" style="position: absolute;width: 499px;height: 1010px;left: 763px;top: 370px;background: rgba(121, 239, 255, 0.37);border-radius: 50px;">
+        <p style="position: absolute;width: 221px;height: 77px;left: 840px;top: 380px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 48px;line-height: 160%;
+    /* identical to box height, or 77px */color: #000000;">Long Term</p>
+        <p style="position: absolute;width: 232px;height: 58px;left: 847.5px;top: 690px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 36px;line-height: 160%;
+    /* identical to box height, or 58px */color: #000000;">Specifications</p>
+        <img src="images/Rectangle 51.svg" style="position: absolute;width: 305px;height: 50px;left: 868px;top: 1261px;background: rgba(127, 251, 30, 0.54);border-radius: 40px;">
+    
+        <p style="position: absolute;width: 178px;height: 48px;left: 932px;top: 1262px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
+    /* identical to box height, or 48px */text-align: center;color: #000000;">Start Journey</p>
+    </div>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    
+    <%- include("partials/footer.html") %>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="js/google-map.js"></script> -->
+    <script src="js/main.js"></script>
+<!-- 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+    <script>
+        function school() {
+            document.getElementById('sc').style.display = "block"
+            document.getElementById('cg').style.display = "none"
+            document.getElementById('workingPro').style.display = "none"
+        }
+
+        function college() {
+            document.getElementById('cg').style.display = "block"
+            document.getElementById('sc').style.display = "none"
+            document.getElementById('workingPro').style.display = "none"
+        }
+
+        function workp() {
+            document.getElementById('workingPro').style.display = "block"
+            document.getElementById('cg').style.display = "none"
+            document.getElementById('sc').style.display = "none"
+        }
+    </script>
+    <script src="navbar.js"></script>
+</body>
+
+</html>

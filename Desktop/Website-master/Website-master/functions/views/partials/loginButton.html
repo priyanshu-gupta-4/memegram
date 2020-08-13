@@ -1,0 +1,101 @@
+<div id="id01" class="modal">
+
+    <div class="modal-content animate">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close "
+                title="Close Modal">&times;</span>
+            <button onclick="signup()" style="width:auto;" class="btn btn-primary">Sign Up</button>
+            <button type="button" onclick="document.getElementById('id01').style.display='none'"
+                class="cancelbtn">Cancel</button>
+
+
+        </div>
+
+        <div class="container">
+            <label for="uname"><b>Email</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" id="logtxtEmail" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" id="logtxtPassword" required>
+
+            <button id="btnLogin">Login</button>
+
+
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+
+            <button class="btn btn-primary" onclick="resetpass()">Forgot Password?</button>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+<div id="id02" class="modal">
+    <span onclick="document.getElementById('id02').style.display='none'" class="close"
+        title="Close Modal">&times;</span>
+    <div class="modal-content">
+        <div class="container">
+            <h1>Sign Up</h1>
+            <button type="button" onclick="document.getElementById('id02').style.display='none'"
+                class="cancelbtn">Cancel</button>
+            <button type="button" onclick="login()" class="btn btn-primary">Back To Login</button>
+            <p><button id="btnmentor" class="btn btn-primary" style="border-radius: 100px;;">MentorLogin</button>
+            </p>
+            <p>Please fill in this form to create an account.</p>
+            <hr>
+            <label for="fname"><b>First Name</b></label>
+            <input type="text" placeholder="Enter First Name" name="First Name" id="first" required>
+            <label for="lname"><b>Last Name</b></label>
+            <input type="text" placeholder="Enter Last Name" name="Last Name" id="second" required>
+            <label for="email"><b>Email</b></label>
+            <input type="text" placeholder="Enter Email" name="email" id="txtEmail" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" id="txtPassword" required>
+
+            <label for="psw-repeat"><b>Confirm Password</b></label>
+            <input type="password" placeholder="Repeat Password" name="psw-repeat" id="txtPassword1" required>
+            <label for="email"><b>Please Select your Gender</b></label>
+            <br><br>
+            <input type="radio" id="male" name="gender" value="male">
+            <label for="male">Male</label><br>
+            <input type="radio" id="female" name="gender" value="female">
+            <label for="female">Female</label><br>
+            <input type="radio" id="other" name="gender" value="other">
+            <label for="other">Other</label>
+            <p>Please Select your type</p>
+            <input type="radio" id="Student" name="type" value="School">
+            <label for="male">School</label><br>
+
+            <input type="radio" id="College" name="type" value="College">
+            <label for="male">College</label><br>
+            <input type="radio" id="Parent" name="type" value="Parent">
+            <label for="male">Parent</label><br>
+            <input type="radio" id="wp" name="type" value="Working Professional">
+            <label for="male">Working Professional</label><br>
+            <input type="radio" id="mentor" name="type" value="Mentor">
+            <label for="male">Mentor</label><br><br>
+            <br><br>
+            <label for="PhoneNumber"><b>PhoneNumber</b></label>
+            <input type="text" placeholder="Enter Phone Number" name="email" id="pnumber" required>
+            <label>
+
+
+                <div class="clearfix">
+
+                    <button id="btnSignUp" class="signupbtn">Sign Up</button><br>
+
+                </div><br><br><br>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="js/main.js"></script>

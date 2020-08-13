@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="form">
+        <ul class="tab-group">
+            <li class="tab active"><a href="#signup">Sign Up</a></li>
+            <li class="tab"><a href="#login">Log In</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="signup">
+                <h1>Sign Up</h1>
+                <div class="top-row">
+                    <div class="field-wrap">
+                        <label>
+                            <First Name</b> <span class="req">*</span>
+                        </label><input id="first" type="text" required autocomplete="off" /></div>
+                    <div class="field-wrap"><label><b>Last Name</b><span class="req">*</span></label><input id="second" type="text" required autocomplete="off" /></div>
+                </div>
+                <div class="field-wrap"><label><b>Email A
+                            ddress</b><span class="req">*</span></label><input id="txtEmail" type="email" required autocomplete="off" /></div>
+                <div class="field-wrap"><label><b>Set A Password</b><span class="req">*</span></label><i nput id="txtPassword" type="password" required autocomplete="off" /></div>
+                <div class="field-wrap"><label><b>Confirm Pa
+                            ssword</b><span class="req">*</span></label><input id="txtPassword1" type="password" required autocomplete="off" /></div>
+                <div class="field-wrap"><label><b>Phone Number</b><span class="req">*</span></label><input id="pnumber" type="text" required autocomplete="off" /></div>
+                <div class="field-wrap"><label><b>Student or College</b><span class="req">*</span></label><input id="txtwho" type="text" required autocomplete="off" /></div>
+                <div>
+                    <p>Please select your gender:</p><input type="radio" id="male" name="gender" value="male"><label for="male">Male</label><br><input type="radio" id="female" name="gender" value="female"><label for="female">Female</label><br><input type="radio"
+                        id="other" name="gender" value="other"><label for="other">Other</label>
+                </div><br><br><br><br><button id="btnSignUp" class="button button-block" />Get Started</button><br>
+                <center>
+                    <div class="col s12 m6 offset-m3 center-align">
+                        <a class="oauth-container btn darken-4 white black-text" onclick="googleSignIn()" style="text-transform:none">
+                            <div class="left"><img width="20px" style="margin-top:0px; margin-right:8px" alt="Google sign-in" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+                            </div>Login with Google
+                        </a>
+                    </div><br><br><br>
+                    <p><button id="btnmentor" class="btn btn-primary" style="border-radius: 100px;;">MentorLogin</button></p>
+                </center>
+            </div>
+            <div id="login">
+                <h1>Welcome Back!</h1>
+                <div class="field-wrap"><label><b>Email</b><span class="req">*</span></label><input id="logtxtEmail" type="email" required autocomplete="off" /></div>
+                <div class="field-wrap"><label><b>Password</b><span class="req">*</span></label><input id="logtxtPassword" type="password" required autocomplete="off" /></div>
+                <p class="forgot"><button class="btn btn-primary" onclick="resetpass()" style="border-radius: 100px;">Forgot Password
+                        sword?</button></p><button id="btnLogin" class="button button-block" style="border-radius: 100px;" />Log In</button>
+            </div>
+        </div>
+</body>
+
+</html>

@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
+    <title>MentorMitr</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+    <link rel="stylesheet" href="css/home.css">
+
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <script src="/__/firebase/7.15.5/firebase-storage.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        .li {
+            float: left;
+        }
+        
+        .li a {
+            display: block;
+            text-decoration: none;
+            padding: 14px 16px;
+            text-align: center;
+        }
+        
+        .li a:hover:not(.active) {
+            background-color: #FCA819;
+        }
+        
+        .a.active {
+            background-color: #EAB126;
+        }
+        
+        .open-button {
+            background-color: #fca819;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+        /* The popup chat - hidden by default */
+        
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+        /* Add styles to the form container */
+        
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+        /* Full-width textarea */
+        
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+        /* When the textarea gets focus, do something */
+        
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        /* Set a style for the submit/send button */
+        
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        /* Add a red background color to the cancel button */
+        
+        .form-container .cancel {
+            background-color: red;
+        }
+        /* Add some hover effects to buttons */
+        
+        .form-container .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+        
+        .para {
+            text-align: justify;
+            padding: 20px;
+            ;
+        }
+        
+        .card-text {
+            white-space: nowrap;
+            width: 100%;
+            overflow: hidden;
+            color: black;
+            -o-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+        }
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        /* Full-width input fields */
+        
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        /* Set a style for all buttons */
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        button:hover {
+            opacity: 0.8;
+        }
+        /* Extra styles for the cancel button */
+        
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+        /* Center the image and position the close button */
+        
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+        
+        img.avatar {
+            width: 40%;
+            border-radius: 50%;
+        }
+        
+        .container {
+            padding: 16px;
+        }
+        
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+        /* The Modal (background) */
+        
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+            padding-top: 60px;
+        }
+        /* Modal Content/Box */
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto;
+            /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 80%;
+            /* Could be more or less, depending on screen size */
+        }
+        /* The Close Button (x) */
+        
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+        /* Add Zoom Animation */
+        
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+        
+        @-webkit-keyframes animatezoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+        
+        @keyframes animatezoom {
+            from {
+                transform: scale(0)
+            }
+            to {
+                transform: scale(1)
+            }
+        }
+        /* Change styles for span and cancel button on extra small screens */
+        
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+            .cancelbtn {
+                width: 100%;
+            }
+        }
+         .nav-link {
+            padding-left: 8px;
+            padding-right: 8px;
+            margin-left: 8px;
+            margin-right: 8px;
+            border-radius: 2px;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="id01" class="modal">
+
+        <div class="modal-content animate">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById( 'id01').style.display='none' " class="close " title="Close Modal ">&times;</span>
+            </div>
+
+            <div class="container">
+                <label for="uname"><b>Email</b></label>
+                <input type="text" placeholder="Enter Username" name="uname" id="logtxtEmail" required>
+
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" id="logtxtPassword" required>
+
+                <button id="btnLogin">Login</button>
+
+            </div>
+
+            <div class="container" style="background-color:#f1f1f1 ">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn ">Cancel</button>
+                <button class="btn btn-primary" onclick="resetpass()">Forgot Password?</button>
+            </div>
+
+
+            <button onclick="signup()" style="width:auto;">Sign Up</button>
+        </div>
+    </div>
+
+    <div id="id02" class="modal">
+        <span onclick="document.getElementById( 'id02').style.display='none' " class="close " title="Close Modal ">&times;</span>
+        <div class="modal-content">
+            <div class="container">
+                <h1>Sign Up</h1>
+                <p>Please fill in this form to create an account.</p>
+                <hr>
+                <label for="fname"><b>First Name</b></label>
+                <input type="text" placeholder="Enter First Name" name="First Name" id="first" required>
+                <label for="lname"><b>Last Name</b></label>
+                <input type="text" placeholder="Enter Last Name" name="Last Name" id="second" required>
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" id="txtEmail" required>
+
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" id="txtPassword" required>
+
+                <label for="psw-repeat"><b>Confirm Password</b></label>
+                <input type="password" placeholder="Repeat Password" name="psw-repeat" id="txtPassword1" required>
+                <label for="email"><b>Please Select your Gender</b></label>
+                <br><br>
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="male">Male</label><br>
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Female</label><br>
+                <input type="radio" id="other" name="gender" value="other">
+                <label for="other">Other</label>
+                <p>Please Select your type</p>
+                <input type="radio" id="Student" name="type" value="School">
+                <label for="male">School</label><br>
+
+                <input type="radio" id="College" name="type" value="College">
+                <label for="male">College</label><br>
+                <input type="radio" id="Parent" name="type" value="Parent">
+                <label for="male">Parent</label><br>
+                <input type="radio" id="wp" name="type" value="Working Professional">
+                <label for="male">Working Professional</label><br>
+                <input type="radio" id="mentor" name="type" value="Mentor">
+                <label for="male">Mentor</label><br>
+                <br><br>
+                <label for="PhoneNumber"><b>PhoneNumber</b></label>
+                <input type="text" placeholder="Enter Phone Number" name="email" id="pnumber" required>
+                <label>
+
+
+                    <div class="clearfix">
+                        <button type="button" onclick="document.getElementById('id02').style.display='none' "
+                            class="cancelbtn">Cancel</button>
+                        <button id="btnSignUp" class="signupbtn">Sign Up</button><br>
+
+                    </div><br><br><br>
+                    <p><button id="btnmentor" class="btn btn-primary"
+                            style="border-radius: 100px;;">MentorLogin</button></p>
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-primary  ftco-navbar-light sticky-top" id="ftco-navbar"
+        style="display: flex;justify-content: space-around;align-items: center;background-color: white;">
+        <a class="navbar-brand" href="#" style="margin-left:24px;">
+            <img src="images/img3.jpg" width="250" height="110">
+        </a>
+        <div class="container d-flex align-items-center " style="/*margin-top:50px*/">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+            <div class="searchform order-lg-last">
+                <div class="form-group d-flex">
+    
+                    <button onclick="login()"
+                        class="btn py-2 px-3 btn-warning d-flex align-items-center justify-content-center"
+                        style="border-color:#FFAC27;border-radius:100px">
+                        <span>Login</span>
+                    </button>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="ftco-nav" style="justify-content:center">
+    
+                <ul class="navbar-nav">
+    
+                    <li class="li"><a href="./" class="nav-link" style="font-size: 24px;">Home</a></li>
+                    <li class="li"><a href="program" class="nav-link" style="font-size: 24px;">Programs</a></li>
+                    <li class="li"><a href="team" class="nav-link" style="font-size: 24px;">Mentors</a></li>
+                    <li class="li"><a href="testimonial" class="nav-link" style="font-size: 24px;">About Us</a>
+                    </li>
+                    <li class="li"><a href="blog" class="nav-link" style="font-size: 24px;">Blogs</a></li>
+                    <li class="li"><a href="joinus" class="nav-link" style="font-size: 24px;">Join Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="topsect" class="ftco-section ftco-counter img" id="section-counter">
+        <div class="container">
+
+            <select id="session1" name="session1" onchange="option()">
+                <option value="Select Category">Select Category</option>
+                <option value="Gratitude">Gratitude</option>
+                <option value="Emotional Intelligence">Emotional Intelligence</option>
+                <option value="Soft Skills">Soft Skills</option>
+                <option value="Career Choices">Career Choices</option>
+                <option value="Time Management">Time Management</option>
+                <option value="Stress & Anxiety">Stress & Anxiety</option>
+                <option value="Performance Enhancement">Performance Enhancement</option>
+
+            </select>
+
+            <div id="display" class="row">
+
+
+            </div>
+
+        </div>
+        <button class="open-button" onclick="openForm()">Chat With Us</button>
+
+        <div class="chat-popup" id="myForm">
+
+            <iframe id="mentor" allow="microphone;" width="350" height="430"
+                src="https://console.dialogflow.com/api-client/demo/embedded/3802acc3-6c2e-4875-bea5-e7ee5964988e"></iframe>
+
+            <form action="" class="form-container">
+
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </form>
+        </div>
+
+    </section>
+
+
+    <footer class="ftco-footer ftco-bg-dark ftco-section" style="background: rgba(184, 249, 253, 0.38);">
+        <div class="container ">
+            <div class="row mb-5 ">
+                <div class="col-md-6 col-lg-3 ">
+                    <div class="ftco-footer-widget mb-5 ">
+                        <h2 class="ftco-heading-2 " style="color: black;">Have a Questions?</h2>
+                        <div class="block-23 mb-3 ">
+                            <ul>
+                                <li><span class="icon icon-map-marker " style="color: black;"></span><span class="text"
+                                        style="color: black;">203 Fake St. Mountain
+                                        View, San Francisco, California, USA</span></li>
+                                <li><a href="# "><span class="icon icon-phone " style="color: black;"></span><span
+                                            class="text " style="color: black;">9650128333</span></a></li>
+                                <li><a href="# "><span class="icon icon-envelope " style="color: black;"></span><span
+                                            class="text " style="color: black;">contact@mentormitr.com</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="ftco-footer-widget mb-5">
+                        <h2 class="ftco-heading-2" style="color: black;">Recent Blog</h2>
+                        <div class="block-21 mb-4 d-flex ">
+                            <a class="blog-img mr-4"></a>
+                            <div class="text ">
+                                <h3 class="heading" id="title1" style="font-family: Open Sans;color: black; ">
+                                    <a href="# "></a>
+                                </h3>
+                                <div class="meta">
+                                    <div><a href="#"><span class="icon-person" id="time1"></span></a></div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-21 mb-5 d-flex">
+                            <a class="blog-img mr-4"></a>
+                            <div class="text">
+                                <h3 class="heading" id="title2" style="font-family: Open Sans;color: black; ">
+                                    <a href="#"></a>
+                                </h3>
+                                <div class="meta">
+                                    <div><a href="#"><span class="icon-person " id="time2"></a></div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 ">
+                    <div class="ftco-footer-widget mb-5 ml-md-4 ">
+                        <h2 class="ftco-heading-2 " style="color: black;">Links</h2>
+                        <ul class="list-unstyled ">
+                            <li><a href="/ " style="color: black;"><span class="ion-ios-arrow-round-forward mr-2 "
+                                        style="color: black;"></span>Home</a></li>
+                            <li><a href="program " style="color: black;"><span class="ion-ios-arrow-round-forward mr-2 "
+                                        style="color: black;"></span>Programs</a>
+                            </li>
+                            <li><a href="# " style="color: black;"><span class="ion-ios-arrow-round-forward mr-2 "
+                                        style="color: black;"></span>Mentors</a></li>
+                            <li><a href="testimonial " style="color: black;"><span
+                                        class="ion-ios-arrow-round-forward mr-2 "
+                                        style="color: black;"></span>Tesimonials</a></li>
+                            <li><a href="blog " style="color: black;"><span class="ion-ios-arrow-round-forward mr-2 "
+                                        style="color: black;"></span>Blogs</a></li>
+                            <li><a href="joinus" style="color: black;"><span class="ion-ios-arrow-round-forward mr-2 "
+                                        style="color: black;"></span>Join Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 ">
+
+                    <div class="ftco-footer-widget mb-5 ">
+                        <h2 class="ftco-heading-2 mb-1 " style="color: black;">Connect With Us</h2>
+                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-3 ">
+                            <li class="ftco-animate fadeInUp ftco-animated "><a href="# "><span class="fa fa-twitter "
+                                        style="color: black;"></span></a></li>
+                            <li class="ftco-animate fadeInUp ftco-animated "><a href="# "><span class="fa fa-facebook "
+                                        style="color: black;"></span></a></li>
+                            <li class="ftco-animate fadeInUp ftco-animated "><a href="# "><span class="fa fa-instagram "
+                                        style="color: black;"></span></a></li>
+                            <li class="ftco-animate fadeInUp ftco-animated "><a href="# "><span class="fa fa-linkedin "
+                                        style="color: black;"></span></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-md-12 text-center ">
+
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script> All rights reserved <i class="icon-heart " aria-hidden="true "></i> by <a href=" "
+                            target="_blank ">MentorMitr</a>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        //Intialize firebase
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+
+
+
+        firebase.initializeApp(config);
+        const student = document.getElementById('Student')
+        const college = document.getElementById('College')
+        const parentt = document.getElementById('Parent')
+        const wp = document.getElementById('wp')
+        const mentor = document.getElementById('mentor');
+
+        const first = document.getElementById('first');
+        const second = document.getElementById('second');
+        const txtEmail = document.getElementById('txtEmail');
+        const txtPassword = document.getElementById('txtPassword');
+        const txtPassword1 = document.getElementById('txtPassword1');
+        //login ka email aur pass
+        const logtxtEmail = document.getElementById('logtxtEmail');
+        const logtxtPassword = document.getElementById('logtxtPassword');
+        //
+        const btnLogin = document.getElementById('btnLogin');
+        const btnSignUp = document.getElementById('btnSignUp');
+
+        const pnumber = document.getElementById("pnumber");
+        var session1 = document.getElementById("session1");
+
+
+
+        btnLogin.addEventListener('click', e => {
+
+            e.preventDefault
+            const email = logtxtEmail.value;
+            const pass = logtxtPassword.value;
+            const auth = firebase.auth();
+            //Sign In
+            const promise = auth.signInWithEmailAndPassword(email, pass);
+            promise.catch(e => alert("Email/Password is incorrect"));
+
+            // alert(email + ' ' + pass);
+        });
+
+
+        // Add sign up event
+        btnSignUp.addEventListener('click', e => {
+
+            e.preventDefault();
+            //TODO->Check 4 Real Email
+            const email = txtEmail.value;
+            const pass = txtPassword.value;
+            const auth = firebase.auth();
+            var individual;
+
+
+
+            if (student.checked == true) individual = student.value
+            else if (college.checked == true) individual = college.value
+            else if (parentt.checked == true) individual = parentt.value
+            else if (wp.checked == true) individual = wp.value
+            else if (mentor.checked == true) individual = mentor.value
+
+            console.log(individual);
+
+            if (txtPassword.value != txtPassword1.value) alert("Incorrect Confirm Password")
+            else {
+
+                //Sign In
+                const promise = auth.createUserWithEmailAndPassword(email, pass).then((cred) => {
+
+                    var h = first.value + " " + second.value;
+
+                    console.log("phone number", pnumber.value);
+
+                    cred.user.updateProfile({
+                        displayName: h,
+                        photoURL: individual,
+                        phoneNumber: pnumber.value
+                    })
+                });
+
+
+                promise
+                    .catch(e => alert(e.message));
+
+
+            }
+
+
+        });
+
+
+        function login() {
+
+            var signup = document.getElementById('id02');
+            signup.style.display = "none"
+            var modal = document.getElementById('id01');
+            modal.style.display = "block"
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none ";
+                }
+            }
+
+
+
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                    // console.log(user);
+                    // console.log(user.photoURL);
+                    // console.log(user.displayName);
+                    // console.log(user.email)
+                    //  btnLogout.classList.remove("invisible");
+
+                    // user.phoneNumber = pnumber.value
+                    // console.log(user);
+
+                    location.href = "/middleware";
+
+
+
+                } else {
+                    // alert("You need to Login/SignUp first");
+                    //location.href = "/testimonial";
+
+                    //  alert("Please Log In... You are currently logged out");
+                    //  btnLogout.classList.add("invisible");
+
+                }
+            })
+
+
+            btnmentor.addEventListener('click', () => {
+
+                location.href = "/mentorlogin";
+
+            })
+
+
+            function resetpass() {
+
+                firebase.auth().sendPasswordResetEmail(logtxtEmail.value)
+                alert("Password reset has been send to your registered email");
+            }
+
+
+        }
+
+        function signup() {
+
+
+            // var modal1 = document.getElementById('id01');
+            // modal1.style.display = "none";
+            var modal = document.getElementById('id02');
+
+            modal.style.display = "block"
+            var modal1 = document.getElementById('id01');
+
+            modal1.style.display = "none"
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        }
+
+        var db = firebase.firestore();
+        var ids = [];
+
+        var gr = [];
+        var grid = [];
+        var ei = [];
+        var eiid = [];
+        var ss = [];
+        var ssid = [];
+        var cc = [];
+        var ccid = [];
+        var tm = [];
+        var tmid = [];
+        var sa = [];
+        var said = [];
+        var pe = [];
+        var peid = [];
+
+
+        var arr = [];
+        db.collection("blogs").orderBy("date", "desc").get().then((snapshot) => {
+            snapshot.forEach((doc) => {
+
+
+                // console.log(doc.data().category);
+                if (doc.data().category == "Gratitude") {
+                    gr.push(doc.data());
+                    grid.push(doc.id);
+                } else if (doc.data().category == "Emotional Intelligence") {
+                    ei.push(doc.data());
+                    eiid.push(doc.id);
+                } else if (doc.data().category == "Soft Skills") {
+                    ss.push(doc.data());
+                    ssid.push(doc.id);
+                } else if (doc.data().category == "Career Choices") {
+                    cc.push(doc.data());
+                    ccid.push(doc.id);
+                } else if (doc.data().category == "Time Management") {
+                    tm.push(doc.data());
+                    tmid.push(doc.id);
+                } else if (doc.data().category == "Stress & Anxiety") {
+                    sa.push(doc.data());
+                    said.push(doc.id);
+                } else if (doc.data().category == "Performance Enhancement") {
+                    pe.push(doc.data());
+                    peid.push(doc.id);
+                }
+                arr.push(doc.data());
+                ids.push(doc.id);
+            })
+
+        }).then(() => {
+            var pt = 0;
+            for (var j = 0; j < arr.length; j++) {
+                console.log("jgkfjgkf");
+
+                var storage = firebase.storage();
+                var storageRef = storage.ref()
+                var spaceRef = storageRef.child(`${arr[j].img}`);
+                console.log(`${arr[j].img}`);
+                storageRef.child(`${arr[j].img}`).getDownloadURL().then(function (url) {
+
+                    var test = url;
+                    var z = "bimage" + pt
+                    console.log("test", test);
+                    document.getElementById(z).src = test;
+                    pt++;
+
+                }).catch(function (error) {
+
+                });
+            }
+
+            for (var i = 0; i < arr.length; i++) {
+
+                display.innerHTML +=
+                    `<div class="col-md-6" >
+         <div class="card" style="width: 30rem;border:3px ">
+        <img id="bimage${i}" src="" class="card-img-top" style="height:400px;width:400px">
+        <div class="card-body">
+        <h5 class="card-title" style="font-family: 'Open Sans';color:black"><strong>${arr[i].title}</strong></h5>
+        <p class="card-text" style="font-family: 'Roboto';color:black">Written By: ${arr[i].creator}</p>
+        <p class="card-text" style="font-family: 'Roboto';color:black">${arr[i].content}</p>
+        <a href="/blog/${ids[i]}" class="btn btn-primary">Read More ...</a>
+        </div>
+        <br><br><br>
+        </div>
+        </div> 
+        `
+            }
+
+
+            var title1 = document.getElementById("title1")
+            var title2 = document.getElementById("title2")
+            var time1 = document.getElementById("time1");
+            var time2 = document.getElementById("time2");
+
+            title1.innerHTML = arr[0].title;
+            time1.innerHTML = arr[0].creator
+
+            title2.innerHTML = arr[1].title;
+            time2.innerHTML = arr[1].creator
+
+
+            console.log(gr);
+            console.log(ss);
+            console.log(ei);
+
+            // option()
+
+        })
+        
+
+
+        function option() {
+            console.log("Option function");
+            for (var i = 0; i < session1.length; i++) {
+                if (session1[i].selected == true) {
+
+                    if (session1[i].value == "Gratitude") {
+                        var ct = 0;
+                        for (var j = 0; j < gr.length; j++) {
+                            // console.log("jgkfjgkf");
+
+                            var storage = firebase.storage();
+                            var storageRef = storage.ref()
+                            var spaceRef = storageRef.child(`${gr[j].img}`);
+                            console.log(`${gr[j].img}`);
+
+                            storageRef.child(`${gr[j].img}`).getDownloadURL().then(function (url) {
+
+                                var test = url;
+                                var z = "bimage" + ct
+                                console.log("test", test);
+                                document.getElementById(z).src = test;
+                                ct++;
+
+                            }).catch(function (error) {
+
+                            });
+                        }
+
+                        for (var i = 0; i < gr.length; i++) {
+
+                            display.innerHTML =
+                                `<div class="col-md-6" >
+                               <div class="card" style="width: 30rem;border:3px ">
+                                <img id="bimage${i}" src="" class="card-img-top" style="height:400px;width:400px">
+                                <div class="card-body">
+                                <h5 class="card-title" style="font-family: 'Open Sans';color:black"><strong>${gr[i].title}</strong></h5>
+                                <p class="card-text" style="font-family: 'Roboto';color:black">Written By: ${gr[i].creator}</p>
+                                 <p class="card-text" style="font-family: 'Roboto';color:black">${gr[i].content}</p>
+                                 <a href="/blog/${grid[i]}" class="btn btn-primary">Read More ...</a>
+                                </div>
+                                <br><br><br>
+                                </div>
+                                </div> 
+                                `
+                        }
+                        break;
+
+
+
+                    }
+                    //EI
+                    else if (session1[i].value == "Emotional Intelligence") {
+                        var ct = 0;
+                        for (var j = 0; j < ei.length; j++) {
+                            // console.log("jgkfjgkf");
+
+                            var storage = firebase.storage();
+                            var storageRef = storage.ref()
+                            var spaceRef = storageRef.child(`${ei[j].img}`);
+                            console.log(`${ei[j].img}`);
+
+                            storageRef.child(`${ei[j].img}`).getDownloadURL().then(function (url) {
+
+                                var test = url;
+                                var z = "bimage" + ct
+                                console.log("test", test);
+                                document.getElementById(z).src = test;
+                                ct++;
+
+                            }).catch(function (error) {
+
+                            });
+                        }
+
+                        for (var i = 0; i < ei.length; i++) {
+
+                            display.innerHTML =
+                                `<div class="col-md-6" >
+                               <div class="card" style="width: 30rem;border:3px ">
+                                <img id="bimage${i}" src="" class="card-img-top" style="height:400px;width:400px">
+                                <div class="card-body">
+                                <h5 class="card-title" style="font-family: 'Open Sans';color:black"><strong>${ei[i].title}</strong></h5>
+                                <p class="card-text" style="font-family: 'Roboto';color:black">Written By: ${ei[i].creator}</p>
+                                 <p class="card-text" style="font-family: 'Roboto';color:black">${ei[i].content}</p>
+                                 <a href="/blog/${eiid[i]}" class="btn btn-primary">Read More ...</a>
+                                </div>
+                                <br><br><br>
+                                </div>
+                                </div> 
+                                `
+                        }
+                        break;
+
+                    }
+
+                    //SS
+                    else if (session1[i].value == "Soft Skills") {
+                        var ct = 0;
+                        for (var j = 0; j < ss.length; j++) {
+                            // console.log("jgkfjgkf");
+
+                            var storage = firebase.storage();
+                            var storageRef = storage.ref()
+                            var spaceRef = storageRef.child(`${ss[j].img}`);
+                            console.log(`${ss[j].img}`);
+
+                            storageRef.child(`${ss[j].img}`).getDownloadURL().then(function (url) {
+
+                                var test = url;
+                                var z = "bimage" + ct
+                                console.log("test", test);
+                                document.getElementById(z).src = test;
+                                ct++;
+
+                            }).catch(function (error) {
+
+                            });
+                        }
+
+                        for (var i = 0; i < ss.length; i++) {
+
+                            display.innerHTML =
+                                `<div class="col-md-6" >
+                               <div class="card" style="width: 30rem;border:3px ">
+                                <img id="bimage${i}" src="" class="card-img-top" style="height:400px;width:400px">
+                                <div class="card-body">
+                                <h5 class="card-title" style="font-family: 'Open Sans';color:black"><strong>${ss[i].title}</strong></h5>
+                                <p class="card-text" style="font-family: 'Roboto';color:black">Written By: ${ss[i].creator}</p>
+                                 <p class="card-text" style="font-family: 'Roboto';color:black">${ss[i].content}</p>
+                                 <a href="/blog/${ssid[i]}" class="btn btn-primary">Read More ...</a>
+                                </div>
+                                <br><br><br>
+                                </div>
+                                </div> 
+                                `
+                        }
+                        break;
+
+
+                    }
+                    //CC
+                    else if (session1[i].value == "Career Choices") {
+                        var ct = 0;
+                        for (var j = 0; j < cc.length; j++) {
+                            // console.log("jgkfjgkf");
+
+                            var storage = firebase.storage();
+                            var storageRef = storage.ref()
+                            var spaceRef = storageRef.child(`${cc[j].img}`);
+                            console.log(`${cc[j].img}`);
+
+                            storageRef.child(`${cc[j].img}`).getDownloadURL().then(function (url) {
+
+                                var test = url;
+                                var z = "bimage" + ct
+                                console.log("test", test);
+                                document.getElementById(z).src = test;
+                                ct++;
+
+                            }).catch(function (error) {
+
+                            });
+                        }
+
+                        for (var i = 0; i < cc.length; i++) {
+
+                            display.innerHTML =
+                                `<div class="col-md-6" >
+                               <div class="card" style="width: 30rem;border:3px ">
+                                <img id="bimage${i}" src="" class="card-img-top" style="height:400px;width:400px">
+                                <div class="card-body">
+                                <h5 class="card-title" style="font-family: 'Open Sans';color:black"><strong>${cc[i].title}</strong></h5>
+                                <p class="card-text" style="font-family: 'Roboto';color:black">Written By: ${cc[i].creator}</p>
+                                 <p class="card-text" style="font-family: 'Roboto';color:black">${cc[i].content}</p>
+                                 <a href="/blog/${ccid[i]}" class="btn btn-primary">Read More ...</a>
+                                </div>
+                                <br><br><br>
+                                </div>
+                                </div> 
+                                `
+                        }
+
+                        break;
+
+                    }
+                    //TM
+                    else if (session1[i].value == "Time Management") {
+                        var ct = 0;
+                        for (var j = 0; j < tm.length; j++) {
+                            // console.log("jgkfjgkf");
+
+                            var storage = firebase.storage();
+                            var storageRef = storage.ref()
+                            var spaceRef = storageRef.child(`${tm[j].img}`);
+                            console.log(`${tm[j].img}`);
+
+                            storageRef.child(`${tm[j].img}`).getDownloadURL().then(function (url) {
+
+                                var test = url;
+                                var z = "bimage" + ct
+                                console.log("test", test);
+                                document.getElementById(z).src = test;
+                                ct++;
+
+                            }).catch(function (error) {
+
+                            });
+                        }
+
+                        for (var i = 0; i < tm.length; i++) {
+
+                            display.innerHTML =
+                                `<div class="col-md-6" >
+                               <div class="card" style="width: 30rem;border:3px ">
+                                <img id="bimage${i}" src="" class="card-img-top" style="height:400px;width:400px">
+                                <div class="card-body">
+                                <h5 class="card-title" style="font-family: 'Open Sans';color:black"><strong>${tm[i].title}</strong></h5>
+                                <p class="card-text" style="font-family: 'Roboto';color:black">Written By: ${tm[i].creator}</p>
+                                 <p class="card-text" style="font-family: 'Roboto';color:black">${tm[i].content}</p>
+                                 <a href="/blog/${tmid[i]}" class="btn btn-primary">Read More ...</a>
+                                </div>
+                                <br><br><br>
+                                </div>
+                                </div> 
+                                `
+                        }
+
+                        break;
+                    }
+                    //SA
+                    else if (session1[i].value == "Stress & Anxiety") {
+                        var ct = 0;
+                        for (var j = 0; j < sa.length; j++) {
+                            // console.log("jgkfjgkf");
+
+                            var storage = firebase.storage();
+                            var storageRef = storage.ref()
+                            var spaceRef = storageRef.child(`${sa[j].img}`);
+                            console.log(`${sa[j].img}`);
+
+                            storageRef.child(`${sa[j].img}`).getDownloadURL().then(function (url) {
+
+                                var test = url;
+                                var z = "bimage" + ct
+                                console.log("test", test);
+                                document.getElementById(z).src = test;
+                                ct++;
+
+                            }).catch(function (error) {
+
+                            });
+                        }
+
+                        for (var i = 0; i < sa.length; i++) {
+
+                            display.innerHTML =
+                                `<div class="col-md-6" >
+                               <div class="card" style="width: 30rem;border:3px ">
+                                <img id="bimage${i}" src="" class="card-img-top" style="height:400px;width:400px">
+                                <div class="card-body">
+                                <h5 class="card-title" style="font-family: 'Open Sans';color:black"><strong>${sa[i].title}</strong></h5>
+                                <p class="card-text" style="font-family: 'Roboto';color:black">Written By: ${sa[i].creator}</p>
+                                 <p class="card-text" style="font-family: 'Roboto';color:black">${sa[i].content}</p>
+                                 <a href="/blog/${said[i]}" class="btn btn-primary">Read More ...</a>
+                                </div>
+                                <br><br><br>
+                                </div>
+                                </div> 
+                                `
+                        }
+
+                        break;
+                    }
+                    //PE
+                    else if (session1[i].value == "Performance Enhancement") {
+                        var ct = 0;
+                        for (var j = 0; j < pe.length; j++) {
+                            // console.log("jgkfjgkf");
+
+                            var storage = firebase.storage();
+                            var storageRef = storage.ref()
+                            var spaceRef = storageRef.child(`${pe[j].img}`);
+                            console.log(`${pe[j].img}`);
+
+                            storageRef.child(`${pe[j].img}`).getDownloadURL().then(function (url) {
+
+                                var test = url;
+                                var z = "bimage" + ct
+                                console.log("test", test);
+                                document.getElementById(z).src = test;
+                                ct++;
+
+                            }).catch(function (error) {
+
+                            });
+                        }
+
+                        for (var i = 0; i < pe.length; i++) {
+
+                            display.innerHTML =
+                                `<div class="col-md-6" >
+                               <div class="card" style="width: 30rem;border:3px ">
+                                <img id="bimage${i}" src="" class="card-img-top" style="height:400px;width:400px">
+                                <div class="card-body">
+                                <h5 class="card-title" style="font-family: 'Open Sans';color:black"><strong>${pe[i].title}</strong></h5>
+                                <p class="card-text" style="font-family: 'Roboto';color:black">Written By: ${pe[i].creator}</p>
+                                 <p class="card-text" style="font-family: 'Roboto';color:black">${pe[i].content}</p>
+                                 <a href="/blog/${peid[i]}" class="btn btn-primary">Read More ...</a>
+                                </div>
+                                <br><br><br>
+                                </div>
+                                </div> 
+                                `
+                        }
+                        break;
+
+
+                    }
+                }
+            }
+
+        }
+
+        console.log(arr);
+            
+
+
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+
+
+</body>
+
+</html>

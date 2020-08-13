@@ -1,0 +1,895 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMitr</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/home.css">
+
+
+
+
+
+
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+    <style>
+        .li {
+            float: left;
+        }
+        
+        .li a {
+            display: block;
+            text-decoration: none;
+            padding: 14px 16px;
+            text-align: center;
+        }
+        
+        .li a:hover:not(.active) {
+            background-color: #FCA819;
+        }
+        
+        .a.active {
+            background-color: #EAB126;
+        }
+        
+        .open-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+        /* The popup chat - hidden by default */
+        
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+        /* Add styles to the form container */
+        
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+        /* Full-width textarea */
+        
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+        /* When the textarea gets focus, do something */
+        
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        /* Set a style for the submit/send button */
+        
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        /* Add a red background color to the cancel button */
+        
+        .form-container .cancel {
+            background-color: red;
+        }
+        /* Add some hover effects to buttons */
+        
+        .form-container .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+        
+        .img3 {
+            position: absolute;
+            width: 300.23px;
+            height: 250.3px;
+            left: 290px;
+            top: 1350px;
+            background: url(images/Vector.png);
+        }
+        
+        .img4 {
+            position: absolute;
+            width: 300.23px;
+            height: 250.3px;
+            left: 900px;
+            top: 1350px;
+            background: url(images/Vector.png);
+        }
+        
+        .img5 {
+            position: absolute;
+            width: 300.23px;
+            height: 200.3px;
+            left: 290px;
+            top: 2000px;
+            background: url(images/video.png);
+        }
+        
+        .img6 {
+            position: absolute;
+            width: 300.23px;
+            height: 200.3px;
+            left: 900px;
+            top: 2000px;
+            background: url(images/video.png);
+        }
+        
+        .img7 {
+            position: absolute;
+            width: 300px;
+            height: 430px;
+            left: -11px;
+            top: 230px;
+            background: url(images/hiname.png);
+        }
+        
+        .img2 {
+            position: absolute;
+            width: 319.03px;
+            height: 410.42px;
+            left: 1340.57px;
+            top: 1232.42px;
+            background: url(images/img2.png);
+            transform: rotate(179.92deg);
+        }
+        
+        .logo {
+            position: absolute;
+            width: 373px;
+            height: 163px;
+            left: 5px;
+            top: -13px;
+            background: url(images/img3.jpg);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 id="h1"></h1>
+    <img class=" img "></img>
+    <img class="img7 "></img>
+    <img class="logo "></img>
+    <img class="img2 ">
+
+    </img>
+    <!-- <nav class="navbar navbar-expand-lg navbar-primary  ftco-navbar-light sticky-top" id="ftco-navbar">
+        <a class="navbar-brand" href="#">
+            <img src="images/img3.jpg" width="250" height="110">
+        </a>
+        <div class="container d-flex align-items-center px-4" style="margin-top:50px">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="oi oi-menu"></span> Menu
+                  </button>
+            <div class="searchform order-lg-last">
+                <div class="form-group d-flex">
+
+                    <button onclick="login()" class="btn py-2 px-3 btn-warning d-flex align-items-center justify-content-center" style="border-color:#FCA819;border-radius:100px">
+                                <span>Login</span>
+                            </button>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="ftco-nav">
+
+                <ul class="navbar-nav mr-auto">
+
+                    <li class="li"><a href="/" class="nav-link pl-0" style="font-size: 21px;">Home</a></li>
+                    <li class="li"><a href="program" class="nav-link" style="font-size: 21px;">Programs</a></li>
+                    <li class="li"><a href="team" class="nav-link" style="font-size: 21px;">Mentors</a></li>
+                    <li class="li"><a href="testimonial " class="nav-link" style="font-size: 21px;">Testimonials</a></li>
+                    <li class="li"><a href="blog" class="nav-link" style="font-size: 21px;">Blogs</a></li>
+                    <li class="li"><a href="joinus" class="nav-link" style="font-size: 21px;">Join Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav> 
+<br>
+<p style="position: absolute; width: 135px; height: 67px; left: 1374px; top: 1392.42px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 42px; /* or 67px */ text-align: center; color: rgb(228, 195, 195); ">Launch</p>
+<p style="position: absolute; width: 188px; height: 77px; left: 52px; top: 410px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 48px; /* identical to box height, or 77px */ text-align: center; color: #FFFFFF; ">
+    Welcome
+</p>
+<p style="position: absolute; width: 983px; height: 120px; left: 379px; top: 90px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 48px; line-height: 160%; /* or 77px */ text-align: center; color: #000000; ">
+    Welcome to MentorMitr. We help individuals in their journey of life and career developement and help them reach where they aspire to be.
+</p><br><br><br><br><br><br>
+<p style="position: absolute; width: 803.72px; height: 96px; left: 420.64px; top: 350px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 30px; line-height: 160%; /* or 48px */ text-align: center; color: #000000; ">Step 1: Fill this onboarding quiz developed by our experts You will get a assessment report on your mail id completely FREE of cost</p>
+<button style="position: absolute; width: 246px; height: 50px; left: 1065px; top: 455px; background: rgba(81, 205, 216, 0.9); border-radius: 30px; ">Take Quiz</button>
+<p style=" position: absolute; width: 894.5px; height: 84px; left: 380.28px; top: 510px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 30px; line-height: 160%; /* or 48px */ text-align: center; color: #000000; ">Step 2: FREE of cost short onboarding session It is prefered you take session after filling the quiz. But you may proceed directly</p>
+<button style="position: absolute; width: 282px; height: 50px; left: 1041px; top: 622px; background: rgba(81, 205, 216, 0.9); border-radius: 30px; ">Book Session </button>
+<p style="position: absolute; width: 894.5px; height: 84px; left: 376.28px; top: 710px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 30px; line-height: 160%; /* or 48px */ text-align: center; color: #000000; ">Step 3: Enrol in one of the programs Program personalized to suit your needs & goals</p>
+<button style="position: absolute; width: 282px; height: 50px; left: 1025px; top: 830px; background: rgba(81, 205, 216, 0.9); border-radius: 30px; ">Program Details</button>
+<p style="position: absolute; width: 894.5px; height: 144px; left: 387px; top: 924px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 30px; line-height: 160%; /* or 48px */ text-align: center; color: #000000; ">Reap life long benefits and achieve your GOALS and enhance your Emotional Intelligence & Soft Skills
+</p>
+<p style="position: absolute; width: 347px; height: 77px; left: 248px; top: 1143px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 48px; line-height: 160%; /* identical to box height, or 77px */ text-align: center; color: #000000; ">Self Help (Blogs)</p>
+<p style="position: absolute; width: 503.23px; height: 389.3px; left: 150px; top: 1248px; background: #F0F0F2; ">
+
+</p>
+
+<img class="img3 "></img>
+<p style="position: absolute; width: 344.24px; height: 120.56px; left: 150.77px; top: 1662.42px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 30px; line-height: 160%; /* or 48px */ text-align: center; color: #000000; ">Heading Short Description</p>
+<p style="position: absolute; width: 503.23px; height: 389.3px; left: 770.77px; top: 1253.02px; background: #F0F0F2; "></p>
+<img class="img4 "></img>
+<p style="position: absolute; width: 344.24px; height: 120.56px; left: 770.54px; top: 1667.44px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 30px; line-height: 160%; /* or 48px */ text-align: center; color: #000000; ">Heading Short Description</p>
+<p style="position: absolute; width: 297px; height: 77px; left: 150px; top: 1780px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 48px; line-height: 160%; /* identical to box height, or 77px */ text-align: center; color: #000000; ">Webinar Clips</p>
+<p style=" position: absolute; width: 503.23px; height: 389.3px; left: 150px; top: 1872px; background: #F0F0F2; "></p>
+<img class="img5 ">
+
+</img>
+<p style="position: absolute; width: 344.24px; height: 120.56px; left: 150.77px; top: 2286.42px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 30px; line-height: 160%; /* or 48px */ text-align: center; color: #000000; ">Heading Short Description</p>
+<p style=" position: absolute; width: 503.23px; height: 389.3px; left: 770.77px; top: 1877.02px; background: #F0F0F2; "></p>
+<img class="img6 ">
+</img>
+<p style="position: absolute; width: 344.24px; height: 120.56px; left: 770.54px; top: 2291.44px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 30px; line-height: 160%; /* or 48px */ text-align: center; color: #000000; ">Heading Short Description</p>
+<p style="position: absolute; width: 1157px; height: 78px; left: 220px; top: 2407px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 24px; line-height: 160%; /* or 38px */ text-align: center; color: #000000; "> Instruction for this page: Make sure all things upto launch rocket come before scrolling down itself. This would be apperance of page for school, college students and working professionals. Clicking launch would open questionnaire.</p>
+<!-- <h3>Sign-up on Mentor Mitr to figure out your future tracks, and career options by filling our questionnaire, and take part in our career quizzes! By completing the questionnaire or quiz, you will receive the results on your email and phone, while also
+        availing yourself a free session of 15-minutes with one of our mentors.</h3> 
+<div style="text-align: right; "><i class="fa fa-user-circle-o fa-2x " aria-hidden="true " style="height: 10px; " onclick="edit() "></i>
+    <div id="editprof " style="display: none; ">
+        <p><button class="btn btn-primary " onclick="location.href='/profile' ">Edit profile</button></p>
+        <p><button id="btnLogout " class="btn btn-primary " onclick="logout() ">Logout</button></p>
+    </div><i class="fa fa-bell fa-2x " aria-hidden="true " onclick="location.href='notif' "></i></div>
+<!-- <p><a target="_blank " href="https://www.meetingbird.com/h/MentorMitr "><button class="btn btn-warning " style="border-radius: 100px; ">Book a 15 min session with our mentor</button></a></p> -->
+<!-- <button id="pay " class="btn btn-primary " onclick="location.href='/payment' ">Pay Now</button><iframe src="https://drive.google.com/file/d/1ElndXWf3uZl8zYpSRtZlq54QA33tc_2S/preview " width="640 " height="480 "></iframe><button class="btn
+        btn-primary " onclick="location.href='/school' " style="position: absolute; width: 282px; height: 50px; left: 1025px; top: 1050px; background: rgba(81, 205, 216, 0.9); border-radius: 30px; ">Questionairre</button>
+<button class="open-button " onclick="openForm() ">Chat With Us</button>
+
+<div class="chat-popup " id="myForm ">
+
+    <iframe id="mentor " allow="microphone; " width="350 " height="330 " src="https://console.dialogflow.com/api-client/demo/embedded/3802acc3-6c2e-4875-bea5-e7ee5964988e "></iframe>
+
+    <form action=" " class="form-container ">
+
+        <button type="button " class="btn cancel " onclick="closeForm() ">Close</button>
+    </form>
+</div>
+<script>
+    var editprof;
+    var ct = 0;
+    const config = {
+        apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw ",
+        authDomain: "mentormitr-bbff5.firebaseapp.com ",
+        databaseURL: "https://mentormitr-bbff5.firebaseio.com ",
+        projectId: "mentormitr-bbff5 ",
+        storageBucket: "mentormitr-bbff5.appspot.com ",
+        messagingSenderId: "177887019473 ",
+        appId: "1:177887019473:web:4f7049f36129cc4b0860f0 ",
+        measurementId: "G-B7VNS84ZJ9 "
+    }
+
+    ;
+    firebase.initializeApp(config);
+
+    function edit() {
+        ct++;
+        editprof = document.getElementById("editprof ");
+        if (ct % 2 != 0) {
+            editprof.style.display = "block "
+        } else editprof.style.display = "none "
+    }
+
+    function logout() {
+        firebase.auth().signOut().then(() => {
+            location.href = '/';
+        });
+    }
+
+    const name = document.getElementById("h1");
+    firebase.auth().onAuthStateChanged(user => {
+            var db = firebase.firestore();
+            if (user) {
+                var x = user.displayName.split(" ");
+                name.innerHTML = "Hi " + x[0] + "!!! " + " " + user.photoURL;
+                db.collection("users ").doc(user.uid).set({
+                    name: user.displayName,
+                    email: user.email,
+                    type: user.photoURL,
+                    paid: false,
+                    ismentor: false
+                })
+            }
+        }
+
+    )
+
+    function openForm() {
+        document.getElementById("myForm ").style.display = "block ";
+    }
+
+    function closeForm() {
+        document.getElementById("myForm ").style.display = "none ";
+    }
+</script>
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/home.css">
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-database.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        /* Button used to open the chat form - fixed at the bottom of the page */
+        
+        .sticky-top {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 1020;
+        }
+        
+        .li {
+            float: left;
+        }
+        
+        .li a {
+            display: block;
+            text-decoration: none;
+            padding: 14px 16px;
+            text-align: center;
+        }
+        
+        .li a:hover:not(.active) {
+            background-color: #FCA819;
+        }
+        
+        .a.active {
+            background-color: #EAB126;
+        }
+        
+        .open-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+        /* The popup chat - hidden by default */
+        
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+        /* Add styles to the form container */
+        
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+        /* Full-width textarea */
+        
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+        /* When the textarea gets focus, do something */
+        
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        /* Set a style for the submit/send button */
+        
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        /* Add a red background color to the cancel button */
+        
+        .form-container .cancel {
+            background-color: red;
+        }
+        /* Add some hover effects to buttons */
+        
+        .form-container .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+        
+        .img3 {
+            position: absolute;
+            width: 300.23px;
+            height: 250.3px;
+            left: 290px;
+            top: 1350px;
+            background: url(images/Vector.png);
+        }
+        
+        .img4 {
+            position: absolute;
+            width: 300.23px;
+            height: 250.3px;
+            left: 900px;
+            top: 1350px;
+            background: url(images/Vector.png);
+        }
+        
+        .img5 {
+            position: absolute;
+            width: 300.23px;
+            height: 200.3px;
+            left: 290px;
+            top: 2000px;
+            background: url(images/video.png);
+        }
+        
+        .img6 {
+            position: absolute;
+            width: 300.23px;
+            height: 200.3px;
+            left: 900px;
+            top: 2000px;
+            background: url(images/video.png);
+        }
+        
+        .img {
+            position: absolute;
+            width: 300px;
+            height: 430px;
+            left: -11px;
+            top: 230px;
+            background: url(images/hiname.png);
+        }
+        
+        .img2 {
+            position: absolute;
+            width: 319.03px;
+            height: 410.42px;
+            left: 1340.57px;
+            top: 1232.42px;
+            background: url(images/img2.png);
+            transform: rotate(179.92deg);
+        }
+        
+        .logo {
+            position: absolute;
+            width: 373px;
+            height: 163px;
+            left: 5px;
+            top: -13px;
+            background: url(images/img3.jpg);
+        }
+         .nav-link {
+            padding-left: 8px;
+            padding-right: 8px;
+            margin-left: 8px;
+            margin-right: 8px;
+            border-radius: 2px;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-primary  ftco-navbar-light sticky-top" id="ftco-navbar"
+    style="display: flex;justify-content: space-around;align-items: center;background-color: white;">
+    <a class="navbar-brand" href="#" style="margin-left:24px;">
+        <img src="images/img3.jpg" width="250" height="110">
+    </a>
+    <div class="container d-flex align-items-center " style="/*margin-top:50px*/">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+            aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+        <div class="searchform order-lg-last">
+            <div class="form-group d-flex">
+
+                <button onclick="login()"
+                    class="btn py-2 px-3 btn-warning d-flex align-items-center justify-content-center"
+                    style="border-color:#FFAC27;border-radius:100px">
+                    <span>Login</span>
+                </button>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="ftco-nav" style="justify-content:center">
+
+            <ul class="navbar-nav">
+
+                <li class="li"><a href="./" class="nav-link" style="font-size: 24px;">Home</a></li>
+                <li class="li"><a href="program" class="nav-link" style="font-size: 24px;">Programs</a></li>
+                <li class="li"><a href="team" class="nav-link" style="font-size: 24px;">Mentors</a></li>
+                <li class="li"><a href="testimonial" class="nav-link" style="font-size: 24px;">About Us</a>
+                </li>
+                <li class="li"><a href="blog" class="nav-link" style="font-size: 24px;">Blogs</a></li>
+                <li class="li"><a href="joinus" class="nav-link" style="font-size: 24px;">Join Us</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    <div> <img class="img">
+        <h1 id="h1" style="position: absolute;left: 10px;
+    top: 410px;
+    "></h1>
+        </img>
+        <img class="img2">
+
+        </img>
+        <p style="position: absolute;
+    width: 135px;
+    height: 67px;
+    left: 1374px;
+    top: 1392.42px;
+    
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 42px;
+    
+    /* or 67px */
+    
+    text-align: center;
+    
+    color: rgb(228, 195, 195);">Launch</p>
+
+        <p style="position: absolute;
+        width: 983px;
+        height: 120px;
+        left: 379px;
+        top: 90px;
+        
+        font-family: Lato;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 48px;
+        line-height: 160%;
+        /* or 77px */
+        
+        text-align: center;
+        
+        color: #000000;">
+            Welcome to MentorMitr. We help individuals in their journey of life and career developement and help them reach where they aspire to be.
+        </p><br><br><br><br><br><br>
+        <p style="position: absolute;
+        width: 803.72px;
+        height: 96px;
+        left: 420.64px;
+        top: 350px;
+        
+        font-family: Lato;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 30px;
+        line-height: 160%;
+        /* or 48px */
+        
+        text-align: center;
+        
+        color: #000000;">Step 1: Fill this onboarding quiz developed by our experts You will get a assessment report on your mail id completely FREE of cost</p>
+        <button style="position: absolute; width: 246px; height: 50px; left: 1065px; top: 455px; background: rgba(81, 205, 216, 0.9); border-radius: 30px;">Take Quiz</button>
+        <p style=" position: absolute; width: 894.5px; height: 84px; left: 380.28px; top: 510px; font-family:
+            Lato; font-style: normal; font-weight: bold; font-size: 30px; line-height: 160%; /* or 48px */ text-align: center; color: #000000; ">Step 2: FREE of cost short onboarding session It is prefered you take session after filling the quiz. But you may proceed directly</p>
+        <button style="position: absolute;
+        width: 282px;
+        height: 50px;
+        left: 1041px;
+        top: 622px;
+        
+        background: rgba(81, 205, 216, 0.9);
+        border-radius: 30px;">Book Session </button>
+        <p style="position: absolute; width: 894.5px; height: 84px; left: 376.28px; top: 710px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 30px; line-height: 160%; /* or 48px */ text-align: center; color: #000000; ">Step 3: Enrol in one of the programs Program personalized to suit your needs & goals</p>
+        <button style="position: absolute;
+        width: 282px;
+        height: 50px;
+        left: 1025px;
+        top: 830px;
+        
+        background: rgba(81, 205, 216, 0.9);
+        border-radius: 30px;">Program Details</button>
+        <p style="position: absolute; width: 894.5px; height: 144px; left: 387px; top: 924px; font-family: Lato; font-style: normal; font-weight: bold; font-size: 30px; line-height: 160%; /* or 48px */ text-align: center; color: #000000; ">Reap life long benefits and achieve your GOALS and enhance your Emotional Intelligence & Soft Skills
+        </p>
+        <p style="position: absolute;
+        width: 347px;
+        height: 77px;
+        left: 248px;
+        top: 1143px;
+        
+        font-family: Lato;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 48px;
+        line-height: 160%;
+        /* identical to box height, or 77px */
+        
+        text-align: center;
+        
+        color: #000000;">Self Help (Blogs)</p>
+        <p style="position: absolute;
+    width: 503.23px;
+    height: 389.3px;
+    left: 150px;
+    top: 1248px;
+    
+    background: #F0F0F2;">
+
+        </p>
+
+        <img class="img3"></img>
+        <p style="position: absolute;
+        width: 344.24px;
+        height: 120.56px;
+        left: 150.77px;
+        top: 1662.42px;
+        
+        font-family: Lato;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 30px;
+        line-height: 160%;
+        /* or 48px */
+        
+        text-align: center;
+        
+        color: #000000;">Heading Short Description</p>
+        <p style="position: absolute;
+        width: 503.23px;
+        height: 389.3px;
+        left: 770.77px;
+        top: 1253.02px;
+        
+        background: #F0F0F2;
+        "></p>
+        <img class="img4"></img>
+        <p style="position: absolute;
+        width: 344.24px;
+        height: 120.56px;
+        left: 770.54px;
+        top: 1667.44px;
+        
+        font-family: Lato;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 30px;
+        line-height: 160%;
+        /* or 48px */
+        
+        text-align: center;
+        
+        color: #000000;">Heading Short Description</p>
+        <p style="position: absolute;
+        width: 297px;
+        height: 77px;
+        left: 150px;
+        top: 1780px;
+        
+        font-family: Lato;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 48px;
+        line-height: 160%;
+        /* identical to box height, or 77px */
+        
+        text-align: center;
+        
+        color: #000000;">Webinar Clips</p>
+        <div id="display" class="row" style="padding-left:160px; padding-top:1600px">
+
+
+        </div>
+        <button onclick="location.href='/video'" class="btn btn-primary" style="margin-left:160px;">Want to Watch more Webinar Click Here!!</button>
+        <p style="position: absolute;
+    width: 1157px;
+    height: 78px;
+    left: 220px;
+    top: 2407px;
+    
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 160%;
+    /* or 38px */
+    
+    text-align: center;
+    
+    color: #000000;"> Instruction for this page: Make sure all things upto launch rocket come before scrolling down itself. This would be apperance of page for school, college students and working professionals. Clicking launch would open questionnaire.</p>
+        <!-- <h3>Sign-up on Mentor Mitr to figure out your future tracks, and career options by filling our questionnaire, and take part in our career quizzes! By completing the questionnaire or quiz, you will receive the results on your email and phone, while also
+            availing yourself a free session of 15-minutes with one of our mentors.</h3> -->
+
+
+
+        <!-- <p><a target="_blank" href="https://www.meetingbird.com/h/MentorMitr"><button class="btn btn-warning"
+                    style="border-radius: 100px;">Book a 15 min session with our mentor</button></a></p> -->
+
+        <!-- <button id="pay" class="btn btn-primary" onclick="location.href='/payment'">Pay Now</button> -->
+        <!-- <iframe src="https://drive.google.com/file/d/1ElndXWf3uZl8zYpSRtZlq54QA33tc_2S/preview" width="640" height="480"></iframe> -->
+        <div style=" top: 50px;left: 80.67%;
+        right: 8.67%; text-align: right;">
+            <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" style="height: 10px;" onclick="edit()"></i>
+            <div id="editprof" style="display: none;">
+                <p><button class="btn btn-primary" onclick="location.href='/profile'">Edit profile</button></p>
+                <p><button id="btnLogout" class="btn btn-primary" onclick="logout()">Logout</button></p>
+            </div>
+            <i class="fa fa-bell fa-2x" aria-hidden="true" onclick="location.href='notif'"></i>
+        </div>
+        <button class="btn
+        btn-primary " onclick="location.href='/school' " style="position: absolute; width: 282px; height: 50px; left: 1025px; top: 1050px; background: rgba(81, 205, 216, 0.9); border-radius: 30px; ">Questionairre</button>
+
+
+        <button class="open-button" onclick="openForm()">Chat</button>
+
+        <div class="chat-popup" id="myForm">
+
+            <iframe id="mentor" allow="microphone;" width="350" height="430" src="https://console.dialogflow.com/api-client/demo/embedded/3802acc3-6c2e-4875-bea5-e7ee5964988e"></iframe>
+
+            <form action="" class="form-container">
+
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        //Intialize firebase
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+
+
+        firebase.initializeApp(config);
+        var editprof;
+        var zzz = 0;
+
+        function edit() {
+
+            zzz++;
+            editprof = document.getElementById("editprof");
+            if (zzz % 2 != 0) {
+
+                editprof.style.display = "block"
+
+            } else editprof.style.display = "none"
+        }
+
+
+        function logout() {
+
+            firebase.auth().signOut().then(() => {
+                location.href = '/';
+            });
+        }
+
+
+
+
+
+        const btnLogout = document.getElementById('btnLogout');
+        btnLogout.addEventListener('click', e => {
+
+            e.preventDefault();
+            firebase.auth().signOut().then(() => {
+                location.href = '/logreg';
+            });
+
+        })
+
+        const name = document.getElementById("h1");
+
+
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                name.innerHTML = "Hi " + user.displayName + "!!!"
+                console.log(user);
+
+                //  btnLogout.classList.remove("invisible");
+                //location.href="/test";
+
+            }
+        })
+
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+        var db = firebase.firestore();
+        var arr = []
+
+
+        var display = document.getElementById("display");
+        db.collection("videos").orderBy("date").get().then((snapshot) => {
+            snapshot.forEach((doc) => {
+                arr.push(doc.data());
+            })
+        }).then(() => {
+            for (var i = 0; i < 2; i++) {
+
+                display.innerHTML +=
+                    `<div class="col-md-6" >
+                    <div class="card" style="width: 30rem;border:3px ">
+                            <iframe src=${arr[i].link} width="400" height="400"></iframe>
+                        <div class="card-body">
+                        <p class="card-text" style="font-family: 'Roboto';color:black"><strong>By: ${arr[i].creator}</strong></p>
+                        <p class="card-text" style="font-family: 'Roboto';color:black">${arr[i].content}</p>
+                        </div>
+                    </div>
+                 </div> 
+                `
+            }
+        })
+    </script>
+    <!-- <script type="text/javascript " src="js/question_parent.js "></script> -->
+</body>
+
+</html>

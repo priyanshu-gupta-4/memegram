@@ -1,0 +1,294 @@
+{
+  "survey_properties" : {
+    "intro_message": "<strong>Hey, there!\nAre you worried about exams?\nAre you motivated to give your all?\n\nIt's okay to be nervous because all you need is to voice your fears and anguish concerning the exam preparation.\n\nWe are helping individuals address their angst, whilst passionately encouraging them in making better decisions.\n\nYou are at your first step for a life-changing process. Get started!</strong>",
+    "end_message": "Thank you for having the time to take our survey.",
+    "skip_intro": false
+  },
+  "questions": [
+    {
+      "id": 101,
+      "question_type": "String",
+      "question_title": "Complete address with pin",
+      "description": "",
+      "required": true
+    },
+    {
+      "id": 102,
+      "question_type": "Radioboxes",
+      "question_title": "What class are you in?",
+      "description": "",
+      "required": true,
+      "random_choices": true,
+      "choices": [
+        "8th",
+        "9th",
+        "10th",
+        "11th",
+        "12th"
+      ]
+    },
+    {
+      "id": 103,
+      "question_type": "String",
+      "question_title": "Name of School",
+      "description": "",
+      "required": true
+    },
+    {
+      "id": 104,
+      "question_type": "Radioboxes",
+      "question_title": "Which is board of your study",
+      "description": "",
+      "required": true,
+      "random_choices": true,
+      "choices": [
+        "CBSE",
+        "ICSE",
+        "ISC",
+        "IB",
+        "IGCSE",
+        "State Board",
+        "Any Other"
+      ]
+    },
+    {
+      "id": 105,
+      "question_type": "Radioboxes",
+      "question_title": "If you are in 6th-10th grade, what is the stream that you are looking to pursue? And why?",
+      "description": "",
+      "required": true,
+      "random_choices": true,
+      "choices": [
+        "Science",
+        "Commerece",
+        "Humanities",
+        "Diploma",
+        "Specialization (Mix of Two or more streams)"
+      ]
+    },
+    {
+      "id": 106,
+      "question_type": "Checkboxes",
+      "question_title": "What goals are your pursuing after 12th for Career(Please specify particular exam cracking or field within the broad had)",
+      "description": "",
+      "required": true,
+      "random_choices": true,
+      "choices": [
+        "Engineering",
+        "Bachelors in Science",
+        "Medical",
+        "BBA",
+        "B.Com",
+        "Fashion Designing",
+        "Hotel Management/Hospitatlity",
+        "Web Designing",
+        "Digital Marketing",
+        "Social Media Marketing",
+        "Journalism",
+        "Vocational",
+        "Music",
+        "Sports",
+        "Video Editing",
+        "Humanities",
+        "Singer",
+        "Content Creator(Youtube, TikTok etc.)",
+        "Dancer",
+        "Agriculture (Modern Farmer)",
+        "Sociology",
+        "Psychology",
+        "Literature",
+        "Foreign Language",
+        "Public Policy",
+        "Social Work",
+        "E-Sports (PubG, CSGO etc.)",
+        "Entrepreneurship",
+        "Family Business",
+        "B. Pharma",
+        "Civil Services",
+        "Other"
+
+      ]
+    },
+    {
+      "id": 107,
+      "question_type": "Checkboxes",
+      "question_title": "I pick this because",
+      "description": "",
+      "required": true,
+      "random_choices": true,
+      "choices": [
+        "Parents want it",
+        "My friends are doing it",
+        "I would love to be an",
+        "I am Inspired by someone",
+        "It expands my options",
+        "I am gifted to be/Have aptitude to",
+        "I do not know my other options"
+      ]
+    },
+
+    {
+      "id": 108,
+      "question_type": "Checkboxes",
+      "question_title": "What Special preparation are you doing for this?",
+      "description": "",
+      "required": true,
+      "random_choices": true,
+      "choices": [
+        "Coaching from a particular institute",
+        "Individual Coaching",
+        "Self Study",
+        "Parents/Siblings/Guardian"
+      ]
+    },
+    {
+      "id": 109,
+      "question_type": "String",
+      "question_title": "What is the other option/options you have (Be Specific One word)(10 LETTERS)",
+      "description": "",
+      "required": false
+    },
+    {
+      "id": 110,
+      "question_type": "Radioboxes",
+      "question_title": "Do you need help in knowing your options better",
+      "description": "",
+      "required": false,
+      "random_choices": true,
+      "choices": [
+        "Yes",
+        "Maybe",
+        "No"
+      ]
+    },
+    {
+      "id": 111,
+      "question_type": "Checkboxes",
+      "question_title": "Your Field of Current Study",
+      "description": "",
+      "required": true,
+      "random_choices": true,
+      "choices": [
+        "Science",
+        "Humaniities",
+        "Commerce",
+        "Special Stream of Study",
+        "Other priorities you are more focussed",
+        "Fixed Subjects: 6th-10th grade",
+        "Other"
+      ]
+    },
+    {
+      "id": 112,
+      "question_type": "Checkboxes",
+      "question_title": "Subjects you are studying presently.",
+      "description": "",
+      "required": true,
+      "random_choices": true,
+      "choices": [
+        "Maths",
+        "Physics",
+        "Chemistry",
+        "English Literature",
+        "English language",
+        "Computer Science",
+        "Biology",
+        "Psychology",
+        "Economics",
+        "Sociology",
+        "Political Science",
+        "Science",
+        "Environment Science",
+        "Home Science",
+        "Physical Eduction",
+        "Theatre",
+        "Dance",
+        "Fashion Designing",
+        "Commerce",
+        "Accounting",
+        "Business Studies",
+        "History",
+        "Geography",
+        "Elective English",
+        "Sanskrit",
+        "Hindi",
+        "French",
+        "Spanish",
+        "German",
+        "Regional/Local Language",
+        "Any Other"
+      ]
+    },
+
+    {
+      "id": 113,
+      "question_title": " Marks you scored in previous term/class (in the above-listed subjects).",
+      "description": "",
+      "required": true,
+      "question_type": "Number"
+    },
+    {
+      "id": 114,
+      "question_type": "String",
+      "question_title": "Why did you take these particular subjects?",
+      "description": "",
+      "required": true
+    },
+    {
+      "id": 115,
+      "question_type": "Checkboxes",
+      "question_title": "Total Time you spend in studies per week by",
+      "description": "",
+      "required": true,
+      "random_choices": true,
+      "choices": [
+        "Self Study",
+        "School",
+        "Coaching"
+      ]
+    },
+    {
+      "id": 116,
+      "question_type": "String",
+      "question_title": "Give the amount of time you spend on the above-stated.",
+      "description": "",
+      "required": false
+    },
+    {
+      "id": 117,
+      "question_type": "Radioboxes",
+      "question_title": "Are you managing your time perfectly",
+      "description": "",
+      "required": false,
+      "random_choices": true,
+      "choices": [
+        "Yes",
+        "No",
+        "Maybe"
+      ]
+    },
+    {
+      "id": 118,
+      "question_type": "String",
+      "question_title": "Subjects for which you take tuition or coaching (Along with the Coaching Institute Name).",
+      "description": "",
+      "required": false
+    },
+    {
+      "id": 119,
+      "question_title": " Attendance (in percentage): For School and Coaching/Tuition",
+      "description": "",
+      "required": true,
+      "question_type": "Number"
+    },
+    {
+      "id": 120,
+      "question_type": "String",
+      "question_title": "Name your 5 closest friends and give their percentage in the previous class.",
+      "description": "",
+      "required": true
+    }
+
+  ]
+    }
+

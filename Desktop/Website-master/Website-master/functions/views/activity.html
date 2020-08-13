@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MentorMitr</title>
+  <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+  <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+  <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-database.js"></script>
+
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 10%;
+    }
+
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+
+    .field-long {
+      width: 100%;
+    }
+
+    .styled {
+      border: 0;
+      line-height: 2.5;
+      padding: 0 20px;
+      font-size: 1rem;
+      text-align: center;
+      color: #000000;
+      text-shadow: 1px 1px 1px #000;
+      border-radius: 10px;
+      background-color: #CCFFFF;
+      background-image: linear-gradient(to top left,
+          rgba(0, 0, 0, .2),
+          rgba(0, 0, 0, .2) 30%,
+          rgba(0, 0, 0, 0));
+      box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+        inset -2px -2px 3px rgba(0, 0, 0, .6);
+    }
+
+    .styled:hover {
+      background-color: rgba(220, 0, 0, 1);
+    }
+
+    .styled:active {
+      box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+        inset 2px 2px 3px rgba(0, 0, 0, .6);
+    }
+  </style>
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+</head>
+
+<body onload="myfunction()">
+
+
+  <p>
+    Current Date is:
+    <span id="currDate"></span>
+  </p>
+  <h1 id="t1">Activity</h1>
+  <a href="#t1" id="insert-more">Insert Row </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button onclick=" Geeks()">Delete Row </button>
+  <br><br>
+
+  <table border=2 id="mytable" bordercolor=black>
+    <tbody>
+      <tr>
+        <th>Activity Name</th>
+        <th>Hours Spend</th>
+
+      </tr>
+      <tr>
+        <td><input type="text" name="school" value="School" class="act" readonly></td>
+        <td><input id="school" class="favorite styled acthour" type="text"> </td>
+
+      </tr>
+      <tr>
+        <td><input type="text" name="coaching/tution" value="Coaching/Tution" class="act" readonly></td>
+        <td><input id="coaching" class="favorite styled acthour" type="text"></td>
+
+      </tr>
+      <tr>
+        <td><input type="text" name="netflix" value="Netflix" class="act" readonly></td>
+        <td><input id="netflix" class="favorite styled acthour" type="text"></td>
+
+      </tr>
+      <tr>
+        <td><input type="text" name="utube" value="Youtube" class="act" readonly></td>
+        <td><input id="youtube" class="favorite styled acthour" type="text"></td>
+
+      </tr>
+      <tr>
+        <td><input type="text" name="social media" value="Social Media" class="act" readonly></td>
+        <td><input id="social media" class="favorite styled acthour" type="text"></td>
+
+      </tr>
+
+      <tr>
+        <td><input type="text" name="transportation" value="Travel time" class="act" readonly></td>
+        <td><input id="transportation" class="favorite styled acthour" type="text"></td>
+
+      </tr>
+      <tr>
+        <td><input type="text" name="sleep" value="Sleep"  class="act" readonly></td>
+        <td><input id="sleep" class="favorite styled acthour" type="text"></td>
+
+      </tr>
+      <tr>
+        <td><input type="text" name="others" value="Games" class="act" readonly></td>
+        <td><input id="games" class="favorite styled acthour" type="text"></td>
+
+      </tr>
+      <tr>
+        <td><input type="text" name="Extra-Curriculars activities" value="Extra-Curriculars activities" class="act" readonly></td>
+        <td><input id="extra" class="favorite styled acthour" type="text"></td>
+
+      </tr>
+    </tbody>
+
+  </table>
+
+  <br><br>
+
+
+
+
+  <br>
+  <br>
+  <h1 id="t2">Subject</h1>
+  <a href="#t2" id="insert-more3">Insert Row</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button onclick=" Geeks2()">Delete Row </button>
+  <br><br>
+
+
+
+
+
+  <table border=2 id="mytable1" bordercolor=black>
+    <tbody>
+      <tr>
+        <th>Subject Name</th>
+        <th>Marks</th>
+
+      </tr>
+      <tr id="subjects">
+
+      </tr>
+
+    </tbody>
+  </table>
+
+
+  <br><br>
+
+  <h1 id="t3">Overall </h1>
+  <a href="#t3" id="insert-more8">Insert Row in Activity,Engagement and Energy
+  </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+  <button onclick=" Geeks3()">Delete Row </button>
+  <br><br>
+
+
+
+  <table>
+    <tr>
+      <td>
+        <table border=2 id="mytable6" bordercolor=black align="center">
+          <tr>
+            <th>Activity</th>
+            <th>Engagement</th>
+            <th>Energy</th>
+
+          </tr>
+
+          <tr>
+            <td> <input type="text" id="subject" name="school" value="Netflix" readonly class="topic"></td>
+            <td>
+              <select name="value" id="value" class="engag">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </td>
+
+            <td>
+              <select name="value" id="value" class="energy">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </td>
+          </tr>
+
+
+
+
+          <tr>
+            <td> <input type="text" id="subject" name="school" value="Youtube" readonly class="topic"></td>
+            <td>
+              <select name="value" id="value" class="engag">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </td>
+
+            <td>
+              <select name="value" id="value" class="energy">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </td>
+          </tr>
+
+
+
+          <tr>
+            <td> <input type="text" id="subject" name="school" value="Social Media" readonly class="topic"></td>
+            <td>
+              <select name="value" id="value" class="engag">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </td>
+
+            <td>
+              <select name="value" id="value" class="energy">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+
+  </table>
+
+  <br><br>
+
+  <button class="btn btn-primary" onclick="pushdata()">Submit</button>
+
+
+  <script language="javascript">
+    function myfunction() {
+
+      let currDate =
+        new Date().toLocaleDateString('en-GB');
+
+      let inputDate = new Date();
+
+      document.querySelector('#currDate').textContent = currDate;
+
+      const config = {
+        apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+        authDomain: "mentormitr-bbff5.firebaseapp.com",
+        databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+        projectId: "mentormitr-bbff5",
+        storageBucket: "mentormitr-bbff5.appspot.com",
+        messagingSenderId: "177887019473",
+        appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+        measurementId: "G-B7VNS84ZJ9"
+      };
+
+
+      firebase.initializeApp(config);
+
+      var school = document.getElementById("school");
+      var coaching = document.getElementById("coaching");
+      var netflix = document.getElementById("netflix");
+      var youtube = document.getElementById("youtube");
+      var social_media = document.getElementById("social media");
+      var transportation = document.getElementById("transportation");
+      var games = document.getElementById("games");
+      var extra = document.getElementById("extra");
+      var sleep = document.getElementById("sleep");
+
+      var mytable = document.getElementById("mytable");
+      var mytable1 = document.getElementById("mytable1");
+
+      var mytable6 = document.getElementById("mytable6")
+
+      firebase.auth().onAuthStateChanged(user => {
+
+        if (user) {
+
+          var db = firebase.firestore();
+          db.collection("timetable_no_of_hours").doc(user.uid).get().then((doc) => {
+            var arr = (doc.data().survey);
+
+            for (var i = 0; i < arr.length; i++) {
+
+              if (arr[i].Activity != "School" && arr[i].Activity != "Coaching/Tution" && arr[i].Activity !=
+                "Sleep" && arr[i].Activity != "Games" && arr[i].Activity != "Travel time" && arr[i].Activity !=
+                "Extra- Curricular activities" && arr[i].Activity != "Netflix" && arr[i].Activity !=
+                "Youtube" &&
+                arr[i].Activity != "Social Media") {
+                mytable.innerHTML +=
+                  `<tr>
+                <td><input type="text" name="school" value="${arr[i].Activity}" class="act" readonly></td>
+                <td><input class="favorite styled acthour" type="text"></td>
+                </tr>
+                `
+                mytable1.innerHTML +=
+                  `
+                <tr>
+                <td><input type="text" name="school" value="${arr[i].Activity}" class="sub" readonly></td>
+                <td><input class="favorite styled submark" type="text"></td>
+                </tr>
+                `
+                mytable6.innerHTML +=
+                  `
+                  <tr>
+            <td> <input type="text" id="subject" class="topic" name="school" value="${arr[i].Activity}" readonly></td>
+            <td>
+              <select name="value" id="value" class="engag">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </td>
+
+            <td>
+              <select name="value" id="value" class="energy">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </td>
+          </tr>
+
+                `
+              }
+            }
+
+          })
+
+        } else {
+          console.log("error");
+
+        }
+      })
+
+    }
+
+
+
+    $("#insert-more").click(function () {
+
+      var mytable = document.getElementById("mytable");
+      mytable.innerHTML +=
+        `
+      <tr id="row1">
+        <td><input type="text" name="school" class="act" ></td>
+        <td><input id="school" class="favorite styled acthour" type="text" > </td>
+
+      </tr>
+      `
+    });
+
+
+    $("#insert-more3").click(function () {
+
+      var mytable1 = document.getElementById("mytable1");
+      mytable1.innerHTML +=
+        `
+      <tr id="row2">
+        <td><input type="text" name="school" class="sub" ></td>
+        <td><input id="school" class="favorite styled submark" type="text"> </td>
+
+      </tr>
+      `
+    });
+
+
+
+    $("#insert-more8").click(function () {
+
+      var mytable6 = document.getElementById("mytable6")
+      mytable6.innerHTML +=
+        `
+      <tr id="row3">
+        <td> <input type="text" class="topic" ></td>
+            <td>
+              <select name="value" id="value" class="engag">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </td>
+
+            <td>
+              <select name="value" id="value" class="energy">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </td>
+          
+      <tr>
+      `
+    });
+
+    function Geeks() {
+      document.getElementById("row1").remove();
+    }
+
+
+    function Geeks2() {
+      document.getElementById("row2").remove();
+    }
+
+    function Geeks3() {
+      document.getElementById("row3").remove();
+    }
+
+
+
+
+    function pushdata() {
+
+      var school = document.getElementById("school");
+      var coaching = document.getElementById("coaching");
+      var netflix = document.getElementById("netflix");
+      var youtube = document.getElementById("youtube");
+      var social_media = document.getElementById("social media");
+      var transportation = document.getElementById("transportation");
+      var games = document.getElementById("games");
+      var extra = document.getElementById("extra");
+      var sleep = document.getElementById("sleep");
+
+      var mytable = document.getElementById("mytable");
+      var mytable1 = document.getElementById("mytable1");
+
+      var mytable6 = document.getElementById("mytable6")
+
+   
+      //pehle table ke liye
+      var act=document.getElementsByClassName("act")
+      var acthour=document.getElementsByClassName("acthour")
+      var actarr=[]
+
+      //dusre table ke liye
+      var sub=document.getElementsByClassName("sub")
+      var submark=document.getElementsByClassName("submark")
+       var subarr=[];
+
+       //3rd table ke liye
+       var topic=document.getElementsByClassName("topic");
+       var engag=document.getElementsByClassName("engag");
+       var energy=document.getElementsByClassName("energy")
+       var topicarr=[];
+      for(var i=0;i<act.length;i++)
+      {
+        actarr.push({
+          Activity:act[i].value,
+          Hours_Spent:acthour[i].value
+        })
+      }
+      console.log(actarr);
+
+      for(var i=0;i<sub.length;i++)
+      {
+        subarr.push({
+          Subject_Paper:sub[i].value,
+          Marks_Rank:submark[i].value
+        })
+      }
+      console.log(subarr);
+
+      for(var i=0;i<topic.length;i++)
+      {
+           for(var j=0;j<engag[i].length;j++)
+           {
+             var p=engag[i];
+             if(p[j].selected==true)
+               {
+                 for(var k=0;k<energy[i].length;k++)
+                 {
+                   var t=energy[i];
+                   if(t[k].selected==true)
+                   {
+                     topicarr.push({
+                       Activity:topic[i].value,
+                       Engagement:p.value,
+                       Energy:t.value
+                     })
+                   }
+                 }
+               }
+           }
+      }
+      console.log(topicarr);
+
+      var da=document.getElementById("currDate").innerHTML;
+      var x=da.replace("/","-");
+      var y=x.replace("/","-");
+     
+      firebase.auth().onAuthStateChanged(user => {
+                        if (user) {
+                          var database=firebase.database();
+
+                            var usermail = user.email.replace(".", "_");
+                            var id = usermail;
+                            database.ref('/student_weekreport/'+ user.uid +"/"+y ).set({
+                               Activity_Hours:actarr,
+                               Subj_Marks:subarr,
+                               Overall_Energy:topicarr
+                            }).then(()=>{
+                                location.href = "/schedule";
+                            })
+
+                           
+
+                        } else {
+                            console.log("Err in student_weeklyreport page");
+
+                        }
+                     
+
+                    })
+      
+      
+    }
+  </script>
+</body>
+
+</html>

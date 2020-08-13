@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMitr</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        /* Button used to open the chat form - fixed at the bottom of the page */
+        
+        .open-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+        /* The popup chat - hidden by default */
+        
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+        /* Add styles to the form container */
+        
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+        /* Full-width textarea */
+        
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+        /* When the textarea gets focus, do something */
+        
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        /* Set a style for the submit/send button */
+        
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        /* Add a red background color to the cancel button */
+        
+        .form-container .cancel {
+            background-color: red;
+        }
+        /* Add some hover effects to buttons */
+        
+        .form-container .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+         .nav-link {
+            padding-left: 8px;
+            padding-right: 8px;
+            margin-left: 8px;
+            margin-right: 8px;
+            border-radius: 2px;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-primary  ftco-navbar-light sticky-top" id="ftco-navbar"
+        style="display: flex;justify-content: space-around;align-items: center;background-color: white;">
+        <a class="navbar-brand" href="#" style="margin-left:24px;">
+            <img src="images/img3.jpg" width="250" height="110">
+        </a>
+        <div class="container d-flex align-items-center " style="/*margin-top:50px*/">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+            <div class="searchform order-lg-last">
+                <div class="form-group d-flex">
+    
+                    <button onclick="login()"
+                        class="btn py-2 px-3 btn-warning d-flex align-items-center justify-content-center"
+                        style="border-color:#FFAC27;border-radius:100px">
+                        <span>Login</span>
+                    </button>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="ftco-nav" style="justify-content:center">
+    
+                <ul class="navbar-nav">
+    
+                    <li class="li"><a href="./" class="nav-link" style="font-size: 24px;">Home</a></li>
+                    <li class="li"><a href="program" class="nav-link" style="font-size: 24px;">Programs</a></li>
+                    <li class="li"><a href="team" class="nav-link" style="font-size: 24px;">Mentors</a></li>
+                    <li class="li"><a href="testimonial" class="nav-link" style="font-size: 24px;">About Us</a>
+                    </li>
+                    <li class="li"><a href="blog" class="nav-link" style="font-size: 24px;">Blogs</a></li>
+                    <li class="li"><a href="joinus" class="nav-link" style="font-size: 24px;">Join Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <h1 id="h1"></h1>
+    <h3>Sign-up on Mentor Mitr to figure out your future tracks, and career options by filling our questionnaire, and take part in our career quizzes! By completing the questionnaire or quiz, you will receive the results on your email and phone, while also
+        availing yourself a free session of 15-minutes with one of our mentors.</h3>
+    <div style="text-align: right;">
+
+        <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" style="height: 10px;" onclick="edit()"></i>
+        <div id="editprof" style="display: none;">
+            <p><button class="btn btn-primary" onclick="location.href='/profile'">Edit profile</button></p>
+            <p><button id="btnLogout" class="btn btn-primary" onclick="logout()">Logout</button></p>
+        </div>
+        <i class="fa fa-bell fa-2x" aria-hidden="true" onclick="location.href='notif'"></i>
+
+    </div>
+
+
+    <p><a target="_blank" href="https://www.meetingbird.com/h/MentorMitr"><button class="btn btn-warning"
+                style="border-radius: 100px;">Book a 15 min session with our mentor</button></a></p>
+
+    <!-- <button id="pay" class="btn btn-primary" onclick="location.href='/payment'">Pay Now</button> -->
+    <iframe src="https://drive.google.com/file/d/1ElndXWf3uZl8zYpSRtZlq54QA33tc_2S/preview" width="640" height="480"></iframe>
+
+    <button class="btn btn-primary" onclick="location.href='/college'" style="border-radius: 100px">Questionairre</button>
+    <button class="open-button" onclick="openForm()">Chat</button>
+
+    <div class="chat-popup" id="myForm">
+
+        <iframe id="mentor" allow="microphone;" width="350" height="430" src="https://console.dialogflow.com/api-client/demo/embedded/3802acc3-6c2e-4875-bea5-e7ee5964988e"></iframe>
+
+        <form action="" class="form-container">
+
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+
+    <script>
+        var editprof;
+        var ct = 0;
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+
+
+        firebase.initializeApp(config);
+
+        function edit() {
+
+            ct++;
+            editprof = document.getElementById("editprof");
+            if (ct % 2 != 0) {
+
+                editprof.style.display = "block"
+
+            } else editprof.style.display = "none"
+
+
+
+
+        }
+
+        function logout() {
+
+            firebase.auth().signOut().then(() => {
+                location.href = '/';
+            });
+
+
+        }
+
+
+        const name = document.getElementById("h1");
+
+        firebase.auth().onAuthStateChanged(user => {
+            var db = firebase.firestore();
+            if (user) {
+                var x = user.displayName.split(" ");
+                name.innerHTML = "Hi " + x[0] + "!!!" + "   " + user.photoURL;
+                db.collection("users").doc(user.uid).set({
+                    name: user.displayName,
+                    email: user.email,
+                    type: user.photoURL,
+                    paid: false,
+                    ismentor: false
+
+                })
+            }
+        })
+
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMitr</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        .open-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+        /* The popup chat - hidden by default */
+        
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+        /* Add styles to the form container */
+        
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+        /* Full-width textarea */
+        
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+        /* When the textarea gets focus, do something */
+        
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        /* Set a style for the submit/send button */
+        
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        /* Add a red background color to the cancel button */
+        
+        .form-container .cancel {
+            background-color: red;
+        }
+        /* Add some hover effects to buttons */
+        
+        .form-container .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+        
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">
+            <img src="images/img3.jpg" width="300" height="110" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Templates
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Onboarding</a>
+                        <a class="dropdown-item" href="timetable">Time Matrix</a>
+                        <a class="dropdown-item" href="priority">Priority</a>
+                        <a class="dropdown-item" href="streams">Tracks</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Daily
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="affirmations">Goals & Affirmation</a>
+                        <a class="dropdown-item" href="#">Previous Days</a>
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Weekly
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="activity">Template</a>
+                        <a class="dropdown-item" href="weeklyprogress">Weekly Progress</a>
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sessions
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="schedule">Book a Session</a>
+                        <a class="dropdown-item" href="#">Session Recordings</a>
+                        <a class="dropdown-item" href="studentfeedback">Session Feedback</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Blogs
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="blog">Read Blogs</a>
+                        <a class="dropdown-item" href="#">Write blog/story</a>
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Webinar
+        </a>
+                </li>
+            </ul>
+        </div>
+        <i class="fa fa-user-circle-o fa-2x" style="padding-right:30px; color:#FFAC27" aria-hidden="true" style="height: 10px;" onclick="edit()"></i>
+        <div id="editprof" style="display: none;">
+            <p><button class="btn btn-primary" onclick="location.href='/profile'">Edit profile</button></p>
+            <p><button id="btnLogout" class="btn btn-primary" onclick="logout()">Logout</button></p>
+        </div>
+        <i class="fa fa-bell fa-2x" aria-hidden="true" style="padding-top:5px; color:#FFAC27" onclick="location.href='notif'"></i>
+
+    </nav>
+
+    <script>
+        //Intialize firebase
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+
+
+        firebase.initializeApp(config);
+        var editprof;
+        var zzz = 0;
+
+        function edit() {
+
+            zzz++;
+            editprof = document.getElementById("editprof");
+            if (zzz % 2 != 0) {
+
+                editprof.style.display = "block"
+
+            } else editprof.style.display = "none"
+        }
+
+
+        function logout() {
+
+            firebase.auth().signOut().then(() => {
+                location.href = '/';
+            });
+        }
+
+
+
+
+
+        const btnLogout = document.getElementById('btnLogout');
+        btnLogout.addEventListener('click', e => {
+
+            e.preventDefault();
+            firebase.auth().signOut().then(() => {
+                location.href = '/logreg';
+            });
+
+        })
+
+        const name = document.getElementById("h1");
+
+
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                name.innerHTML = "Hi " + user.displayName + "!!!"
+                console.log(user);
+
+                //  btnLogout.classList.remove("invisible");
+                //location.href="/test";
+
+            }
+        })
+
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+    <!-- <div style="text-align: right;">
+        <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" style="height: 10px;" onclick="edit()"></i>
+        <div id="editprof" style="display: none;">
+            <p><button class="btn btn-primary" onclick="location.href='/profile'">Edit profile</button></p>
+            <p><button id="btnLogout" class="btn btn-primary" onclick="logout()">Logout</button></p>
+        </div>
+        <i class="fa fa-bell fa-2x" aria-hidden="true" onclick="location.href='notif'"></i>
+    </div> -->
+
+    <h1 style="text-align:center">Time-Tracker</h1>
+
+    <div id="subjects" style="text-align: center;">
+        <!-- <center><textarea readonly id="intro" rows="2" cols="25">Which Subjects you study</textarea><br>
+        </center> -->
+        <button class="btn btn-primary">Which Subjects are you studying</button><br>
+        <br><br>
+        <p><input type="checkbox" value="English language"> English</p>
+        <p><input type="checkbox" value="Maths"> Maths</p>
+        <p><input type="checkbox" value="Science"> Science</p>
+        <p><input type="checkbox" value="Hindi"> Hindi</p>
+        <p><input type="checkbox" value="Social Studies"> Social Studies</p>
+        <p><input type="checkbox" value="Chemistry"> Chemistry</p>
+        <p><input type="checkbox" value="Physics"> Physics</p>
+        <p><input type="checkbox" value="Computer Science"> Computer Science</p>
+        <p><input type="checkbox" value="Biology"> Biology</p>
+        <p><input type="checkbox" value="Psychology"> Psychology</p>
+        <p><input type="checkbox" value="Economics"> Economics</p>
+        <p><input type="checkbox" value="Sociology"> Sociology</p>
+        <p><input type="checkbox" value="Political Science"> Political Science</p>
+        <p><input type="checkbox" value="Environment Science"> Environment Science</p>
+        <p><input type="checkbox" value="Home Science"> Home Science</p>
+        <p><input type="checkbox" value="Physical"> Physical Eduction</p>
+        <p><input type="checkbox" value="Theatre"> Theatre</p>
+        <p><input type="checkbox" value="Dance"> Dance</p>
+        <p><input type="checkbox" value="Commerce"> Commerce</p>
+        <p><input type="checkbox" value="Accounting"> Accounting</p>
+        <p><input type="checkbox" value="Business Studies"> Business Studies</p>
+        <p><input type="checkbox" value="History"> History</p>
+        <p><input type="checkbox" value="Geography"> Geography</p>
+        <p><input type="checkbox" value="Elective English"> Elective English</p>
+        <p><input type="checkbox" value="Sanskrit"> Sanskrit</p>
+        <p><input type="checkbox" value="French"> French</p>
+        <p><input type="checkbox" value="Spanish"> Spanish</p>
+        <p><input type="checkbox" value="German"> German</p>
+        <p><input type="checkbox" value="Regional/Local Language"> Regional/Local Language</p>
+        <p><input type="checkbox" value="Any Other"> Any Other</p>
+        <button class="btn btn-primary" onclick="submitentry()">Submit </button><br><br>
+        <button id="returnq" class="btn btn-primary" onclick="returnoption()">Return</button>
+    </div>
+    <div id="table" style="visibility:hidden">
+        <table>
+            <tr>
+                <th>Day</th>
+                <th>8am-2pm </th>
+                <th>2pm-3pm </th>
+                <th>3pm-4pm </th>
+                <th>4pm-5pm</th>
+                <th>5pm-6pm </th>
+                <th>6pm-7pm </th>
+                <th>7pm-8pm </th>
+                <th>8pm-9pm </th>
+                <th>9pm-10pm </th>
+                <th>10pm-11pm </th>
+                <th>11pm-12am </th>
+                <th>12am-1am</th>
+                <th>1am-2am</th>
+                <th>Beyond 2am</th>
+            </tr>
+            <tr>
+                <td>Monday </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select id="first" class="browser-default custom-select">
+                        <option value="School">School</option>
+                        <option value="Coaching/Tution">Coaching/Tution</option>
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+                        <option value="Sleep">Sleep</option>
+                    </select>
+
+
+                </td>
+
+
+            </tr>
+
+            <tr>
+                <td>Tuesday</td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select id="first" class="browser-default custom-select">
+                        <option value="School">School</option>
+                        <option value="Coaching/Tution">Coaching/Tution</option>
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+                        <option value="Sleep">Sleep</option>
+
+                    </select>
+
+
+                </td>
+
+
+            </tr>
+
+            <tr>
+                <td>Wednesday</td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select id="first" class="browser-default custom-select">
+                        <option value="School">School</option>
+                        <option value="Coaching/Tution">Coaching/Tution</option>
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+                        <option value="Sleep">Sleep</option>
+
+                    </select>
+
+
+                </td>
+
+
+            </tr>
+
+            <tr>
+                <td>Thursday</td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select id="first" class="browser-default custom-select">
+                        <option value="School">School</option>
+                        <option value="Coaching/Tution">Coaching/Tution</option>
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+                        <option value="Sleep">Sleep</option>
+
+                    </select>
+
+
+                </td>
+
+
+            </tr>
+
+            <tr>
+                <td>Friday</td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select id="first" class="browser-default custom-select">
+                        <option value="School">Sleep</option>
+                        <option value="Coaching/Tution">Coaching/Tution</option>
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+                        <option value="Sleep">Sleep</option>
+
+                    </select>
+
+
+                </td>
+
+
+            </tr>
+
+            <tr>
+                <td>Saturday</td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select id="first" class="browser-default custom-select">
+                        <option value="School">School</option>
+                        <option value="Coaching/Tution">Coaching/Tution</option>
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+                        <option value="Sleep">Sleep</option>
+
+                    </select>
+
+
+                </td>
+
+
+            </tr>
+
+            <tr>
+                <td>Sunday</td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select id="first" class="browser-default custom-select">
+                        <option value="School">School</option>
+                        <option value="Coaching/Tution">Coaching/Tution</option>
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+
+                    </select>
+
+
+                </td>
+                <td>
+                    <!--Copy this part for all td's-->
+
+                    <select class="browser-default custom-select">
+                        <option value="Sleep">Sleep</option>
+
+                    </select>
+
+
+                </td>
+
+
+            </tr>
+        </table>
+        <button class="btn btn-primary" onclick="getresults()">Submit for Evaluation</button>
+        <!-- <button class="btn btn-success" onclick="location.href='/schedule'">Schedule events</button> -->
+        <div id="results">
+
+        </div>
+        <button class="open-button" onclick="openForm()">Chat</button>
+
+        <div class="chat-popup" id="myForm">
+
+            <iframe id="mentor" allow="microphone;" width="350" height="430" src="https://console.dialogflow.com/api-client/demo/embedded/3802acc3-6c2e-4875-bea5-e7ee5964988e"></iframe>
+
+            <form action="" class="form-container">
+
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </form>
+        </div>
+        <!-- <button class="btn btn-warning" onclick="tracks()">Track & Options(Academic)</button>
+        <button id="specific" class="btn btn-info" onclick="location.href='/sports'">Tracks & Options(Non Academic)</button> -->
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+        </script>
+
+        <script>
+            var arr;
+            const config = {
+                apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+                authDomain: "mentormitr-bbff5.firebaseapp.com",
+                databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+                projectId: "mentormitr-bbff5",
+                storageBucket: "mentormitr-bbff5.appspot.com",
+                messagingSenderId: "177887019473",
+                appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+                measurementId: "G-B7VNS84ZJ9"
+            };
+
+
+            firebase.initializeApp(config);
+            var editprof;
+            var zzz = 0;
+
+            function edit() {
+
+                zzz++;
+                editprof = document.getElementById("editprof");
+                if (zzz % 2 != 0) {
+
+                    editprof.style.display = "block"
+
+                } else editprof.style.display = "none"
+            }
+
+
+            function logout() {
+
+                firebase.auth().signOut().then(() => {
+                    location.href = '/';
+                });
+            }
+
+
+            function submitentry() {
+
+
+                var table = document.getElementById("table");
+                table.style.visibility = "visible";
+
+                arr = ["School", "Coaching/Tution", "Youtube", "Netflix", "Social Media",
+                    "Extra-Curicullar activities", "Travel time", "Sleep", "Games"
+                ]
+
+                var en = document.getElementsByTagName("input");
+                var select = document.getElementsByClassName("browser-default");
+                // var first=document.getElementById("first");
+                for (var i = 0; i < en.length; i++) {
+                    if (en[i].checked) {
+                        arr.push(en[i].value);
+                    }
+                }
+
+                for (var i = 0; i < arr.length; i++) {
+                    for (var j = 0; j < select.length; j++) {
+                        var opt = document.createElement("option");
+                        var txt = document.createTextNode(arr[i]);
+                        if (j != 0 && j != 13 && j != 14 && j != 27 && j != 28 && j != 41 && j != 42 && j != 55 && j !=
+                            56 && j != 69 && j != 70 && j != 83 && j != 84 && j != 97 && j != 98) {
+                            opt.value = arr[i];
+                            opt.appendChild(txt);
+                            select[j].insertBefore(opt, select[j].lastChild);
+                        }
+
+                    }
+
+                    var display = document.getElementById("subjects");
+                    display.innerHTML = "";
+                }
+
+
+
+            }
+
+
+            function getresults() {
+
+
+
+                var select = document.getElementsByClassName("browser-default");
+                var resultdisplay = document.getElementById('results');
+                var db = firebase.firestore();
+
+
+
+                // var school = 0;
+                var m = new Map()
+                for (var j = 0; j < select.length; j++) {
+                    if (m.has(select[j].value) == false) {
+
+                        if (j != 0 && j != 13 && j != 14 && j != 27 && j != 28 && j != 41 && j != 42 && j != 55 && j !=
+                            56 && j != 69 && j != 70 && j != 83 && j != 84 && j != 97 && j != 98) {
+                            m.set(select[j].value, 1);
+                        } else m.set(select[j].value, 6);
+
+                    } else if (m.has(select[j].value) == true) {
+
+                        if (j != 0 && j != 13 && j != 14 && j != 27 && j != 28 && j != 41 && j != 42 && j != 55 && j !=
+                            56 && j != 69 && j != 70 && j != 83 && j != 84 && j != 97 && j != 98) {
+                            var p = m.get(select[j].value);
+                            p = p + 1;
+                            m.set(select[j].value, p);
+                        } else {
+
+                            var p = m.get(select[j].value);
+                            p = p + 6;
+                            m.set(select[j].value, p);
+                        }
+
+
+
+                    }
+                }
+
+                var res = [];
+
+                function printtwo(value, key) {
+
+                    resultdisplay.innerHTML += `<p>${key}=>${value}hrs</p>`
+                    res.push({
+                        Activity: key,
+                        Time_Spent: value + "hrs"
+
+                    })
+                }
+                m.forEach(printtwo)
+
+                var total = 0;
+                var str = "";
+                for (var i = 9; i < arr.length; i++) {
+                    total += m.get(arr[i]);
+                    str = str + arr[i] + " ";
+                    if (i < arr.length - 1) str = str + "and ";
+                }
+
+                var msubj = 0;
+                for (var i = 0; i < select.length; i = i + 14) {
+                    msubj++;
+                }
+                var nsubj = 0;
+                for (var i = 13; i < select.length; i = i + 14) {
+                    nsubj++;
+                }
+                var tsubj = arr.length - 9;
+                resultdisplay.innerHTML += `<p>You need to study on an average ${total/tsubj}hrs for ${str}</p>`
+
+
+                var mon = [];
+                var tues = [];
+                var wed = [];
+                var thu = [];
+                var fri = [];
+                var sat = [];
+                var sun = [];
+
+                for (i = 0; i <= 13; i++) {
+                    mon.push(select[i].value);
+                }
+                for (i = 14; i <= 27; i++) {
+                    tues.push(select[i].value);
+                }
+                for (i = 28; i <= 41; i++) {
+                    wed.push(select[i].value);
+                }
+                for (i = 42; i <= 55; i++) {
+                    thu.push(select[i].value);
+                }
+                for (i = 56; i <= 69; i++) {
+                    fri.push(select[i].value);
+                }
+                for (i = 70; i <= 83; i++) {
+                    sat.push(select[i].value);
+                }
+                for (i = 84; i <= 97; i++) {
+                    sun.push(select[i].value);
+                }
+
+
+
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        console.log(user);
+
+
+                        db.collection("timetable").doc(user.uid).set({
+                            mon: mon,
+                            tues: tues,
+                            wed: wed,
+                            thurs: thu,
+                            fri: fri,
+                            sat: sat,
+                            sun: sun
+                        })
+
+                        db.collection("timetable_no_of_hours").doc(user.uid).set({
+                            survey: res
+                        }).then(() => {
+                            location.href = '/aftertimetable';
+                        })
+
+                        console.log(res);
+
+                    } else {
+                        console.log("No user");
+
+                        // No user is signed in.
+                    }
+                });
+
+
+
+            }
+
+            function returnoption() {
+
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        if (user.photoURL === "School") {
+                            location.href = "/successfull"
+                        } else if (user.photoURL === "College") {
+                            location.href = "/successfull";
+                        }
+
+                    } else {
+                        console.log("No user");
+
+                        // No user is signed in.
+                    }
+                });
+
+            }
+
+
+            function tracks() {
+
+                firebase.auth().onAuthStateChanged(function(user) {
+                    if (user) {
+                        if (user.photoURL === "School") {
+                            location.href = "/streams"
+                        } else if (user.photoURL === "College") {
+                            location.href = "/collegetrack";
+                        }
+
+                    } else {
+                        console.log("No user");
+
+                        // No user is signed in.
+                    }
+                });
+
+            }
+
+            function openForm() {
+                document.getElementById("myForm").style.display = "block";
+            }
+
+            function closeForm() {
+                document.getElementById("myForm").style.display = "none";
+            }
+        </script>
+
+
+</body>
+
+
+
+</html>

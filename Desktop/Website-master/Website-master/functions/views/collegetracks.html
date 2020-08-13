@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        
+        .open-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+        /* The popup chat - hidden by default */
+        
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+        /* Add styles to the form container */
+        
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+        /* Full-width textarea */
+        
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+        /* When the textarea gets focus, do something */
+        
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        /* Set a style for the submit/send button */
+        
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        /* Add a red background color to the cancel button */
+        
+        .form-container .cancel {
+            background-color: red;
+        }
+        /* Add some hover effects to buttons */
+        
+        .form-container .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+    </style>
+
+    <a href="#" id="insert-more">Insert Row</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button onclick=" Geeks()">Delete Row</button>
+    <br>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+    <script>
+        function Geeks() {
+            document.getElementById("row1").remove();
+        }
+    </script>
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-database.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">
+            <img src="mentorlogo-removebg-preview 2.svg" width="300" height="100" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Templates
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Onboarding</a>
+                        <a class="dropdown-item" href="timetable">Time Matrix</a>
+                        <a class="dropdown-item" href="priority">Priority</a>
+                        <a class="dropdown-item" href="streams">Tracks</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Daily
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="affirmations">Goals & Affirmation</a>
+                        <a class="dropdown-item" href="#">Previous Days</a>
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Weekly
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="activity">Template</a>
+                        <a class="dropdown-item" href="weeklyprogress">Weekly Progress</a>
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sessions
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="schedule">Book a Session</a>
+                        <a class="dropdown-item" href="#">Session Recordings</a>
+                        <a class="dropdown-item" href="studentfeedback">Session Feedback</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Blogs
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="blog">Read Blogs</a>
+                        <a class="dropdown-item" href="#">Write blog/story</a>
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Webinar
+        </a>
+                </li>
+            </ul>
+        </div>
+        <i class="fa fa-user-circle-o fa-2x" style="padding-right:30px; color:#FFAC27" aria-hidden="true" style="height: 10px;" onclick="edit()"></i>
+        <div id="editprof" style="display: none;">
+            <p><button class="btn btn-primary" onclick="location.href='/profile'">Edit profile</button></p>
+            <p><button id="btnLogout" class="btn btn-primary" onclick="logout()">Logout</button></p>
+        </div>
+        <i class="fa fa-bell fa-2x" aria-hidden="true" style="padding-top:5px; color:#FFAC27" onclick="location.href='notif'"></i>
+
+    </nav>
+
+    <script>
+        //Intialize firebase
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+
+
+        firebase.initializeApp(config);
+        var editprof;
+        var zzz = 0;
+
+        function edit() {
+
+            zzz++;
+            editprof = document.getElementById("editprof");
+            if (zzz % 2 != 0) {
+
+                editprof.style.display = "block"
+
+            } else editprof.style.display = "none"
+        }
+
+
+        function logout() {
+
+            firebase.auth().signOut().then(() => {
+                location.href = '/';
+            });
+        }
+
+
+
+
+
+        const btnLogout = document.getElementById('btnLogout');
+        btnLogout.addEventListener('click', e => {
+
+            e.preventDefault();
+            firebase.auth().signOut().then(() => {
+                location.href = '/logreg';
+            });
+
+        })
+
+        const name = document.getElementById("h1");
+
+
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                name.innerHTML = "Hi " + user.displayName + "!!!"
+                console.log(user);
+
+                //  btnLogout.classList.remove("invisible");
+                //location.href="/test";
+
+            }
+        })
+
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+    <center>
+        <h2>College Tracks</h2>
+
+        <table border=2 id="mytable" bordercolor=black>
+            <tbody>
+                <tr>
+                    <th>Serial No</th>
+                    <th>Possible Colleges/Universities</th>
+                    <th>Possible Courses & Syllabus</th>
+                    <th>Selection Criteria </th>
+                    <th>What we need to do to achieve them</th>
+                    <th>Things to improve personally</th>
+                </tr>
+                <tr>
+                    <td><input type="text" id="fee-1" class="fee" name="js-fee"></td>
+                    <td><input type="text" id="fee-1" class="fee" name="js-fee"></td>
+                    <td><input type="text" id="fee-1" class="fee" name="js-fee"></td>
+                    <td><input type="text" id="fee-1" class="fee" name="js-fee"></td>
+                    <td><input type="text" id="fee-1" class="fee" name="js-fee"></td>
+                    <td><input type="text" id="fee-1" class="fee" name="js-fee"></td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+        <br>
+        <br>
+        <button class="btn-btn-primary" onclick="submitentry()">Submit</button>
+
+        <center>
+            <script language="javascript">
+                const config = {
+                    apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+                    authDomain: "mentormitr-bbff5.firebaseapp.com",
+                    databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+                    projectId: "mentormitr-bbff5",
+                    storageBucket: "mentormitr-bbff5.appspot.com",
+                    messagingSenderId: "177887019473",
+                    appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+                    measurementId: "G-B7VNS84ZJ9"
+                };
+                firebase.initializeApp(config);
+                $("#insert-more").click(function() {
+                    $("#mytable").each(function() {
+                        var tds = '<tr id = "row1">';
+                        jQuery.each($('tr:last td', this), function() {
+                            tds += '<td>' + $(this).html() + '</td>';
+                        });
+                        tds += '</tr>';
+                        if ($('tbody', this).length > 0) {
+                            $('tbody', this).append(tds);
+                        } else {
+                            $(this).append(tds);
+                        }
+                    });
+                });
+
+                function submitentry() {
+
+
+                    var q1 = [];
+
+                    var input = document.getElementsByTagName("input");
+
+
+                    for (var i = 0; i < input.length; i++) {
+                        console.log(input[i].value)
+
+                        q1.push(input[i].value)
+
+                    }
+
+                    var achieve = [];
+                    var college = [];
+                    var course = [];
+                    var improve = [];
+                    var selection = [];
+                    var serialNumber = [];
+
+                    var ct = 0;
+                    p = 0;
+                    for (var i = 0; i < input.length; i++) {
+
+                        if (i - ct == 0) serialNumber.push(q1[i]);
+                        if (i - ct == 1) college.push(q1[i]);
+                        if (i - ct == 2) course.push(q1[i]);
+                        if (i - ct == 3) selection.push(q1[i]);
+                        if (i - ct == 4) achieve.push(q1[i]);
+                        if (i - ct == 5) improve.push(q1[i]);
+                        if (p == 5) {
+                            ct = ct + 6;
+                            p = 0;
+                        }
+                        p++;
+
+                    }
+                    // for (var i = 2 * q1q2; i < 2 * q1q2 + 2 * q3q4; i++) {
+                    //     if (i % 2 == 0) {
+                    //         q3.push(input[i].value)
+                    //     } else {
+                    //         q4.push(input[i].value)
+                    //     }
+                    // }
+                    // console.log("q1", q1);
+                    // console.log("q2", q2);
+                    // console.log("q3", q3);
+                    // console.log("q4", q4);
+
+
+                    // a = q1q2;
+                    // b = q3q4;
+
+
+
+
+                    firebase.auth().onAuthStateChanged(user => {
+
+                        if (user) {
+                            var db = firebase.database()
+                            db.ref('/college/' + user.uid).set({
+                                name: user.displayName,
+                                email: user.email,
+                                college_options: {
+                                    achieve: achieve,
+                                    college: college,
+                                    course: course,
+                                    improve: improve,
+                                    selection: selection,
+                                    serialNumber: serialNumber
+                                },
+
+                            })
+
+                        }
+                    })
+                }
+
+                function openForm() {
+                    document.getElementById("myForm").style.display = "block";
+                }
+
+                function closeForm() {
+                    document.getElementById("myForm").style.display = "none";
+                }
+            </script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMitr</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.15.5/firebase-storage.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1>Weekly Progress</h1>
+    <img id="progress" src="">
+    <script>
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+
+
+
+        firebase.initializeApp(config);
+        var storage = firebase.storage();
+        var progress = document.getElementById("progress");
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+
+                var storageRef = storage.ref()
+                var spaceRef = storageRef.child(`graph/${user.uid}/28-06-2020.png`);
+
+                storageRef.child(`graph/${user.uid}/28-06-2020.png`).getDownloadURL().then(function(url) {
+
+                    var test = url;
+                    var z = "bimage" + pt
+                    console.log("test", test);
+                    progress.src = test;
+
+
+                }).catch(function(error) {
+
+                    console.log("Error");
+
+                });
+
+            } else {
+
+
+            }
+        })
+    </script>
+
+</body>
+
+</html>ser

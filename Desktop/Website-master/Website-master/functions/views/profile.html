@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Profile</title>
+
+    <!-- Font Icon -->
+    <!-- <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css"> -->
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/profile.css">
+
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+</head>
+
+<body>
+
+    <div class="main">
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-img">
+                    <img src="images/1.png" alt="">
+                </div>
+                <div class="signup-form">
+                    <div style="padding-right: 100px;;">
+                        <h2>Profile</h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">First Name :</label>
+                                <input type="text" name="name" id="name" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="father_name">Last Name :</label>
+                                <input type="text" name="father_name" id="last_name" required />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="Password">Password:</label>
+                            <input type="password" name="address" id="pass" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="Confirm Password">Confirm Password:</label>
+                            <input type="password" name="address" id="pass1" required />
+                        </div>
+                        <div class="form-radio">
+                            <label for="gender" class="radio-label">Gender :</label>
+                            <div class="form-radio-item">
+                                <input type="radio" name="gender" id="male" checked>
+                                <label for="male">Male</label>
+                                <span class="check"></span>
+                            </div>
+                            <div class="form-radio-item">
+                                <input type="radio" name="gender" id="female">
+                                <label for="female">Female</label>
+                                <span class="check"></span>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="phone_number">Phone Number:</label>
+                            <input type="phone_number" name="phone_number" id="phone_number" placeholder="Phone number"
+                                required />
+                        </div>
+                        <div class="form-submit">
+                            <input type="submit" value="Reset All" class="submit" name="reset" id="reset" />
+                            <input type="submit" value="Submit Form" class="submit" name="submit" id="submit" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="js/jquery.min.js"></script>
+    <!-- <script src="js/profile.js"></script> -->
+    <script>
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+        firebase.initializeApp(config);
+
+        var submit = document.getElementById("submit");
+
+        submit.addEventListener('click', () => {
+
+            var sex;
+
+            if (male == undefined) sex = "Male";
+            else sex = "Female"
+
+
+            var firstname = document.getElementById("name");
+            var lastname = document.getElementById("last_name");
+            var male = document.getElementById("male");
+            var female = document.getElementById("female");
+
+            // var email = document.getElementById("email");
+            var reset = document.getElementById("reset");
+            var pass = document.getElementById("pass");
+            var pnumber = document.getElementById("phone_number");
+
+            var pass1 = document.getElementById("pass1");
+            var type;
+          
+
+            firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+
+                    if (pass.value != pass1.value) alert("Incorrect Confirm Password");
+                    else {
+
+                        user.updateProfile({
+                            displayName: firstname.value + " " + lastname.value,
+
+                        }).then(() => {
+                            console.log("Success Profile");
+
+                        })
+
+                      
+                        user.updatePassword(pass.value).then(() => {
+
+                            console.log("Sucesss pass");
+
+
+                            if (user.photoURL == "Student") location.href = "/schoolpage";
+                    else if (user.photoURL == "College") location.href = "/collegepage"
+                    else if (user.photoURL == "Parent") location.href = "/parentpage"
+                    else if (user.photoURL == "Working Professional") location.href = "/workingprofpage"
+                    
+                        })
+
+                    }
+
+                }
+            })
+
+
+        })
+    </script>
+</body>
+<!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
+<!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>

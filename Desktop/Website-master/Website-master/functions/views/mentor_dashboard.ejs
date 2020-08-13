@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMitr</title>
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1> Hi
+        <%= name %>
+    </h1>
+    <p id="display"></p>
+    <button class="btn btn-primary" onclick="location.href='/'">Logout</button>
+
+    <script>
+         const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+
+
+        firebase.initializeApp(config);
+        var db = firebase.firestore();
+
+        var info=[];
+        var display=document.getElementById("display");
+        var infoid=[];
+        db.collection("users").get().then((snapshot)=>{
+             snapshot.forEach((doc)=>{
+                 info.push(doc.data());
+                 infoid.push(doc.id);
+             })
+
+             console.log(info);
+             
+             for(var i=0;i<info.length;i++){
+                 display.innerHTML+=`<p>${i+1}. <span>${info[i].name}</span> <span>${info[i].email}</span> <button class="btn btn-primary" onclick="location.href='/user/${infoid[i]}'">More Info</button> </p>`
+             }
+
+        })
+
+       
+    </script>
+</body>
+
+</html>

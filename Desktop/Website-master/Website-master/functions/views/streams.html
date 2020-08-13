@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMitr</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-database.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <style>
+        .open-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+        /* The popup chat - hidden by default */
+        
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+        /* Add styles to the form container */
+        
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+        /* Full-width textarea */
+        
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+        /* When the textarea gets focus, do something */
+        
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        /* Set a style for the submit/send button */
+        
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        /* Add a red background color to the cancel button */
+        
+        .form-container .cancel {
+            background-color: red;
+        }
+        /* Add some hover effects to buttons */
+        
+        .form-container .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+        
+        .main {
+            display: block;
+            position: relative;
+            padding-left: 45px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        /* Hide the default checkbox */
+        
+        input[type=checkbox] {
+            visibility: hidden;
+        }
+        /* Creating a custom checkbox 
+        based on demand */
+        
+        .geekmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: black;
+        }
+        /* Specify the background color to be 
+        shown when hovering over checkbox */
+        
+        .main:hover input~.geekmark {
+            background-color: yellow;
+        }
+        /* Specify the background color to be 
+        shown when checkbox is active */
+        
+        .main input:active~.geekmark {
+            background-color: red;
+        }
+        /* Specify the background color to be 
+        shown when checkbox is checked */
+        
+        .main input:checked~.geekmark {
+            background-color: green;
+        }
+        /* Checkmark to be shown in checkbox */
+        /* It is not be shown when not checked */
+        
+        .geekmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        /* Display checkmark when checked */
+        
+        .main input:checked~.geekmark:after {
+            display: block;
+        }
+        /* Styling the checkmark using webkit */
+        /* Rotated the rectangle by 45 degree and  
+        showing only two border to make it look 
+        like a tickmark */
+        
+        .main .geekmark:after {
+            left: 8px;
+            bottom: 5px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 4px 4px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+
+<body>
+    <div style="text-align: right;">
+        <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" style="height: 10px;" onclick="edit()"></i>
+        <div id="editprof" style="display: none;">
+            <p><button class="btn btn-primary" onclick="location.href='/profile'">Edit profile</button></p>
+            <p><button id="btnLogout" class="btn btn-primary" onclick="logout()">Logout</button></p>
+        </div>
+        <i class="fa fa-bell fa-2x" aria-hidden="true" onclick="location.href='notif'"></i>
+    </div>
+
+    <div id="display">
+        <h1>Future Avenues</h1>
+
+        <label class="main" style="background-color: #CC9999;">
+            <input type="checkbox" value="Engineering"><span class="geekmark"></span> Engineering(Govt Colleges)
+            IIT/NIT/IIIT, state colleges B.Tech PCM+ Entrance Score 75% ile
+
+        </label>
+        <label class="main" style="background-color:#99FF33;">
+            <input type="checkbox" value="Medical"><span class="geekmark"></span> Medical(Govt Colleges) NEET, AIIMS
+            MBBS PCB+Entrance Score 75% ile
+
+        </label>
+        <label class="main" style="background-color:#66FF99;">
+            <input type="checkbox" value="BITS"><span class="geekmark"></span> BITS Pilani Computer Science PCM
+            +Quantitative 75%ile
+
+        </label>
+        <label class="main" style="background-color: #66FF33;">
+            <input type="checkbox" value="Graduation"><span class="geekmark"></span> Graduation DU/Xavier BSC
+            (Genl)/Hons Merit in 12th 90%+
+
+        </label>
+        <label class="main" style="background-color: #FF99CC;">
+            <input type="checkbox" value="BCA"><span class="geekmark"></span> BCA IP/AMITY BCA Clas12th Marks
+
+        </label>
+
+        <label class="main" style="background-color: #FF99CC;">
+            <input type="checkbox" value="army"><span class="geekmark"></span> Indian Armed Forces	National Defense Academy	Indian Navy, Air Force or Army	Class 12th+Entrance+Medical Examination+Interview		50%
+
+        </label>
+
+        <label class="main" style="background-color: #FF99CC;">
+            <input type="checkbox" value="pilot"><span class="geekmark"></span> Pilot	IGRUA, Bombay Flying Club etc.	B.Sc Aviation	Written Exam+Pilot Aptitude Test+Medical Examination+Interview		50%
+
+        </label>
+
+        <label class="main" style="background-color: #87CEEB;">
+            <input type="checkbox" value="IIM"><span class="geekmark"></span> IIM (5 yaears MBA) IIM Indore Common till
+            BBA , then specialization QA+Analytical Reasoning+Comprehension
+
+        </label>
+        <label class="main" style="background-color: 	#CDC5BF;">
+            <input type="checkbox" value="BCOM"><span class="geekmark"></span> BCOM DU/Xavier BCom Hons, BCom Prog Merit
+            in 12th 90%+
+
+        </label>
+        <label class="main" style="background-color: #E0EEE0;">
+            <input type="checkbox" value="DU"><span class="geekmark"></span> DU JAT DU/Shiv Nadar/Xavier BMS/BFIA/BBE
+            Quantitative Ability, Reasoning and Analytical Ability, General English, Business and General Awareness +
+            12th boards score Score 95%ile
+
+        </label>
+        <label class="main" style="background-color: 	#DDA0DD;">
+            <input type="checkbox" value="CA/CS"><span class="geekmark"></span>CA/CS ICAI CA/CS CA/CS Foundation 50%
+        </label>
+
+        <label class="main" style="background-color:#C1CDCD;">
+            <input type="checkbox" value="BBA"><span class="geekmark"></span> BBA IP/AMITY/Xaviers BBA, BBA+MBA
+            Quantitative Ability, Reasoning and Analytical Ability, General English, Business and General Awareness
+            College placement depends on rank of
+            student
+
+        </label>
+        <label class="main" style="background-color: #FFE4B5;">
+            <input type="checkbox" value="BA Hons"><span class="geekmark"></span> BA Hons DU/AMITY/Xavier History,
+            Geology, Pscology, Sociology, Pol.Science, many more DU:Merit in 12th, Private Universities: Entrance DU:
+            90%+
+
+        </label>
+        <label class="main" style="background-color: #FF99CC;">
+            <input type="checkbox" value="LAW"><span class="geekmark"></span> LAW NLU/AMITY/IP BA LLB entrance
+            Quantitative
+        </label>
+
+        <label class="main" style="background-color: #99FFFF;">
+            <input type="checkbox" value="Vocational"><span class="geekmark"></span> Vocational Courses IHM etc. Human
+            resource, Hotel Management, Event management etc. Merit in 12th, Entrance: for few colleges 60%+
+
+        </label>
+        <label class="main" style="background-color: #CCCCFF;">
+            <input type="checkbox" value="Performing"><span class="geekmark"></span> Performing Arts IADA etc. (BPA)
+            Art, Film, Media Studies, Social Sciences Merit in 12th 60%+
+
+        </label>
+        <label class="main" style="background-color: #FF99CC;">
+            <input type="checkbox" value="Fine"><span class="geekmark"></span> Fine Arts BFA Applied Arts, Pottery &
+            Ceramics, Textile Design, Music, Calligraphy, Sculpture, Printmaking, Illustration (across all domains)
+            Merit in 12th 60%+
+
+        </label>
+        <label class="main" style="background-color: #3399FF;">
+            <input type="checkbox" value="Visual"><span class="geekmark"></span>Visual Arts LSR, BHU etc. Photography,
+            Filmmaking, Visual Arts Course, Architecture, Writing (English, Mass Communication, Journalism), Sculpture.
+            Video Editing Merit in 12th 60%+
+
+        </label>
+        <label class="main" style="background-color: #D3D3D3;">
+            <input type="checkbox" value="Design"><span class="geekmark"></span> Design (B.Des) NIFT, Shristi etc.
+            Fashion Designing, Interior Designing, Animation, Graphic Design, Textile Designing, Product Design Merit in
+            12th+ Entrance(UCEED, NIFT, IIAD etc) 60%+
+
+        </label>
+        <label class="main" style="background-color: #87CEFF;">
+            <input type="checkbox" value="Sports"><span class="geekmark"></span> Sports Football, Cricket, Handball,
+            Volleyball and all other sports B.P.Ed, B.Sc in sports, Sports management Merit in 12th+Sports achievements
+            etc. 50%+
+
+        </label>
+        <label class="main" style="background-color: #B0E2FF;">
+            <input type="checkbox" value="Entrepreneur"><span class="geekmark"></span> Entrepreneurship Skills+Launch a
+            venture Practice entrepreneurship (May take any course), incubators, accelerators
+
+        </label>
+        <label class="main" style="background-color: 	#4EEE94;">
+            <input type="checkbox" value="Non Traditional"><span class="geekmark"></span> Non Traditional Content
+            Creator(YouTube,Insta,TikTok etc.), E-Sports(PubG, CSGO etc.), Influencer, Speaker Practice and share your
+            achievements
+
+        </label>
+
+        <label class="main" style="background-color: 	#FFA07A;">
+            <input type="checkbox" value="Languages"><span class="geekmark"></span> Languages DU, JNU etc. English(Hon),
+            Foreign Languages, Regional language Merit in 12th 70%+
+
+
+        </label>
+
+
+    </div>
+    <div class="card" id="c1" style="display:none; background-color: aqua; width: 50%;">
+        <div class="card-body">Prepare hard in PCM +1 Subject and entrance (5 options same track)
+        </div>
+    </div>
+    <div class="card" id="c2" style="display:none; background-color: chartreuse; width: 50%;">
+        <div class="card-body">Comprehension+analytical+Aptitude +Mathematics (1 option 1 track different track)
+        </div>
+    </div>
+    <div class="card" id="c3" style="display:none;background-color:pink; width: 50%;">
+        <div class="card-body">CLAT/Other University entrance Quantitative Ability, Reasoning and Analytical Ability, General English, General Awareness, Legal Aptitude
+        </div>
+    </div>
+    <div class="card" id="c4" style="display:none; background-color: lightgreen; width: 50%;">
+        <div class="card-body">CA/CS Foundation
+        </div>
+    </div>
+    <div class="card" id="c5" style="display:none; background-color:yellow; width: 50%;">
+        <div class="card-body">Entrance (Specialized preparation/coaching)+ Board exam
+        </div>
+    </div>
+    <div class="card" id="c6" style="display:none; background-color: brown; width: 50%;">
+        <div class="card-body">Merit in 12th+Creative Mind+Entrance(for top colleges)
+        </div>
+    </div>
+    <div class="card" id="c7" style="display:none; background-color: blueviolet; width: 50%;">
+        <div class="card-body">Just work hard and give your best shot!!!!!
+        </div>
+    </div>
+
+    <div class="card" id="c8" style="display:none; background-color: blueviolet; width: 50%;">
+        <div class="card-body">Entrance Exam+Domain Specific Aptitude Test+Interview+Medical Examination+Physical Fitness
+        </div>
+    </div>
+
+    <button class="btn btn-primary " onclick="submitoption()" id="submit">
+        Submit
+    </button>
+    <button class="btn btn-warning " onclick="location.href='/aftertimetable'">
+        Timetable
+    </button>
+    <button id="returnq" class="btn btn-primary" onclick="location.href='/streams'" style="display: none;">Return</button>
+    <button class="open-button" onclick="openForm()">Chat</button>
+
+    <div class="chat-popup" id="myForm">
+
+        <iframe id="mentor" allow="microphone;" width="350" height="430" src="https://console.dialogflow.com/api-client/demo/embedded/3802acc3-6c2e-4875-bea5-e7ee5964988e"></iframe>
+
+        <form action="" class="form-container">
+
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+
+    <script>
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+        var arr = [];
+
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+
+
+        firebase.initializeApp(config);
+        var editprof;
+        var ct = 0;
+
+        function edit() {
+
+            ct++;
+            editprof = document.getElementById("editprof");
+            if (ct % 2 != 0) {
+
+                editprof.style.display = "block"
+
+            } else editprof.style.display = "none"
+        }
+
+
+        function logout() {
+
+            firebase.auth().signOut().then(() => {
+                location.href = '/';
+            });
+        }
+
+        function
+        submitoption() {
+
+            var submitq = document.getElementById("submit")
+
+            submitq.style.display = "none";
+            var input = document.getElementsByTagName("input");
+            var returnq = document.getElementById('returnq')
+            var display = document.getElementById("display");
+            var c1 = document.getElementById("c1");
+            var c2 = document.getElementById("c2");
+            var c3 = document.getElementById("c3");
+            var c4 = document.getElementById("c4");
+            var c5 = document.getElementById("c5");
+            var c6 = document.getElementById("c6");
+            var c7 = document.getElementById("c7");
+            var c8 = document.getElementById("c8");
+            var card = document.getElementsByClassName("card-body");
+
+            var cb = [];
+            for (var i = 0; i < input.length; i++) {
+
+                if (input[i].checked == true) {
+                    if (input[i].value == "BITS" ||
+                        input[i].value == "Graduation" || input[i].value == "BCA" || input[i].value ==
+                        "BCOM" || input[
+                            i].value == "BA Hons" || input[i].value == "Vocational" || input[i].value ==
+                        "Languages") {
+                        arr.push(input[i].value);
+
+                        c1.style.display = "block";
+
+                        display.style.display = "none";
+
+                    }
+                    if (input[i].value == "Engineering" || input[i].value == "Medical") {
+                        arr.push(input[i].value);
+                        c5.style.display = "block";
+
+                        display.style.display = "none";
+                    }
+
+                    if (input[i].value == "Performing" || input[i].value == "Visual" || input[i]
+                        .value == "Fine" ||
+                        input[i].value == "Design") {
+                        arr.push(input[i].value);
+                        c6.style.display = "block";
+
+                        display.style.display = "none";
+                    }
+                    if (input[i].value == "IIM") {
+                        arr.push(input[i].value);
+                        c2.style.display = "block";
+
+                        display.style.display = "none";
+                    }
+
+                    if (input[i].value == "DU" || input[i].value == "BBA" | input[i].value == "LAW") {
+                        arr.push(input[i].value);
+                        c3.style.display = "block";
+
+                        display.style.display = "none";
+
+                    }
+                    if (input[i].value == "CA/CS") {
+                        arr.push(input[i].value);
+                        c4.style.display = "block";
+
+                        display.style.display = "none";
+
+                    }
+                    if (input[i].value == "Sports" || input[i].value == "Non Traditional" || input[i]
+                        .value ==
+                        "Entrepreneur") {
+                        arr.push(input[i].value);
+
+                        c7.style.display = "block";
+
+                        display.style.display = "none";
+                    }
+
+                    if (input[i].value == "army" || input[i].value == "pilot") {
+                        arr.push(input[i].value);
+
+                        c8.style.display = "block";
+
+                        display.style.display = "none";
+                    }
+                }
+            }
+
+            if (c1.style.display == "block") cb.push(card[0].innerHTML)
+            if (c2.style.display == "block") cb.push(card[1].innerHTML)
+            if (c3.style.display == "block") cb.push(card[2].innerHTML)
+            if (c4.style.display == "block") cb.push(card[3].innerHTML)
+            if (c5.style.display == "block") cb.push(card[4].innerHTML)
+            if (c6.style.display == "block") cb.push(card[5].innerHTML)
+            if (c7.style.display == "block") cb.push(card[6].innerHTML)
+            if (c8.style.display == "block") cb.push(card[7].innerHTML)
+
+            returnq.style.display = "block";
+
+
+
+
+            firebase.auth().onAuthStateChanged(user => {
+
+                if (user) {
+                    var db = firebase.database()
+                    db.ref('/user/' + user.uid).set({
+                        name: user.displayName,
+                        email: user.email,
+                        options: arr,
+                        cbase: cb
+                    })
+
+                }
+            })
+
+        }
+    </script>
+    <!--Suraj just wait-->
+
+</body>
+
+</html>

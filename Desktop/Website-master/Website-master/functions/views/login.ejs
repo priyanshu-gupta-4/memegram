@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+  <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+    <input id="txtEmail" type="email" placeholder="Email">
+
+    <input id="txtPassword" type="password" placeholder="Password">
+    
+    <button id="btnLogin" class="btn btn-primary">Login</button>
+
+    
+    <button id="btnSignUp" class="btn btn-primary">SignUp</button>
+
+    <button id="btnLogout" class="btn btn-action invisible">LogOut</button>
+    </div>
+
+
+<!--Script for firebase auth-->
+
+    <script>
+      (function(){
+
+        //Intialize firebase
+        const config={
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+        };
+        firebase.initializeApp(config)
+
+     
+
+     const txtEmail=document.getElementById('txtEmail');
+     const txtPassword=document.getElementById('txtPassword');
+     const btnLogin=document.getElementById('btnLogin');
+     const btnSignUp=document.getElementById('btnSignUp');
+     const btnLogout=document.getElementById('btnLogout');
+
+
+     //Add Login event
+     btnLogin.addEventListener('click',e=>{
+
+        const email=txtEmail.value;
+        const pass=txtPassword.value;
+        const auth=firebase.auth();
+        //   location.href="program";
+        //Sign In
+        const promise= auth.signInWithEmailAndPassword(email,pass);
+          promise.catch(e=>console.log(e.message)
+          ) ;
+     });
+
+
+     // Add sign up event
+     btnSignUp.addEventListener('click',e=>{
+
+        //TODO->Check 4 Real Email
+        const email=txtEmail.value;
+        const pass=txtPassword.value;
+        const auth=firebase.auth();
+
+        //Sign In
+        const promise= auth.createUserWithEmailAndPassword(email,pass);
+          promise
+          
+          .catch(e=>console.log(e.message)) ;
+
+     });
+
+
+     //Logout event
+     
+     btnLogout.addEventListener('click',e=>{
+         firebase.auth().signOut();
+     })
+     
+
+
+     // Add a realtime listener
+     firebase.auth().onAuthStateChanged(firebaseUser=>{
+         if(firebaseUser){
+            
+            console.log(firebaseUser);
+            btnLogout.classList.remove('invisible')
+
+         }
+         else{
+               console.log("Not logged in");
+               btnLogout.classList.add('invisible')
+               
+         }
+     })
+
+
+
+      }())
+    </script>
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>

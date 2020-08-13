@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMitr</title>
+
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <h1 id="h1"></h1>
+
+    <center>
+        <button id="btnLogout" class="btn btn-danger" style="border-radius: 100px;">LogOut</button>
+    </center>
+
+
+
+    <button id="pay" class="btn btn-primary" onclick="location.href='/payment'" style="border-radius: 100px;">Pay Now</button>
+    <h4 id=" notif ">Make Payment to avail timetable and priority services</h4>
+    <button class=" btn btn-warning" onclick="location.href='/parent' " style="border-radius: 100px; ">Parent Questionairre</button>
+
+
+    <script src="paytm/checksum/server.js "></script>
+    <script>
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw ",
+            authDomain: "mentormitr-bbff5.firebaseapp.com ",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com ",
+            projectId: "mentormitr-bbff5 ",
+            storageBucket: "mentormitr-bbff5.appspot.com ",
+            messagingSenderId: "177887019473 ",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0 ",
+            measurementId: "G-B7VNS84ZJ9 "
+        };
+
+
+        firebase.initializeApp(config);
+
+
+        const name = document.getElementById("h1 ");
+
+
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                name.innerHTML = "Hi " + user.displayName + "!!! ";
+            }
+        })
+    </script>
+</body>
+
+</html>s

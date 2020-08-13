@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MentorMitr</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-database.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        input[type=text],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgb(70, 68, 68);
+            border-radius: 4px;
+            resize: vertical;
+        }
+        
+        input[type=email],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgb(70, 68, 68);
+            border-radius: 4px;
+            resize: vertical;
+        }
+        
+        label {
+            padding: 12px 12px 12px 0;
+            display: inline-block;
+        }
+        
+        input[type=submit] {
+            background-color: rgb(37, 116, 161);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+        
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+        
+        .container {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+        
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+        
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
+        /* Clear floats after the columns */
+        
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        
+        .rating {
+            float: left;
+            width: 300px;
+        }
+        
+        .rating span {
+            float: right;
+            position: relative;
+        }
+        
+        .rating span input {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            opacity: 0;
+        }
+        
+        .rating span label {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            color: #FFF;
+            background: #ccc;
+            font-size: 30px;
+            margin-right: 2px;
+            line-height: 30px;
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+        }
+        
+        .rating span:hover~span label,
+        .rating span:hover label,
+        .rating span.checked label,
+        .rating span.checked~span label {
+            background: #F90;
+            color: #FFF;
+        }
+        
+        .open-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+        /* The popup chat - hidden by default */
+        
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+        /* Add styles to the form container */
+        
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+        /* Full-width textarea */
+        
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+        /* When the textarea gets focus, do something */
+        
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        /* Set a style for the submit/send button */
+        
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        /* Add a red background color to the cancel button */
+        
+        .form-container .cancel {
+            background-color: red;
+        }
+        /* Add some hover effects to buttons */
+        
+        .form-container .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+        /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+    </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">
+            <img src="mentorlogo-removebg-preview 2.svg" width="300" height="100" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Templates
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Onboarding</a>
+                        <a class="dropdown-item" href="timetable">Time Matrix</a>
+                        <a class="dropdown-item" href="priority">Priority</a>
+                        <a class="dropdown-item" href="streams">Tracks</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Daily
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="affirmations">Goals & Affirmation</a>
+                        <a class="dropdown-item" href="#">Previous Days</a>
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Weekly
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="activity">Template</a>
+                        <a class="dropdown-item" href="weeklyprogress">Weekly Progress</a>
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sessions
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="schedule">Book a Session</a>
+                        <a class="dropdown-item" href="#">Session Recordings</a>
+                        <a class="dropdown-item" href="studentfeedback">Session Feedback</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Blogs
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="blog">Read Blogs</a>
+                        <a class="dropdown-item" href="#">Write blog/story</a>
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Webinar
+        </a>
+                </li>
+            </ul>
+        </div>
+        <i class="fa fa-user-circle-o fa-2x" style="padding-right:30px; color:#FFAC27" aria-hidden="true" style="height: 10px;" onclick="edit()"></i>
+        <div id="editprof" style="display: none;">
+            <p><button class="btn btn-primary" onclick="location.href='/profile'">Edit profile</button></p>
+            <p><button id="btnLogout" class="btn btn-primary" onclick="logout()">Logout</button></p>
+        </div>
+        <i class="fa fa-bell fa-2x" aria-hidden="true" style="padding-top:5px; color:#FFAC27" onclick="location.href='notif'"></i>
+
+    </nav>
+
+    <script>
+        //Intialize firebase
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+
+
+        
+    </script>
+    <div style="text-align: right;">
+        <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" style="height: 10px;" onclick="edit()"></i>
+        <div id="editprof" style="display: none;">
+            <p><button class="btn btn-primary" onclick="location.href='/profile'">Edit profile</button></p>
+            <p><button id="btnLogout" class="btn btn-primary" onclick="logout()">Logout</button></p>
+        </div>
+        <i class="fa fa-bell fa-2x" aria-hidden="true" onclick="location.href='notif'"></i>
+    </div>
+
+    <p>
+        Current Date is:
+        <span id="currDate"></span>
+    </p>
+    <h2>FEED BACK FORM</h2>
+    <div class="container">
+        <div id="">
+            <div class="row">
+                <div class="col-25">
+                    <label for="fname">How satisfied were you with the session?</label>
+                </div>
+                <div class="col-75">
+                    <select id="session" name="session">
+                        <option value="none">Select Option</option>
+                        <option value="Very Satisfied">Very Satisfied</option>
+                        <option value="Moderately Satisfied">Moderately Satisfied</option>
+                        <option value="Not Satisfied">Not Satisfied</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="lname">How effective was our session?</label>
+                </div>
+                <div class="col-75">
+                    <select id="session1" name="session1">
+                        <option value="none">Select Option</option>
+                        <option value=" Very Effective">Very Effective</option>
+                        <option value="Moderately Effective">Moderately Effective</option>
+                        <option value="Not Effective">Not Effective</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="email">Did you face any discrepancy in connection or any other technical issues?</label>
+                </div>
+                <div class="col-75">
+                    <select id="session2" name="session1">
+                        <option value="none">Select Option</option>
+                        <option value="  Yes">Yes</option>
+                        <option value="No">No</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="country">Would you like us to cover any particular topic(s)?</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="topics" placeholder="Your topics.." id="like_topics">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="country">Would you recommend our mentoring session (s) to others?</label>
+                </div>
+                <div class="col-75">
+                    <select id="session3" name="session1">
+                        <option value="none">Select Option</option>
+                        <option value="  Yes">Yes</option>
+                        <option value="No">No</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="helped">How did session helped you and which advice you liked the most?</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="topics" placeholder="Your topics.." id="topics">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="improved">What maybe improved in session/by mentor?</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="improved" placeholder="Improvisations.." id="improved">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="Rate">Rate your mentor, his behavior, advise, methodology etc</label>
+                </div>
+                <br>
+                <div class="rating" class="row">
+                    <span><input type="radio" name="rating" id="str5" value="5" id="five"><label
+                            for="str5"></label></span>
+                    <span><input type="radio" name="rating" id="str4" value="4" id="four"><label
+                            for="str4"></label></span>
+                    <span><input type="radio" name="rating" id="str3" value="3" id="three"><label
+                            for="str3"></label></span>
+                    <span><input type="radio" name="rating" id="str2" value="2" id="two"><label
+                            for="str2"></label></span>
+                    <span><input type="radio" name="rating" id="str1" value="1" id="one"><label
+                            for="str1"></label></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <label for="liked">What you liked the most about mentor?</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="improved" placeholder="Likes.." id="likes">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-25">
+                    <!-- <label for="feed_back">Feed Back</label>     -->
+                    <!-- </div>     -->
+                    <!-- <div class="col-75">     -->
+                    <!-- <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>     -->
+                    <!-- </div>     -->
+                    <!-- </div>     -->
+                    <div class="row">
+                        <input type="submit" value="Submit" onclick="submit()">
+                    </div>
+                </div>
+            </div>
+            <button class="open-button" onclick="openForm()">Chat</button>
+
+            <div class="chat-popup" id="myForm">
+
+                <iframe id="mentor" allow="microphone;" width="350" height="430" src="https://console.dialogflow.com/api-client/demo/embedded/3802acc3-6c2e-4875-bea5-e7ee5964988e"></iframe>
+
+                <form action="" class="form-container">
+
+                    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                </form>
+            </div>
+            <script>
+                function openForm() {
+                    document.getElementById("myForm").style.display = "block";
+                }
+
+                function closeForm() {
+                    document.getElementById("myForm").style.display = "none";
+                }
+                var userRating
+
+                let currDate =
+                    new Date().toLocaleDateString('en-GB');
+
+                let inputDate = new Date();
+
+                document.querySelector('#currDate').textContent = currDate;
+
+                $(document).ready(function() {
+                    // Check Radio-box
+                    $(".rating input:radio").attr("checked", false);
+
+                    $('.rating input').click(function() {
+                        $(".rating span").removeClass('checked');
+                        $(this).parent().addClass('checked');
+                    });
+
+                    $('input:radio').change(
+                        function() {
+                            userRating = this.value;
+                            alert(userRating);
+                        });
+                });
+
+
+                const config = {
+                    apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+                    authDomain: "mentormitr-bbff5.firebaseapp.com",
+                    databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+                    projectId: "mentormitr-bbff5",
+                    storageBucket: "mentormitr-bbff5.appspot.com",
+                    messagingSenderId: "177887019473",
+                    appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+                    measurementId: "G-B7VNS84ZJ9"
+                };
+
+                firebase.initializeApp(config);
+        var editprof;
+        var zzz = 0;
+
+        function edit() {
+
+            zzz++;
+            editprof = document.getElementById("editprof");
+            if (zzz % 2 != 0) {
+
+                editprof.style.display = "block"
+
+            } else editprof.style.display = "none"
+        }
+
+
+        function logout() {
+
+            firebase.auth().signOut().then(() => {
+                location.href = '/';
+            });
+        }
+        
+        const btnLogout = document.getElementById('btnLogout');
+        btnLogout.addEventListener('click', e => {
+
+            e.preventDefault();
+            firebase.auth().signOut().then(() => {
+                location.href = '/logreg';
+            });
+
+        })
+
+
+
+                firebase.initializeApp(config);
+                var db = firebase.firestore();
+                var database = firebase.database();
+
+                var editprof;
+                var ct = 0;
+
+                function edit() {
+
+                    ct++;
+                    editprof = document.getElementById("editprof");
+                    if (ct % 2 != 0) {
+
+                        editprof.style.display = "block"
+
+                    } else editprof.style.display = "none"
+                }
+
+
+                function logout() {
+
+                    firebase.auth().signOut().then(() => {
+                        location.href = '/';
+                    });
+                }
+
+
+
+                function submit() {
+                    var time = document.getElementById("currDate").innerHTML;
+                    var session = document.getElementById("session")
+                    var session1 = document.getElementById("session1");
+                    var session2 = document.getElementById("session2");
+                    var session3 = document.getElementById("session3");
+                    var like_topics = document.getElementById("like_topics").value
+                    var topics = document.getElementById("topics").value
+                    var improved = document.getElementById("improved").value
+                    var five = document.getElementById("five")
+                    var four = document.getElementById("four")
+                    var three = document.getElementById("three")
+                    var two = document.getElementById("two")
+                    var one = document.getElementById("one")
+                    var likes = document.getElementById("likes").value
+
+                    console.log(like_topics);
+                    console.log(userRating);
+
+                    var x = time.replace("/", "-")
+                    var y = x.replace("/", "-");
+
+
+                    // console.log(session[1].value);
+
+                    var satisfaction;
+                    var effective;
+                    var discrepancy;
+                    var recommend;
+                    var rate_mentor;
+                    var most_liked_about_mentor;
+                    for (var i = 0; i < session.length; i++) {
+                        if (session[i].selected == true && i == 0) {
+                            alert("Please select from dropdown");
+                        } else if (session[i].selected == true && i != 0) {
+                            satisfaction = session[i].value;
+                            break;
+                        }
+                    }
+
+                    for (var i = 0; i < session1.length; i++) {
+                        if (session1[i].selected == true && i == 0) {
+                            alert("Please select from dropdown");
+                        } else if (session1[i].selected == true && i != 0) {
+                            effective = session1[i].value;
+                            break;
+                        }
+                    }
+
+                    for (var i = 0; i < session2.length; i++) {
+                        if (session2[i].selected == true && i == 0) {
+                            alert("Please select from dropdown");
+                        } else if (session2[i].selected == true && i != 0) {
+                            discrepancy = session2[i].value;
+                            break;
+                        }
+                    }
+
+                    for (var i = 0; i < session3.length; i++) {
+                        if (session3[i].selected == true && i == 0) {
+                            alert("Please select from dropdown");
+                        } else if (session3[i].selected == true && i != 0) {
+                            recommend = session3[i].value;
+                            break;
+                        }
+                    }
+
+                    firebase.auth().onAuthStateChanged(user => {
+                        if (user) {
+
+                            console.log(discrepancy);
+
+
+                            var usermail = user.email.replace(".", "_");
+                            var id = usermail;
+                            database.ref('/studentfeedback/' + user.uid + "/" + y).set({
+                                satisfaction: satisfaction,
+                                effective: effective,
+                                discrepancy: discrepancy,
+                                recommend: recommend,
+                                topics_to_cover: like_topics,
+                                advice_liked: topics,
+                                improvement_area: improved,
+                                most_liked_about_mentor: likes,
+                                mentor_rating: userRating
+
+                            }).then(() => {
+                                location.href = "/schedule";
+                            })
+
+
+
+                        } else {
+                            console.log("Err in studentfeedback page");
+
+                        }
+
+                    })
+
+
+                }
+            </script>
+
+
+</body>
+
+</html>

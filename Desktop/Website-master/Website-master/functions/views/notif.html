@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMitr</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-database.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <h1>Notification</h1>
+    <div id="content"></div>
+    <script>
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+
+
+        firebase.initializeApp(config);
+        var content=document.getElementById("content")
+        var date = new Date().toLocaleDateString('en-GB');
+        var x = date.replace("/", "-");
+        var y = x.replace("/", "-");
+       
+
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                var dbb = firebase.database();
+                
+                dbb.ref('/notification/' + user.uid + '/').on('value', function (snapshot) {
+                    var arr=Object.keys(snapshot.val());
+                    var notifi=snapshot.val()
+                    // console.log(arr);
+                    for(var i=0;i<arr.length;i++)
+                    {
+                        var key=arr[i];
+                        console.log(notifi[key].notif);
+                        content.innerHTML+=`<li><strong>${key}</strong>: ${notifi[key].notif}</li>`
+                    }
+                });
+            } else {
+                
+            }
+        });
+    </script>
+</body>
+
+</html>

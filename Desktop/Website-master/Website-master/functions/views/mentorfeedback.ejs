@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMitr</title>
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-database.js"></script>
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
+    <style>
+        .forleftm-style-1 {
+            margin: 0px auto;
+            max-width: 400px;
+            padding: 20px 12px 10px 20px;
+            font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        }
+
+        .form-style-1 li {
+            padding: 0;
+            display: block;
+            list-style: none;
+            margin: 10px 0 0 0;
+        }
+
+        .form-style-1 label {
+            margin: 0 0 3px 0;
+            padding: 0px;
+            display: block;
+            font-weight: bold;
+        }
+
+        .form-style-1 input[type=text],
+        .form-style-1 input[type=date],
+        .form-style-1 input[type=datetime],
+        .form-style-1 input[type=number],
+        .form-style-1 input[type=search],
+        .form-style-1 input[type=time],
+        .form-style-1 input[type=url],
+        .form-style-1 input[type=email],
+        textarea,
+        select {
+            box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            border: 1px solid #BEBEBE;
+            padding: 7px;
+            margin: 0px;
+            outline: none;
+        }
+
+        .form-style-1 input[type=text]:focus,
+        .form-style-1 input[type=date]:focus,
+        .form-style-1 input[type=datetime]:focus,
+        .form-style-1 input[type=number]:focus,
+        .form-style-1 input[type=search]:focus,
+        .form-style-1 input[type=time]:focus,
+        .form-style-1 input[type=url]:focus,
+        .form-style-1 input[type=email]:focus,
+        .form-style-1 textarea:focus,
+        .form-style-1 select:focus {
+            -moz-box-shadow: 0 0 8px #88D5E9;
+            -webkit-box-shadow: 0 0 8px #88D5E9;
+            box-shadow: 0 0 8px #88D5E9;
+            border: 1px solid #88D5E9;
+        }
+
+        .form-style-1 .field-divided {
+            width: 49%;
+        }
+
+        .form-style-1 .field-long {
+            width: 100%;
+        }
+
+        .form-style-1 .field-select {
+            width: 100%;
+        }
+
+        .form-style-1 .field-textarea {
+            height: 100px;
+        }
+
+        .form-style-1 input[type=submit],
+        .form-style-1 input[type=button] {
+            background: #4B99AD;
+            padding: 8px 15px 8px 15px;
+            border: none;
+            color: #fff;
+        }
+
+        .form-style-1 input[type=submit]:hover,
+        .form-style-1 input[type=button]:hover {
+            background: #4691A4;
+            box-shadow: none;
+            -moz-box-shadow: none;
+            -webkit-box-shadow: none;
+        }
+
+        .form-style-1 .required {
+            color: red;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <label for="field1">
+        <p>
+            Current Date is:
+            <span id="currDate"></span>
+        </p>
+        <span>Student
+            Name:</span>&nbsp;&nbsp;<input type="text" name="field1"
+            required="true" id="name" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Code:</span>&nbsp;&nbsp;<input
+            type="text" name="field1"
+            required="true" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Counsellor:</span>&nbsp;&nbsp;<input
+            type="text" name="field1" required="true" /><br>
+        <br><span>Counselling Session No:</span>&nbsp;&nbsp;<input type="text" name="field1" required="true"
+            id="session_no" />
+    </label>
+    <h1>Points Discussed:</h1>
+    <p id="userkey" style="display: none;"> <%= key %></p>
+    <p id="mentoremail" style="display: none;"><%= mentoremail %></p>
+    <div id="mentor">
+        <ul class="form-style-1">
+            <li><label>Goals and Clarity : Summary of discussions<span class="required">*</span></label>
+                <input type="text" id="goals" class="field-long" placeholder="Please Enter here" required="true" />
+
+            </li>
+            <li>
+                <label>Conclusion:<span class="required">*</span></label>
+                <input type="text" id="conclusion" class="field-long" placeholder="Please Enter here" required="true" />
+            </li>
+            <li>
+                <label>Tracks and Options </label>
+                <input type="text" id="tracks" class="field-long" placeholder="Please Enter here" required="true" />
+            </li>
+            <li>
+                <label>Time Management <span class="required">*</span></label>
+                <input type="text" id="time" class="field-long" placeholder="Please Enter here" required="true" />
+
+                <!-- <textarea name="field5" id="field5" class="field-long field-textarea"></textarea> -->
+
+            </li>
+            <li>
+                <label>Emotional Health : Peer Pressure , Exmination stress etc <span class="required">*</span></label>
+                <input type="text" id="emotional" class="field-long" placeholder="Please Enter here" required="true" />
+
+            </li>
+            <li>
+                <label>Performance Tracker Measurement :<span class="required">*</span></label>
+                <input type="text" id="performance" class="field-long" placeholder="Please Enter here"
+                    required="true" />
+
+            </li>
+            <li>
+                <label>Suggestions for next 4 weeks :<span class="required">*</span></label>
+                <label>Agreed Actions :</label>
+                <input type="text" id="week1" class="field-long" placeholder="Please Enter here" required="true" />
+                <input type="text" id="week2" class="field-long" placeholder="Please Enter here" required="true" />
+                <input type="text" id="week3" class="field-long" placeholder="Please Enter here" required="true" />
+                <input type="text" id="week4" class="field-long" placeholder="Please Enter here" required="true" />
+                <input type="text" id="week5" class="field-long" placeholder="Please Enter here" required="true" />
+
+            </li>
+            <li>
+                <label>Anything Specific or Peculiar<span class="required">*</span></label>
+                <input type="text" id="specific" class="field-long" placeholder="Please Enter here" required="true" />
+
+            </li>
+
+            <h1>All Conclusions sheets also to be sent by email</h1>
+
+            <li>
+                <input type="submit" value="Submit" onclick="pushdata()" />
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        let currDate =
+            new Date().toLocaleDateString('en-GB');
+
+        let inputDate = new Date();
+
+        document.querySelector('#currDate').textContent = currDate;
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+
+
+        firebase.initializeApp(config);
+       
+
+        function myFunction() {
+            document.getElementById('demo').value = Date();
+        }
+
+        function pushdata() {
+            var dbb = firebase.firestore();
+            var db = firebase.database()
+            var date = document.getElementById("currDate").innerHTML;
+            var goals = document.getElementById("goals").value
+            var conclusion = document.getElementById("conclusion").value
+            var tracks = document.getElementById("tracks").value
+            var time = document.getElementById("time").value
+            var performance = document.getElementById("performance").value
+            var emotional = document.getElementById("emotional").value
+            var week1 = document.getElementById("week1").value
+            var week2 = document.getElementById("week2").value
+            var week3 = document.getElementById("week3").value
+            var week4 = document.getElementById("week4").value
+            var week5 = document.getElementById("week5").value
+            var specific = document.getElementById("specific").value
+            var session_no = document.getElementById("session_no").value;
+
+            var userkey = document.getElementById("userkey").innerHTML
+            var mentoremail = document.getElementById("mentoremail").innerHTML
+
+            var name=document.getElementById("name").value;
+
+           
+
+            var x = date.replace("/", "-");
+            var y = x.replace("/", "-");
+
+            console.log(typeof(userkey));
+
+            console.log(mentoremail);
+            console.log(goals);
+
+            // var h=useremail.replace("@","_");
+            // var h=useremail.replace(".","_");             
+
+            var mail;
+          
+            // dbb.collection("users").doc(userkey).get().then((doc)=>{
+            //     console.log(doc.data());
+                
+            // })
+            
+                db.ref('/mentorfeedback/' + userkey + "/" + y).set({
+                    name:name,
+                    mentoremail: mentoremail,
+                    goals: goals,
+                    conclusion: conclusion,
+                    tracks: tracks,
+                    time: time,
+                    performance: performance,
+                    emotional: emotional,
+                    week1: week1,
+                    week2: week2,
+                    week3: week3,
+                    week4: week4,
+                    week5: week5,
+                    specific: specific,
+                    session_no: session_no
+
+                }).then(() => {
+                    location.href = "/mentor_dashboard/" + mentoremail;
+                })
+           
+                document.getElementById('mentor').style.display = "none";
+
+        }
+    </script>
+</body>
+
+</html>

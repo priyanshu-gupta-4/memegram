@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "177887019473",
+    "firebase_url": "https://mentormitr-bbff5.firebaseio.com",
+    "project_id": "mentormitr-bbff5",
+    "storage_bucket": "mentormitr-bbff5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177887019473:android:52c9af0c7e3f0f070860f0",
+        "android_client_info": {
+          "package_name": "com.mentormitr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "177887019473-i4fls7jo39kjhbgsqemp8r9nogpoopi9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mentormitr",
+            "certificate_hash": "101ed7b8fb04966f5180fd606916e8e954533127"
+          }
+        },
+        {
+          "client_id": "177887019473-rh9kna9467klcjcss5ao7nhniro7g4ft.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSRNgjJxTf0tTKkhFZLCY9OusV8iXkkn0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "177887019473-rh9kna9467klcjcss5ao7nhniro7g4ft.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

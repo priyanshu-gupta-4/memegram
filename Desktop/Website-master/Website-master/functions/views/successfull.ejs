@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMitr</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <h1>
+        <%= msg %>
+    </h1>
+
+    <p id="status">
+        <%= code %>
+    </p>
+
+    <!-- <button class="btn btn-primary" onclick="location.href='/timetable'">Timetable</button>
+    <button class="btn btn-primary" onclick="location.href='/priority'">Priority Matrix</button> -->
+
+    <script>
+        var status = document.getElementById("status").innerHTML;
+        if (status == 01) location.href = "/successfull";
+        else location.href = "/failure";
+    </script>
+</body>
+
+</html>

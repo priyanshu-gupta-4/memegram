@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MentorMitr</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap"
+        rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
+
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+    <style>
+        .li {
+            float: left;
+        }
+
+        .li a {
+            display: block;
+            text-decoration: none;
+            padding: 14px 16px;
+            text-align: center;
+        }
+
+        .li a:hover:not(.active) {
+            background-color: #FCA819;
+        }
+
+        a.active {
+            background-color: #EAB126;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Full-width input fields */
+
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Set a style for all buttons */
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        /* Extra styles for the cancel button */
+
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+
+        /* Center the image and position the close button */
+
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+
+        img.avatar {
+            width: 40%;
+            border-radius: 50%;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+        /* The Modal (background) */
+
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        /* Modal Content/Box */
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto;
+            /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 80%;
+            /* Could be more or less, depending on screen size */
+        }
+
+        /* The Close Button (x) */
+
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+
+        /* Add Zoom Animation */
+
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        @-webkit-keyframes animatezoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes animatezoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        /* Change styles for span and cancel button on extra small screens */
+
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+
+            .cancelbtn {
+                width: 100%;
+            }
+        }
+
+        .open-button {
+            background-color: #fca819;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+
+        /* The popup chat - hidden by default */
+
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+
+        /* Add styles to the form container */
+
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+
+        /* Full-width textarea */
+
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+
+        /* When the textarea gets focus, do something */
+
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Set a style for the submit/send button */
+
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        /* Add a red background color to the cancel button */
+
+        .form-container .cancel {
+            background-color: red;
+        }
+
+        /* Add some hover effects to buttons */
+
+        .form-container .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+
+        .img {
+            background: lightblue url("images/image1 1.png");
+            position: absolute;
+            width: 780px;
+            height: 450px;
+            left: 644px;
+            top: 342px;
+        }
+
+        .imgs {
+            /*position: absolute;
+            left: 10.5%;
+            right: 40.5%;
+            top: 25%;
+            bottom: 25%;*/
+        }
+
+        .time {
+            position: absolute;
+            width: 241px;
+            height: 185px;
+            left: 220px;
+            top: 1935px;
+            background: url(images/image4.png);
+        }
+
+        .emo {
+            position: absolute;
+            width: 190px;
+            height: 180px;
+            left: 851px;
+            top: 1980px;
+            background: url(images/3744483.png);
+        }
+
+        .per {
+            position: absolute;
+            width: 232px;
+            height: 211px;
+            left: 223px;
+            top: 2389px;
+            background: url(images/image3.png);
+        }
+
+        .pri {
+            position: absolute;
+            width: 232px;
+            height: 211px;
+            left: 223px;
+            top: 2789px;
+            background: url(images/image3.png);
+        }
+
+        .soft {
+            position: absolute;
+            width: 285px;
+            height: 148px;
+            left: 802px;
+            top: 2400px;
+            background: url(images/3553075.png);
+        }
+
+        .goals {
+            position: absolute;
+            width: 285px;
+            height: 148px;
+            left: 802px;
+            top: 2800px;
+            background: url(images/3553075.png);
+        }
+
+        .student {
+            position: absolute;
+            width: 512px;
+            height: 410px;
+            left: 220px;
+            top: 3000.82px;
+            background: url(images/5293-removebg-preview.png);
+        }
+
+        .college {
+            position: absolute;
+            width: 508px;
+            height: 324px;
+            left: 852px;
+            top: 3610px;
+            background: url(images/5853-removebg-preview.png);
+        }
+
+        .work {
+            position: absolute;
+            width: 431px;
+            height: 280px;
+            left: 260px;
+            top: 4280px;
+            background: url(images/3372240.png);
+        }
+
+        .nav-link {
+            padding-left: 8px;
+            padding-right: 8px;
+            margin-left: 8px;
+            margin-right: 8px;
+            border-radius: 2px;
+            color: black;
+        }
+    </style>
+    <style>
+        .open-button {
+            background-color: #fca819;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+
+        /* The popup chat - hidden by default */
+
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+
+        /* Add styles to the form container */
+
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+
+        /* Full-width textarea */
+
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+
+        /* When the textarea gets focus, do something */
+
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+
+        /* Set a style for the submit/send button */
+
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        /* Add a red background color to the cancel button */
+
+        .form-container .cancel {
+            background-color: red;
+        }
+
+        /* Add some hover effects to buttons */
+
+        .form-container .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+
+        .card .carousel-item {
+            height: 330px;
+        }
+
+        .card .carousel-caption {
+            padding: 0;
+            right: 0;
+            left: 0;
+            color: #3d3d3d;
+        }
+
+        .card .carousel-caption h3 {
+            color: #3d3d3d;
+        }
+
+        .card .carousel-caption p {
+            line-height: 30px;
+        }
+
+        .card .carousel-caption .col-sm-3 {
+            display: flex;
+            align-items: center;
+        }
+
+        .card .carousel-caption .col-sm-9 {
+            text-align: left;
+        }
+
+        .navi a {
+            text-decoration: none;
+        }
+
+        a>.ico {
+            background-color: grey;
+            padding: 10px;
+        }
+
+        a:hover>.ico {
+            background-color: #666;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Full-width input fields */
+
+        input[type=text],
+        input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Set a style for all buttons */
+
+        /* Extra styles for the cancel button */
+
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+
+        /* Center the image and position the close button */
+
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+
+        img.avatar {
+            width: 40%;
+            border-radius: 50%;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+        /* The Modal (background) */
+
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        /* Modal Content/Box */
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto;
+            /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 80%;
+            /* Could be more or less, depending on screen size */
+        }
+
+        /* The Close Button (x) */
+
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+
+        /* Add Zoom Animation */
+
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        @-webkit-keyframes animatezoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+
+        @keyframes animatezoom {
+            from {
+                transform: scale(0)
+            }
+
+            to {
+                transform: scale(1)
+            }
+        }
+
+        /* Change styles for span and cancel button on extra small screens */
+
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+
+            .cancelbtn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    
+    <%- include ("partials/nav.html") %>
+    <%- include ("partials/loginButton.html") %>
+    <%-include("partials/chatpop.html") %>
+    <p style="position:absolute;
+width: 50%;
+left: 10%;
+top: 45%;
+
+font-family: Open Sans;
+font-style: normal;
+font-weight: bold;
+font-size: 400%;
+line-height: 110%;
+
+display: flex;
+align-items: center;
+
+
+color: #212353;">Find a Mentor cum
+        Buddy</p>
+    <p style="
+position: absolute;
+width: 392px;
+height: 120px;
+left: 190px;
+top: 400px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 160%;
+
+
+color: #4B5D68;">MentorMitr helps you in journey of life to reach your optimum potential and achieve your goals while
+        enhancing your EQ and performance</p>
+    <img class="img"></img>
+    <div style="position: absolute;
+width: 1247px;
+height: 630px;
+left: 171px;
+top: 900px;
+
+background: rgba(240, 99, 184, 0.15);
+border-radius: 50px;">
+        <p style="position: absolute;
+width: 530.28px;
+height: 112.5px;
+left: 500px;
+
+
+font-family: Open Sans;
+font-style: normal;
+font-weight: bold;
+font-size: 40px;
+line-height: 130%;
+
+display: flex;
+align-items: center;
+
+color: #212353;">Our Methodology</p>
+
+        <div
+            style="display:flex;flex-direction: row-reverse;justify-content:space-around;position: relative;top:200px;align-items: center;">
+            <p style="width:45%;
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 20px;
+line-height: 130%;
+color: #000000;">Mentor Mitr helps students develop life skills to manage complex situations while enhancing their
+                potential and performance to optimal. We prepare them for success through techniques to bolster their
+                Emotional Quotient, and consequently
+                help them set the right goals by facilitating the creation of options to support them in managing their
+                priorities, and time in an efficient manner</p>
+
+            <div class="imgs">
+                <iframe src="https://mentormitr.com/wp-content/uploads/2020/05/MentorMitr_2_HD_1.mp4" width="500"
+                    height="281.25">
+
+                </iframe>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <p style="position: absolute;
+width: 405px;
+height: 52px;
+left: 650.29px;
+top: 1550px;
+font-family: Open Sans;
+font-style: normal;
+font-weight: bold;
+font-size: 40px;
+line-height: 130%;
+/* identical to box height, or 52px */
+
+display: flex;
+align-items: center;
+text-align: center;
+color: #212353;">Features</p>
+
+
+    <p style="position: absolute;
+width: 584px;
+height: 76px;
+left: 500px;
+top: 1650px;
+
+font-family:Roboto;
+font-style: normal;
+font-weight: 500;
+font-size: 24px;
+line-height: 160%;
+
+
+text-align: center;
+
+
+
+color: #4b5d68;">Some of the features and advantages that we provide for those who comes to MentorMitr.</p>
+    <div class="time"></div>
+    <div style="position: absolute;
+width: 442px;
+height: 358px;
+left: 328.28px;
+top: 1873px;
+
+
+
+background: #68C9BA;
+opacity: 0.1;
+border-radius: 50px;">
+    </div>
+    <p style="position: absolute;
+width: 228px;
+height: 50px;
+left: 500px;
+top:1922px;
+
+font-family: Open Sans;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 130%;
+/* or 31px */
+
+display: flex;
+align-items: center;
+
+color: #212353;">Time Management</p>
+    <button class="open-button" onclick="openForm()">Chat With Us</button>
+
+    <div class="chat-popup" id="myForm">
+
+        <iframe id="mentor" allow="microphone;" width="350" height="330"
+            src="https://console.dialogflow.com/api-client/demo/embedded/3802acc3-6c2e-4875-bea5-e7ee5964988e"></iframe>
+
+        <form action="" class="form-container">
+
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+    <p style="position: absolute;
+ 
+width: 228px;
+height: 50px;
+left: 500px;
+top:2030px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 130%;
+/* or 31px */
+
+display: flex;
+align-items: center;
+
+color: #212353;">Far far away, behind the word mountains, far from the countries Vokalia
+    <p>
+    <div class="emo"></div>
+    <div style="position: absolute;
+width: 442px;
+height: 358px;
+left: 915.28px;
+top: 1873px;
+
+
+
+background: #9C69E2;
+opacity: 0.1;
+border-radius: 20px;">
+    </div>
+    <p style="position: absolute;
+width: 306px;
+height: 50px;
+left: 1027px;
+top: 1922px;
+
+font-family: Open Sans;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 130%;
+/* or 31px */
+
+display: flex;
+align-items: center;
+
+color: #212353;">Emotional Quotient (EQ)</p>
+    <p style="position: absolute;
+width: 306px;
+height: 50px;
+left: 1057px;
+top: 2032px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 130%;
+/* or 31px */
+
+display: flex;
+align-items: center;
+
+color: #212353;">Its a measure of your esteem or real potential or how resilient you are mentally to cope with your
+        environment
+    <p>
+    <div class="per"></div>
+    <div style="position: absolute;
+width: 442px;
+height: 358px;
+left: 328.28px;
+top: 2281px;
+
+/* 4 */
+
+background: #F063B8;
+opacity: 0.1;
+border-radius: 50px;">
+    </div>
+    <p style="position: absolute;
+width: 200px;
+height: 50px;
+left: 494px;
+top: 2330px;
+
+font-family: Open Sans;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 130%;
+/* or 31px */
+
+display: flex;
+align-items: center;
+
+color: #212353;">Performance Enhancement</p>
+    <p style="position: absolute;
+width: 228px;
+height: 50px;
+left: 500px;
+top:2475px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 130%;
+/* or 31px */
+
+display: flex;
+align-items: center;
+
+color: #212353;">What gets measured gets done. One key to improving performance is to measure it with discipline and
+        consistency
+    <p>
+    <div class="soft"></div>
+    <div style="position: absolute;
+width: 442px;
+height: 358px;
+left: 915.28px;
+top: 2281px;
+
+background: #29729C;
+opacity: 0.1;
+border-radius: 20px;">
+    </div>
+    <p style="
+position: absolute;
+width: 200px;
+height: 50px;
+left: 1087.28px;
+top: 2330px;
+
+font-family: Open Sans;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 130%;
+/* or 31px */
+
+display: flex;
+align-items: center;
+
+color: #212353;
+">Soft Skills & Grooming</p>
+    <p style="position: absolute;
+width: 306px;
+height: 50px;
+left: 1080px;
+top: 2470px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 130%;
+/* or 31px */
+
+display: flex;
+align-items: center;
+
+color: #212353;">Skills like listening, whilst skillfully agreeing and disagreeing with people; along with harmony
+        management of relationships.
+    <p>
+    <div style="position: absolute;
+width: 442px;
+height: 358px;
+left: 328.28px;
+top: 2681px;
+
+
+
+background: #F063B8;
+opacity: 0.1;
+border-radius: 50px;">
+    </div>
+    <p style="position: absolute;
+width: 200px;
+height: 50px;
+left: 494px;
+top: 2730px;
+
+font-family: Open Sans;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 130%;
+/* or 31px */
+
+display: flex;
+align-items: center;
+
+color: #212353;">Priority Management</p>
+    <p style="position: absolute;
+width: 228px;
+height: 50px;
+left: 500px;
+top:2845px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 130%;
+/* or 31px */
+
+display: flex;
+align-items: center;
+
+color: #212353;">Far far away, behind the word mountains, far from the countries Vokalia
+    <p>
+    <div class="pri"></div>
+    <div style="position: absolute;
+width: 442px;
+height: 358px;
+left: 915.28px;
+top: 2681px;
+
+background: #29729C;
+opacity: 0.1;
+border-radius: 20px;">
+    </div>
+    <p style="
+position: absolute;
+width: 200px;
+height: 50px;
+left: 1087.28px;
+top: 2730px;
+
+font-family: Open Sans;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 130%;
+/* or 31px */
+
+display: flex;
+align-items: center;
+
+color: #212353;
+">Goals</p>
+    <p style="position: absolute;
+width: 306px;
+height: 50px;
+left: 1080px;
+top: 2870px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 24px;
+line-height: 130%;
+/* or 31px */
+
+display: flex;
+align-items: center;
+
+color: #212353;">The very essence that separates a wish, a dream and a goal;that a goal is a definitive and is to be
+        fulfilled within a stipulated period of time.
+    <p>
+    <div class="goals"></div>
+
+
+    <div style="position: absolute;
+width: 1117px;
+height: 560px;
+left: 216px;
+top: 3650px;
+
+background: rgba(32, 159, 232, 0.13);
+border-radius: 50px;">
+    </div>
+    <div class="student"></div>
+    <p style="position: absolute;
+left: 50.62%;
+right: 26.75%;
+top: 3100.82px;
+bottom: 49.37%;
+
+font-family: Lato;
+font-style: normal;
+font-weight: bold;
+font-size: 48px;
+line-height: 180%;
+/* or 86px */
+
+display: flex;
+align-items: center;
+letter-spacing: 0.01em;
+
+color: #000000;">School Students</p>
+    <p style="position: absolute;
+width: 517px;
+left: 50.62%;
+right: 26.75%;
+top: 3150.82px;
+bottom: 49.37%;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 20px;
+
+
+
+
+
+">Are you looking for an outlet to express your concerns about academics? Ever feel like the hard work that you put in
+        is not really paying off? In today’s world, a student’s work is rarely lauded, unless something ‘colossal’ is
+        achieved Mentor Mitr’s intervention can help you conquer your true potential in an incremental fashion by
+        holding your hand, and guide you step-by-step! Our platform will help you develop and abridge a complete
+        diagnostic stimulation of where you are, and take you where you intend to be. Unleash your limitless potential,
+        and join us for Mentor Mitr’s Meaningful Student Leaders’ Enablement Program!</p>
+    <button type="button" class="btn btn-primary" style="position: relative;
+left: 56.02%;
+right: 35.79%;
+top: 3400.82px;
+bottom: 43.32%;
+font-family: Lato;
+font-style: normal;
+font-weight: 900;
+font-size: 24px;
+line-height: 180%;
+/* or 43px */
+
+display: flex;
+align-items: center;
+letter-spacing: 0.01em;
+border-radius:20px">Learn More</button>
+    <div style="position: absolute;
+width: 1117px;
+height: 560px;
+left: 223px;
+top: 3050.82px;
+
+background: rgba(240, 99, 184, 0.15);
+border-radius: 50px;">
+    </div>
+    <div class="college"></div>
+    <p style="position: absolute;
+
+left: 18%;
+right: 58.19%;
+top: 3700.82px;
+bottom: 38.45%;
+
+font-family: Lato;
+font-style: normal;
+font-weight: bold;
+font-size: 48px;
+line-height: 180%;
+/* or 86px */
+
+display: flex;
+align-items: center;
+letter-spacing: 0.01em;
+
+color: #000000;">College Students</p>
+    <p style="position: absolute;
+width: 517px;
+left: 18%;
+right: 58.19%;
+top: 3750.82px;
+bottom: 38.45%;
+
+font-family:Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 20px;
+">Are you looking for an outlet to express your concerns about academics? Ever feel like the hard work that you put in
+        is not really paying off? How about a balanced life, wherein, you can pursue the activities of your interest,
+        while
+        you also commit to your passion and channel the drive to achieve it in an efficacious manner? In today’s world,
+        a student’s work is rarely lauded, unless something ‘colossal’ is achieved.Unleash your limitless potential, and
+        join us for Mentor Mitr’s Meaningful Student Leaders’ Enablement Program !</p>
+    <button type="button" class="btn btn-primary" style="position: relative;
+
+left: 21.77%;
+right: 70.04%;
+top: 3900px;
+bottom: 32.22%;
+
+font-family: Lato;
+font-style: normal;
+font-weight: 900;
+font-size: 24px;
+line-height: 180%;
+/* or 43px */
+
+display: flex;
+align-items: center;
+letter-spacing: 0.01em;
+
+border-radius:20px">Learn More</button>
+    <div style="
+position: absolute;
+width: 1117px;
+height: 560px;
+left: 236px;
+top: 4237px;
+
+background: rgba(70, 249, 131, 0.13);
+border-radius: 50px;">
+    </div>
+    <div class="work"></div>
+    <p style="position: absolute;
+left: 50.31%;
+right: 18.62%;
+top: 4290.82px;
+bottom: 28.19%;
+
+font-family: Lato;
+font-style: normal;
+font-weight: bold;
+font-size: 48px;
+line-height: 100%;
+/* or 86px */
+
+display: flex;
+align-items: center;
+letter-spacing: 0.01em;
+
+color: #000000;">Working Professionals</p>
+
+    <p style="position: absolute;
+width: 517px;
+left: 50.31%;
+right: 18.62%;
+top: 4330.82px;
+bottom: 28.19%;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 20px;
+
+">Are you looking for an outlet to express your concerns about academics? Ever feel like the hard work that you put in
+        is not really paying off? How about a balanced life, wherein, you can pursue the activities of your interest,
+        while
+        you also commit to your passion and channel the drive to achieve it in an efficacious manner? In today’s world,
+        a student’s work is rarely lauded, unless something ‘colossal’ is achieved.Unleash your limitless potential, and
+        join us for Mentor Mitr’s Meaningful Student Leaders’ Enablement Program !</p>
+    <button type="button" class="btn btn-primary" style="position: relative;
+left: 56.02%;
+right: 35.79%;
+top: 4400.82px;
+bottom: 43.32%;
+font-family: Lato;
+font-style: normal;
+font-weight: 900;
+font-size: 24px;
+line-height: 180%;
+/* or 43px */
+
+display: flex;
+align-items: center;
+letter-spacing: 0.01em;
+border-radius:20px">Learn More</button>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <section id="section1" style="margin-top:-100px;">
+        <div class="container ">
+            <div class="row justify-content-center mb-5 pb-2 d-flex ">
+
+                <div class="card col-md-12 mt-12 mb-12 my-0 mx-auto" style="background: rgba(177, 253, 81, 0.24);">
+                    <div id="carouselExampleControlss" class="carousel slide" data-ride="carousel"
+                        data-interval="100000">
+                        <div class="w-100 carousel-inner" role="listbox">
+                            <div class="carousel-item active">
+                                <div class="carousel-caption">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img src="images/m5.png" alt=" " class="rounded-circle img-fluid " />
+                                        </div>
+                                        <div class="col ">
+                                            <h3 style="font-family: Open Sans; ">Vridhi Sharma</h3>
+                                            <small style="font-size: 18px;font-family: Roboto; ">I am Vridhi Sharma, and
+                                                I am currently pursuing my bachelor’s degree at the Lady Shri Ram
+                                                College for Women. Earlier, I was struggling to optimize my time and
+                                                priorities concerning
+                                                academics. Mr Anil Sharma encouraged me to identify my goals and helped
+                                                me enhance my
+                                                academic potential by building a robust strategy to approach those
+                                                goals. Moreover, with his
+                                                continuous guidance and support, I have effectively channelled my skills
+                                                to grasp several
+                                                opportunities in college as well.</small>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="carousel-caption">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img src="images/m6.png" alt=" " class="rounded-circle img-fluid"
+                                                style="height:300px;">
+                                        </div>
+                                        <div class="col">
+                                            <h3 style="font-family: Open Sans; ">Sanya Lakhotia</h3>
+                                            <small style="font-size:18px;font-family: Roboto; ">I was under immense
+                                                stress, and pressure a month before boards. I'd missed many classes due
+                                                to
+                                                health issues. This made it hard to cope with academics. In such a time,
+                                                Mentor Mitr helped me
+                                                organise my thoughts and encouraged me to achieve so much more using
+                                                just a few simple steps.
+                                                Their assistance in creating a timetable for my subjects did wonders.
+                                                Moreover, a few simple
+                                                changes in my attitude and lifestyle resulted in the generation of great
+                                                academic scores.</small>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--3rd mentor-->
+                            <div class="carousel-item">
+                                <div class="carousel-caption">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img src="images/m7.png" alt=" " class="rounded-circle img-fluid">
+                                        </div>
+                                        <div class="col">
+                                            <h3 style="font-family: Open Sans; ">Ankur Pahwa</h3>
+                                            <small style="font-size:18px;font-family: Roboto; ">I am a final year
+                                                college student, a good direction was what I needed. Mr Anil's
+                                                experience and
+                                                passion, helped me step out of my comfort zone. He made me identify my
+                                                goals, provided
+                                                corrective feedback and inspired me to tap my potential. Now I hold a
+                                                college placement at one
+                                                of the BIG4 auditing firms in the world, and I look forward to receiving
+                                                continuous support and
+                                                guidance from him, as it has always helped me choose the right
+                                                path.</small>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--4th mentor-->
+                            <div class="carousel-item">
+                                <div class="carousel-caption">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img src="images/m8.png" alt=" " class="rounded-circle img-fluid"
+                                                style="height:300px;">
+                                        </div>
+                                        <div class="col">
+                                            <h3 style="font-family: Open Sans; ">Nandini Sharma</h3>
+                                            <small style="font-size:18px;font-family: Roboto; ">Mentor Mitr has helped
+                                                me realise my academic strengths. With their guidance, I will be
+                                                receiving 3 academic awards for the first time. They have inspired me to
+                                                realise my passion for
+                                                English and have helped me understand my academic potential. Other than
+                                                that, they have
+                                                encouraged me to practise positive affirmations, and positive self talk.
+                                                I learned about proper
+                                                time management through them. Moreover, currently, they are helping me
+                                                plot tracks for my
+                                                future.</small>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--5th mentor-->
+                            <div class="carousel-item">
+                                <div class="carousel-caption">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img src="images/m9.png" alt=" " class="rounded-circle img-fluid">
+                                        </div>
+                                        <div class="col">
+                                            <h3 style="font-family: Open Sans; ">Sanchit Mittal</h3>
+                                            <small style="font-size:18px;font-family: Roboto; ">I am Sanchit Mittal, a
+                                                junior undergraduate at IIIT Delhi, currently pursuing Computer Science
+                                                and Design. Mentor Mitr has helped me to remain persistent on course to
+                                                achieve my goals with
+                                                daily interventions and actions. Moreover, their methodology has kept me
+                                                emotionally strong
+                                                and driven in times of uncertainty, for which I remain grateful to
+                                                them.</small>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div class="carousel-caption">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img src="images/m10.png" alt=" " class="rounded-circle img-fluid"
+                                                style="height:300px;">
+                                        </div>
+                                        <div class="col">
+                                            <h3 style="font-family: Open Sans; ">Jagjeet Singh</h3>
+                                            <small style="font-size:18px;font-family: Roboto; ">I am Jagjeet Singh, the
+                                                former Vice President of a Power Company. With a background in
+                                                electrical
+                                                engineering, I have 40 years of experience in the field of design and
+                                                execution of thermal and
+                                                hydropower plants.
+                                                Earlier, due to lack of motivation, I had sabotaged my decisions in
+                                                several aspects of life. However, Mr
+                                                Anil Sharma encouraged me to revamp my attitude and behaviour towards my
+                                                work and lifestyle.
+                                                Moreover, under his guidance, I have effectively enhanced my performance
+                                                by reorienting my
+                                                work-ethic. I am grateful to him for his counsel.</small>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-item">
+                                <div class="carousel-caption">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img src="images/m11.png" alt=" " class="rounded-circle img-fluid">
+                                        </div>
+                                        <div class="col">
+                                            <h3 style="font-family: Open Sans; ">Manish Sharma</h3>
+                                            <small style="font-size:18px;font-family: Roboto; ">I am Manish Sharma, an
+                                                Engineer with 7 years of experience. Earlier, I had lacked clarity to
+                                                identify my goals and career tracks. With the help of Mr Anil Sharma, I
+                                                received continuous
+                                                support, as well as his unbiased advice to gain redefine my goals. He
+                                                has encouraged me to
+                                                remain inquisitive and has also, reinforced the values of positive
+                                                affirmation. I consider myself
+                                                blessed to have received the opportunity to associate with him.</small>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="float-right navi ">
+                            <a class=" " href="#carouselExampleControlss" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon ico " aria-hidden="true "></span>
+                                <span class="sr-only ">Previous</span>
+                            </a>
+                            <a class=" " href="#carouselExampleControlss" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon ico" aria-hidden="true"></span>
+                                <span class="sr-only ">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+    </section>
+
+
+    <%- include("partials/footer.html") %>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-migrate-3.0.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.stellar.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/jquery.animateNumber.min.js"></script>
+    <script src="js/scrollax.min.js"></script>
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="js/google-map.js"></script> -->
+    <script src="js/main.js"></script>
+
+    <script>
+        var z = 0;
+
+        function show() {
+            z = z + 1;
+            console.log(z);
+
+            if (z % 2 != 0) {
+                document.getElementById('aniframeupstart').style.display = 'block'
+            }
+            else if (z % 2 == 0) {
+                document.getElementById('aniframeupstart').style.display = 'none';
+            }
+
+        } 
+
+        function show() {
+            z = z + 1;
+            console.log(z);
+
+            if (z % 2 != 0) {
+                document.getElementById('aniframeupstart').style.display = 'block'
+            }
+            else if (z % 2 == 0) {
+                document.getElementById('aniframeupstart').style.display = 'none';
+            }
+
+        } 
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>MentorMitr</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="scss/login.scss">
+
+
+</head>
+
+<body>
+
+
+    <div class="form">
+
+        <ul class="tab-group">
+            <li class="tab active" style="margin-left:180px;"><a href="#signup">Mentor Log In</a></li>
+         
+        </ul>
+
+        <div class="tab-content">
+            <div id="signup">
+                <h1>Welcome back Mentor!!</h1>
+
+                <div class="field-wrap">
+                    <label>
+                        Email Address<span class="req">*</span>
+                    </label>
+                    <input id="txtEmail" type="email" required autocomplete="off" />
+                </div>
+
+                <div class="field-wrap">
+                    <label>
+                       Password<span class="req">*</span>
+                    </label>
+                    <input id="txtPassword" type="password" required autocomplete="off" />
+                </div>
+
+
+                <button id="login" class="button button-block" />Login</button><br>
+                
+
+
+            </div>
+            <!--Just for css purpose this part has been left unchanged-->
+
+            <div id="klkllogin">
+                <h1>Welcome Back! Mentor</h1>
+
+
+                <div class="field-wrap">
+                    <label>
+                        Email<span class="req">*</span>
+                    </label>
+                    <input id="logtxtEmail" type="email" required autocomplete="off" />
+                </div>
+
+                <div class="field-wrap">
+                    <label>
+                        Password<span class="req">*</span>
+                    </label>
+                    <input id="logtxtPassword" type="password" required autocomplete="off" />
+                </div>
+
+                <p class="forgot"><a href="#">Forgot Password?</a></p>
+
+                <button id="btnLogin" class="button button-block" />Log In</button>
+
+            </div>
+
+            
+
+
+        </div>
+
+
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!--Script for firebase auth-->
+
+    <script>
+        (function () {
+
+            //Intialize firebase
+            const config = {
+                apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+                authDomain: "mentormitr-bbff5.firebaseapp.com",
+                databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+                projectId: "mentormitr-bbff5",
+                storageBucket: "mentormitr-bbff5.appspot.com",
+                messagingSenderId: "177887019473",
+                appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+                measurementId: "G-B7VNS84ZJ9"
+            };
+            firebase.initializeApp(config);
+
+            // googleSignIn = () => {
+            //     base_provider = new firebase.auth.GoogleAuthProvider();
+            //     firebase.auth().signInWithPopup(base_provider).then((result) => {
+
+            //         console.log(result);
+
+            //         console.log("Success Google Account Linked")
+            //     }).catch((e) => {
+            //         console.log(e);
+            //         console.log("Failed to do so");
+            //     });
+            // }
+            //login ka email aur pass
+            const txtEmail = document.getElementById('txtEmail');
+            const txtPassword = document.getElementById('txtPassword');
+            //
+            const login = document.getElementById('login');
+       
+
+              
+            var db = firebase.firestore();
+          
+            var mentors=[];
+            db.collection("mentors").get().then((snapshot) => {
+                snapshot.forEach((doc) => {
+                  mentors.push(doc.data()) ;
+                })
+            })
+
+            //Add Login event
+            login.addEventListener('click', e => {
+
+                e.preventDefault
+                const email = txtEmail.value;
+                const pass = txtPassword.value;
+                var i;
+                for( i=0;i<mentors.length;i++){
+                    console.log(mentors[i].email,mentors[i].password);
+                    if(email==mentors[i].email && pass==mentors[i].password)
+                    {
+                        location.href="/mentor_dashboard/"+ mentors[i].email;
+                        break;
+                    }
+                    
+                }
+                if(i==mentors.length)
+                alert("Wrong Email-id/Password");
+              
+
+                // alert(email + ' ' + pass);
+            });
+
+
+           
+            
+
+         
+
+
+        }())
+    </script>
+
+    <script src="js/login.js"></script>
+
+
+</body>
+
+</html>

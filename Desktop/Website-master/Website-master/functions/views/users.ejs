@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMitr</title>
+    <style>
+        table,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-database.js"></script>
+    <script src="/__/firebase/7.15.5/firebase-storage.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1 id="name" style="text-align: center; display: none;"></h1>
+    <span id="userkey" style="display: none;"><%= key %></span>
+    <button id="btnLogout" class="btn btn-primary" onclick="logout()">Log Out</button>
+    <h3>Report</h3>
+    <p id="report"></p>
+    <br><br><br><br>
+    <h3>Time spent in an Activity</h3>
+    <table id="time">
+        <tr>
+            <th>Activity</th>
+            <th>Number of Hours</th>
+        </tr>
+
+    </table>
+    <br><br><br><br>
+    <h3>Priority</h3>
+    <table>
+
+        <table style="border: 5em;border-color: red;">
+            <tr>
+                <td>
+                    Priority
+                </td>
+
+                <td>
+                    Urgent
+                </td>
+                <td>
+                    Not Urgent
+                </td>
+            </tr>
+
+
+            <tr>
+                <td>Important</td>
+                <td>
+                    <table id="imp" style="border: 5em;border-color: red;">
+
+                    </table>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>Unimportant</td>
+                <td>
+                    <table id="unimp" style="border: 5em;border-color: red;">
+
+                    </table>
+                </td>
+
+            </tr>
+
+        </table>
+
+    </table>
+
+    <br><br><br><br>
+    <h3>Options Chosen</h3>
+    <p id="option">
+        <h3>Common Base</h3>
+        <p id="common"></p>
+
+        <table border=2 id="mytable" bordercolor=black style="display: none;">
+            <tbody>
+                <tr>
+                    <th>Serial No</th>
+                    <th>Possible Colleges/Universities</th>
+                    <th>Possible Courses & Syllabus</th>
+                    <th>Selection Criteria </th>
+                    <th>What we need to do to achieve them</th>
+                    <th>Things to improve personally</th>
+                </tr>
+            </tbody>
+        </table>
+    </p>
+    <h3>Hours of Sessions held</h3>
+    <p id="session"></p>
+    <br><br><br><br>
+    <input type="text" id="userhours" placeholder="Time in Minutes">
+    <button id="btntime" class="btn btn-primary">Submit</button>
+
+
+    <button class="btn btn-primary" onclick="location.href='/mentorfeedback'">Webinar Feedback(Mentor)</button>
+
+    <progress value="0" max="100" id="uploader">0%</progress>
+    <input type="file" value="upload" id="fileButton">
+    <script>
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+
+
+        firebase.initializeApp(config);
+        var nm = document.getElementById("name");
+        var btntime = document.getElementById("btntime");
+
+       
+
+        btntime.addEventListener("click", () => {
+
+            var date = new Date()
+        var month = date.getMonth();
+        var yr = date.getFullYear();
+        var y = month + "-" + yr;
+
+            var mn = document.getElementById("userhours").value
+            var key = document.getElementById("userkey").innerHTML
+
+            var dbb = firebase.database();
+           
+            
+
+            dbb.ref('/hrs_of_session/' + key + "/" + y).once('value').then(function(snapshot){
+                if(snapshot.val())
+                {
+                    var prevh=snapshot.val().userhours;
+                    dbb.ref('/hrs_of_session/' + key + "/" + y).update({
+                        userhours:prevh+(parseInt(mn))
+                   }).then(()=>{
+                    document.getElementById("userhours").value="";
+                         alert("Data updated in database")
+                   })
+                }
+                else{
+
+                    dbb.ref('/hrs_of_session/'+key+"/"+y).set({
+                        name:nm.innerHTML,
+                        userhours:(parseInt(mn))
+                    }).then(()=>{
+                        document.getElementById("userhours").value="";
+                         alert("Data inserted in database")
+                    })
+                    
+                }
+            })
+
+
+        })
+
+
+
+
+        var db = firebase.firestore();
+
+
+
+        var report = document.getElementById("report")
+        var time = document.getElementById("time")
+        var imp = document.getElementById("imp")
+        var unimp = document.getElementById("unimp")
+        var option = document.getElementById("option")
+        var common = document.getElementById("common")
+        var x = document.getElementById("userkey");
+        var mytable = document.getElementById("mytable")
+        var userid = x.innerHTML;
+        var session = document.getElementById("session");
+        var act = [];
+        var activity = [];
+        var p;
+
+        var dbb = firebase.database();
+        dbb.ref('/hrs_of_session/' + userid + "/").on("value", (snapshot) => {
+            
+           var arr = Object.keys(snapshot.val());
+            var userdata = snapshot.val()
+            for (var i = 0; i < arr.length; i++) {
+                var z = "";
+                var p = arr[i];
+                var f = p.split("-")
+                var key = f[0];
+                if (key == 0) z = "Jan";
+                if (key == 1) z = "Feb";
+                if (key == 2) z = "March";
+                if (key == 3) z = "April";
+                if (key == 4) z = "May";
+                if (key == 5) z = "June";
+                if (key == 6) z = "July";
+                if (key == 7) z = "August";
+                if (key == 8) z = "September";
+                if (key == 9) z = "October";
+                if (key == 10) z = "November";
+                if (key == 11) z = "December";
+                session.innerHTML = `<p>${z}: ${userdata[p].userhours}</p>`
+            }
+
+
+        })
+
+        function logout() {
+
+            firebase.auth().signOut().then(() => {
+                location.href = '/';
+            });
+
+
+        }
+
+        db.collection("users").doc(userid).get().then((doc) => {
+            p = (doc.data());
+            nm.style.display = "block ";
+            nm.innerHTML = "Name: " + p.name + " Email: " + p.email;
+            var username = p.email;
+            console.log(username);
+
+            var uploader = document.getElementById('uploader');
+            var fileButton = document.getElementById('fileButton');
+            fileButton.addEventListener('change', (e) => {
+
+                //get file
+                var file = e.target.files[0];
+                var storageRef = firebase.storage().ref(`${username}/` + file.name)
+
+                var task = storageRef.put(file)
+                task.on('state_changed',
+                    function progress(snapshot) {
+
+                        var perc = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        uploader.value = perc;
+                    },
+
+                    function error(err) {
+
+                    },
+                    function complete() {
+
+                    }
+
+                )
+            })
+
+        })
+
+
+        console.log("useremail", userid);
+        console.log("type", typeof (userid));
+
+
+        //School walo ke report aur jinhone track and option me sports bhara hai unke 
+
+        db.collection("questions_reply").doc(userid).get().then((doc) => {
+            var t = doc.data();
+            console.log(t);
+            var res_general = t.Response_general;
+            var res_specific = t.Response_specific;
+            var avg = 0;
+            for (var i = 0; i < res_general.length; i++) {
+                if (i == 5 || i == 23 || i == 22 || i == 13 || i == 6) {
+                    report.innerHTML +=
+                        `<p><strong>Question:</strong> ${res_general[i].question}</><p><strong>Answer:</strong> ${res_general[i].answer}</p>`
+                } else if (i == 19) {
+                    var x = res_general[i].answer;
+                    for (var j = 0; j < x.length; j++) {
+                        avg += parseInt(x[j].Hours);
+                    }
+                    avg = avg / x.length;
+                    report.innerHTML +=
+                        `<p><strong>Avg Marks scored</strong> =${avg}</p>`
+                }
+            }
+
+            console.log(res_specfic.length);
+
+            for (var i = 0; i < res_specific.length; i++) {
+                if (i == 5 || i == 23 || i == 22 || i == 13 || i == 6) {
+                    report.innerHTML +=
+                        `<p><strong>Question:</strong> ${res_specific[i].question}</p><p><strong>Answer:</strong> <${res_specific[i].answer}</p>`
+                }
+            }
+
+        })
+
+        //College walo ke report
+        db.collection("questions_college_reply").doc(userid).get().then((doc) => {
+            var t = doc.data();
+            console.log(t);
+            var response = t.Response
+            for (var i = 0; i < response.length; i++) {
+                if (i == 9 || i == 10 || i == 11 || i == 13 || i == 18 || i == 19) {
+                    report.innerHTML +=
+                        `<p><strong>Question:</strong> ${response[i].question}</p><p><strong> Answer:</strong>${response[i].answer}</p>`
+                }
+            }
+
+        })
+
+        // Report stored on cloud
+        db.collection("users").doc(userid).get().then((doc) => {
+
+            var email = doc.data().email;
+            db.collection("reports").doc(email).get().then((doc) => {
+                report.innerHTML += doc.data().report
+            })
+        })
+
+
+
+        db.collection("timetable_no_of_hours").doc(userid).get().then((doc) => {
+            act.push(doc.data());
+            activity = (act[0].survey);
+
+            for (var i = 0; i < activity.length; i++) {
+                time.innerHTML +=
+                    `
+                        <td>${activity[i].Activity}</td>
+                        <td>${activity[i].Time_Spent}</td>
+                       `
+            }
+        })
+
+
+        var pri = []
+
+        var database = firebase.database();
+        var ref = database.ref('user')
+        var refnew = database.ref('priorities');
+        var refcollege = database.ref('college');
+        ref.on('value', gotData, errData);
+        refcollege.on('value', gotnewCollegeData, errnewCollegeData);
+        refnew.on('value', gotnewData, errnewData);
+
+
+        function gotnewCollegeData(data) {
+            var college = (data.val());
+            var keys = Object.keys(college);
+
+            for (var i = 0; i < keys.length; i++) {
+
+                var k = keys[i];
+                if (k === userid) {
+                    mytable.style.display = "block"
+
+                    var clg_options = college[k].college_options;
+                    for (var j = 0; j < clg_options.length; j++) {
+                        mytable.innerHTML +=
+                            `<tbody>
+                                <tr>
+                                    <td>${clg_options[j]}</td>
+                                    <td>${clg_options[j+1]}</td>
+                                    <td>${clg_options[j+2]}</td>
+                                    <td>${clg_options[j+3]}</td>
+                                    <td>${clg_options[j+4]}</td>
+                                    <td>${clg_options[j+5]}</td>
+                                    
+                                    </tr>
+                                </tbody>`
+                        j = j + 5;
+                    }
+
+                }
+
+
+            }
+
+        }
+
+        function errnewCollegeData(err) {
+            console.log(err);
+
+        }
+
+        function errnewData(err) {
+            console.log(err);
+
+        }
+
+        function gotData(data) {
+            var users = (data.val());
+            var keys = Object.keys(users);
+
+            for (var i = 0; i < keys.length; i++) {
+
+                var k = keys[i];
+                if (k === userid) {
+                    var op = users[k].options;
+                    var commonbase = users[k].cbase;
+                    console.log(commonbase);
+
+                    for (var j = 0; j < op.length; j++) {
+                        option.innerHTML +=
+                            ` <p> ${j + 1}. ${op[j]}</p>`
+                    }
+
+                    for (var j = 0; j < commonbase.length; j++) {
+                        cb.innerHTML +=
+                            ` <p> ${j + 1}. ${commonbase[j]}</p>`
+                    }
+
+                }
+
+
+            }
+
+        }
+
+        function errData(err) {
+            console.log(err);
+
+        }
+
+
+        function gotnewData(data) {
+            var priorities = (data.val());
+            var keys = Object.keys(priorities);
+
+            for (var i = 0; i < keys.length; i++) {
+
+                var k = keys[i];
+                if (k === userid) {
+                    var imp_urgent = priorities[k].priority_important_urgent;
+                    var imp_noturgent = priorities[k].priority_important_noturgent;
+                    var notimp_noturgent = priorities[k].priority_notimportant_noturgent;
+                    var notimp_urgent = priorities[k].priority_notimportant_urgent;
+                    for (var j = 0; j < imp_urgent.length; j++) {
+                        imp.innerHTML +=
+                            `
+                   <tr>
+                    <td>${imp_urgent[j]}</td>
+                    <td></td>
+                    <td>${imp_noturgent[j]}</td>
+                   </tr>
+                    `
+                    }
+
+                    for (var j = 0; j < notimp_urgent.length; j++) {
+                        unimp.innerHTML +=
+                            `
+                   <tr>
+                    <td>${notimp_urgent[j]}</td>
+                    <td></td>
+                    <td>${notimp_noturgent[j]}</td>
+                   </tr>
+                    `
+                    }
+                }
+
+
+            }
+
+        }
+
+        function errnewData(err) {
+            console.log(err);
+
+        }
+
+        function gotData(data) {
+            var users = (data.val());
+            var keys = Object.keys(users);
+
+            for (var i = 0; i < keys.length; i++) {
+
+                var k = keys[i];
+                if (k === userid) {
+                    var op = users[k].options;
+                    console.log(op);
+
+                    var cb = (users[k].cbase);
+
+                    for (var h = 0; h < cb.length; h++) {
+                        common.innerHTML += `<p>${h+1}.${cb[h]}</p>`
+                    }
+
+                    for (var j = 0; j < op.length; j++) {
+                        option.innerHTML += `<p>${j+1}. ${op[j]}</p>`
+                    }
+                }
+
+
+            }
+
+        }
+
+        function errData(err) {
+            console.log(err);
+
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMitr</title>
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.4/firebase-database.js"></script>
+
+    <style>
+        .table {
+            border-radius: 25px;
+        }
+    </style>
+
+    <a href="#" id="insert-more">Insert Row in Important</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <a href="#" id="insert1-more">Insert Row in Not Important
+    </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button onclick=" Geeks()">Delete Row</button>
+    <br>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+    <center>
+
+        <table>
+
+            <tr>
+
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Urgent</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Not Urgent</th>
+
+            </tr>
+
+            <table border=5 bordercolor=black class="table">
+
+                <tr>
+
+                    <td>
+                        Important
+                    </td>
+
+                    <td>
+                        <table border=1 id="myTable">
+
+
+                            <tr>
+                                <td>
+                                    <input type="text" id="fee-1" class="fee" name="js-fee">
+
+                                </td>
+
+                                <td>
+                                    <input type="text" id="fee-1" class="fee" name="js-fee">
+
+                                </td>
+
+
+                            </tr>
+
+                        </table>
+                    </td>
+
+                    <tr>
+                        <td>
+                            Not Important
+                        </td>
+
+                        <td>
+                            <table border=1 id="myTable1">
+
+
+
+                                <tr>
+                                    <td>
+                                        <input type="text" id="fee-1" class="fee" name="js-fee">
+
+                                    </td>
+
+                                    <td>
+                                        <input type="text" id="fee-1" class="fee" name="js-fee">
+
+                                    </td>
+
+
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </tr>
+                <!-- <div id="dynamicCheck">
+                    <input type="button" value="Create Element" onclick="createNewElement();" />
+                </div>
+                <div id="dynamicCheck">
+                    <input type="button" value="Create Element1" onclick="createNewElement1();" />
+                </div> -->
+
+                <!-- <div id="newElementId">New inputbox goes here:</div> -->
+            </table>
+
+        </table>
+
+        <br><br>
+
+
+        <button class="btn btn-primary" onclick="submitentry()">Submit </button>
+    </center>
+
+    <script language="javascript">
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+        firebase.initializeApp(config);
+        var a, b;
+        var q1q2 = 1;
+        var q3q4 = 1;
+        $("#insert-more").click(function() {
+            $("#myTable").each(function() {
+                var tds = '<tr id = "row1">';
+                jQuery.each($('tr:last td', this), function() {
+                    tds += '<td>' + $(this).html() + '</td>';
+                });
+                tds += '</tr>';
+                if ($('tbody', this).length > 0) {
+                    $('tbody', this).append(tds);
+                    q1q2++
+                } else {
+                    $(this).append(tds);
+                }
+            });
+        });
+        $("#insert1-more").click(function() {
+            $("#myTable1").each(function() {
+                var tds = '<tr id = "row1">';
+                jQuery.each($('tr:last td', this), function() {
+                    tds += '<td>' + $(this).html() + '</td>';
+                });
+                tds += '</tr>';
+                if ($('tbody', this).length > 0) {
+                    $('tbody', this).append(tds);
+                    q3q4++
+                } else {
+                    $(this).append(tds);
+                }
+            });
+        });
+
+        function submitentry() {
+
+
+            var q1 = [];
+            var q2 = [];
+            var q3 = [];
+            var q4 = [];
+            var input = document.getElementsByTagName("input");
+
+
+            for (var i = 0; i < 2 * q1q2; i++) {
+                console.log(input[i].value)
+                if (i % 2 == 0) {
+                    q1.push(input[i].value)
+                } else {
+                    q2.push(input[i].value)
+                }
+            }
+            for (var i = 2 * q1q2; i < 2 * q1q2 + 2 * q3q4; i++) {
+                if (i % 2 == 0) {
+                    q3.push(input[i].value)
+                } else {
+                    q4.push(input[i].value)
+                }
+            }
+            console.log("q1", q1);
+            console.log("q2", q2);
+            console.log("q3", q3);
+            console.log("q4", q4);
+
+
+            a = q1q2;
+            b = q3q4;
+
+
+
+            firebase.auth().onAuthStateChanged(user => {
+
+                if (user) {
+                    var db = firebase.database()
+                    db.ref('/priorities/' + user.uid).set({
+                        name: user.displayName,
+                        email: user.email,
+                        priority_important_urgent: q1,
+                        priority_important_noturgent: q2,
+                        priority_notimportant_urgent: q3,
+                        priority_notimportant_noturgent: q4
+                    })
+
+                }
+            })
+        }
+    </script>
+
+    <script>
+        function Geeks() {
+            document.getElementById("row1").remove();
+        }
+    </script>
+
+
+</body>
+
+</html>
+
+</html>
+
+</html>

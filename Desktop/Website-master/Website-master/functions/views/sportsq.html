@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMitr</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <style>
+        .open-button {
+            background-color: #555;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            opacity: 0.8;
+            position: fixed;
+            bottom: 23px;
+            right: 28px;
+            width: 280px;
+        }
+        /* The popup chat - hidden by default */
+        
+        .chat-popup {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            right: 15px;
+            border: 3px solid #f1f1f1;
+            z-index: 9;
+        }
+        /* Add styles to the form container */
+        
+        .form-container {
+            max-width: 300px;
+            padding: 10px;
+            background-color: white;
+        }
+        /* Full-width textarea */
+        
+        .form-container textarea {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            border: none;
+            background: #f1f1f1;
+            resize: none;
+            min-height: 200px;
+        }
+        /* When the textarea gets focus, do something */
+        
+        .form-container textarea:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        /* Set a style for the submit/send button */
+        
+        .form-container .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+        /* Add a red background color to the cancel button */
+        
+        .form-container .cancel {
+            background-color: red;
+        }
+        /* Add some hover effects to buttons */
+        
+        .form-container .btn:hover,
+        .open-button:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">
+            <img src="mentorlogo-removebg-preview 2.svg" width="300" height="100" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Templates
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="#">Onboarding</a>
+                        <a class="dropdown-item" href="timetable">Time Matrix</a>
+                        <a class="dropdown-item" href="priority">Priority</a>
+                        <a class="dropdown-item" href="streams">Tracks</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Daily
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="affirmations">Goals & Affirmation</a>
+                        <a class="dropdown-item" href="#">Previous Days</a>
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Weekly
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="activity">Template</a>
+                        <a class="dropdown-item" href="weeklyprogress">Weekly Progress</a>
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sessions
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="schedule">Book a Session</a>
+                        <a class="dropdown-item" href="#">Session Recordings</a>
+                        <a class="dropdown-item" href="studentfeedback">Session Feedback</a>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Blogs
+        </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="blog">Read Blogs</a>
+                        <a class="dropdown-item" href="#">Write blog/story</a>
+
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Webinar
+        </a>
+                </li>
+            </ul>
+        </div>
+        <i class="fa fa-user-circle-o fa-2x" style="padding-right:30px; color:#FFAC27" aria-hidden="true" style="height: 10px;" onclick="edit()"></i>
+        <div id="editprof" style="display: none;">
+            <p><button class="btn btn-primary" onclick="location.href='/profile'">Edit profile</button></p>
+            <p><button id="btnLogout" class="btn btn-primary" onclick="logout()">Logout</button></p>
+        </div>
+        <i class="fa fa-bell fa-2x" aria-hidden="true" style="padding-top:5px; color:#FFAC27" onclick="location.href='notif'"></i>
+
+    </nav>
+
+    <script>
+        //Intialize firebase
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+
+
+        firebase.initializeApp(config);
+        var editprof;
+        var zzz = 0;
+
+        function edit() {
+
+            zzz++;
+            editprof = document.getElementById("editprof");
+            if (zzz % 2 != 0) {
+
+                editprof.style.display = "block"
+
+            } else editprof.style.display = "none"
+        }
+
+
+        function logout() {
+
+            firebase.auth().signOut().then(() => {
+                location.href = '/';
+            });
+        }
+
+
+
+
+
+        const btnLogout = document.getElementById('btnLogout');
+        btnLogout.addEventListener('click', e => {
+
+            e.preventDefault();
+            firebase.auth().signOut().then(() => {
+                location.href = '/logreg';
+            });
+
+        })
+
+        const name = document.getElementById("h1");
+
+
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                name.innerHTML = "Hi " + user.displayName + "!!!"
+                console.log(user);
+
+                //  btnLogout.classList.remove("invisible");
+                //location.href="/test";
+
+            }
+        })
+
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+    <div style="text-align: right;">
+        <i class="fa fa-user-circle-o fa-2x" aria-hidden="true" style="height: 10px;" onclick="edit()"></i>
+        <div id="editprof" style="display: none;">
+            <p><button class="btn btn-primary" onclick="location.href='/profile'">Edit profile</button></p>
+            <p><button id="btnLogout" class="btn btn-primary" onclick="logout()">Logout</button></p>
+        </div>
+        <i class="fa fa-bell fa-2x" aria-hidden="true" onclick="location.href='notif'"></i>
+    </div>
+
+    <h1>Future Avenues</h1>
+    <center><textarea style="display: none;" readonly id="intro" rows="4" cols="50"></textarea><br>
+
+        <textarea id="studentans" style="display: none;" value="Reply Here" rows="4" cols="50" placeholder="Reply Here"></textarea><br>
+        <button id="nxt" class="btn btn-primary" />Start with the questionairre</button><br><br><br>
+    </center>
+    <div id="radio" style="padding-left:30px;">
+
+    </div>
+    <button id="submit" class="btn btn-success" onclick="submit()" style="display: none;">
+        Submit
+    </button>
+    <button id="returnq" class="btn btn-primary" onclick="location.href='/timetable'" style="display: none;">Return</button>
+    <button class="open-button" onclick="openForm()">Chat</button>
+
+    <div class="chat-popup" id="myForm">
+
+        <iframe id="mentor" allow="microphone;" width="350" height="430" src="https://console.dialogflow.com/api-client/demo/embedded/3802acc3-6c2e-4875-bea5-e7ee5964988e"></iframe>
+
+        <form action="" class="form-container">
+
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+    <script>
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+
+
+        firebase.initializeApp(config);
+
+
+        var display = document.getElementById('intro');
+        var btn = document.getElementById('nxt');
+        var studentans = document.getElementById('studentans');
+        var submitq = document.getElementById('submit')
+        var radio = document.getElementById('radio');
+        var returnq = document.getElementById('return');
+        var editprof;
+        var zzz = 0;
+
+        function edit() {
+
+            zzz++;
+            editprof = document.getElementById("editprof");
+            if (zzz % 2 != 0) {
+
+                editprof.style.display = "block"
+
+            } else editprof.style.display = "none"
+        }
+
+
+        function logout() {
+
+            firebase.auth().signOut().then(() => {
+                location.href = '/';
+            });
+        }
+
+
+
+        var res = [];
+        var ct = 0;
+        var show = (info) => {
+            if (info.type === "string") {
+
+                display.style.display = "block";
+                studentans.style.display = "block";
+                display.innerHTML = info.question
+
+            } else if (info.type === "check_boxes") {
+                display.style.display = "block";
+                display.innerHTML = info.question;
+                studentans.style.display = "none";
+                //   console.log(info.choices.length);
+
+                for (var i = 0; i < info.choices.length; i++) {
+
+                    radio.innerHTML += `<p><input type="checkbox" name="ak" value=${info.choices[i]}> 
+            ${info.choices[i]}
+            </input></p>`
+                }
+            }
+        }
+
+
+
+
+
+        // var arr = question.questions;;
+        var arr = [];
+
+
+        var db = firebase.firestore();
+
+        db.collection("questions_specific").get().then((snapshot) => {
+
+            snapshot.forEach((doc) => {
+                arr.push(doc.data());
+            })
+        })
+
+
+
+
+
+        var j = 0;
+        var p = 0;
+        var k = 1;
+        var x;
+        btn.addEventListener('click', () => {
+
+            var input = document.getElementsByTagName("input");
+
+            if (input.length > 0) {
+                var totalselect = [];
+                for (var i = 0; i < input.length; i++) {
+                    if (input[i].checked) {
+                        totalselect.push(input[i].value);
+                    }
+                }
+                res.push({
+                    question: x,
+                    answer: totalselect
+                })
+            }
+
+            if (p == 0) {
+                p = p + 1;
+                btn.innerHTML = "Next";
+            }
+
+            if (j == arr.length) {
+
+                studentans.style.display = "none";
+                display.style.display = "none";
+                btn.style.display = "none";
+                submitq.style.display = "block";
+                returnq.style.display = "block";
+
+            }
+
+            if (j < arr.length && p > 0) {
+
+                radio.innerHTML = "";
+                show(arr[j]);
+
+                if (studentans.value !== "") {
+
+                    res.push({
+                        question: x,
+                        answer: studentans.value
+                    })
+                }
+
+                console.log(res);
+
+
+                // if (j != 0) console.log(res);
+
+                // var input = document.getElementsByTagName("input");
+
+
+                studentans.value = "";
+                x = display.value;
+
+                j = j + 1;
+            }
+
+
+        })
+
+
+        function submit() {
+
+            firebase.auth().onAuthStateChanged(user => {
+                var db = firebase.firestore();
+                if (user) {
+
+                    db.collection("questions_reply").doc(user.uid).update({
+                        Response_specific: res
+                    })
+
+                }
+            })
+        }
+
+        function openForm() {
+            document.getElementById("myForm").style.display = "block";
+        }
+
+        function closeForm() {
+            document.getElementById("myForm").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

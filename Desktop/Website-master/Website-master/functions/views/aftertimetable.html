@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorMitr</title>
+    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
+
+    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
+    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+
+<body>
+<h1>More Services for U!!</h1>
+    <button class="btn btn-success" onclick="location.href='/schedule'">Schedule events</button>
+    <div id="results">
+
+    </div>
+    <button class="btn btn-warning" onclick="tracks()">Track & Options(Academic)</button>
+    <button id="specific" class="btn btn-info" onclick="location.href='/sports'">Tracks & Options(Non Academic)</button>
+
+    <script>
+        const config = {
+            apiKey: "AIzaSyBF6ucSKByFpQ9vQNwfb1i4JOVGyfaHPfw",
+            authDomain: "mentormitr-bbff5.firebaseapp.com",
+            databaseURL: "https://mentormitr-bbff5.firebaseio.com",
+            projectId: "mentormitr-bbff5",
+            storageBucket: "mentormitr-bbff5.appspot.com",
+            messagingSenderId: "177887019473",
+            appId: "1:177887019473:web:4f7049f36129cc4b0860f0",
+            measurementId: "G-B7VNS84ZJ9"
+        };
+
+
+        firebase.initializeApp(config);
+
+        function tracks() {
+
+            firebase.auth().onAuthStateChanged(function (user) {
+                if (user) {
+                    if (user.photoURL === "School") {
+                        location.href = "/streams"
+                    } else if (user.photoURL === "College") {
+                        location.href = "/collegetrack";
+                    }
+
+                } else {
+                    console.log("No user");
+
+                    // No user is signed in.
+                }
+            });
+
+        }
+    </script>
+</body>
+
+</html>
