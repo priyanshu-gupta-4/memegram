@@ -23,6 +23,7 @@
     <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
     <script src="/__/firebase/7.14.6/firebase-firestore.js"></script> -->
     <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+    
     <style>
         .li {
             float: left;
@@ -372,7 +373,6 @@
 
 
 
-
     <p style="margin-left:10px">
 
         <img src="images/Rectangle 46.svg" style="position: absolute;width: 1133px;height: 70px;left: 113px;top: 196px;background: rgba(189, 255, 251, 0.62);border-radius: 25px;">
@@ -487,30 +487,65 @@
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
     <script src="js/google-map.js"></script> -->
     <script src="js/main.js"></script>
-<!-- 
+    <!-- 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
-    <script>
-        function school() {
-            document.getElementById('sc').style.display = "block"
-            document.getElementById('cg').style.display = "none"
-            document.getElementById('workingPro').style.display = "none"
-        }
-
-        function college() {
-            document.getElementById('cg').style.display = "block"
-            document.getElementById('sc').style.display = "none"
-            document.getElementById('workingPro').style.display = "none"
-        }
-
-        function workp() {
-            document.getElementById('workingPro').style.display = "block"
-            document.getElementById('cg').style.display = "none"
-            document.getElementById('sc').style.display = "none"
-        }
-    </script>
     <script src="navbar.js"></script>
+    <script>
+    function login() {
+
+        var signup = document.getElementById('id02');
+        signup.style.display = "none"
+        var modal = document.getElementById('id01');
+        modal.style.display = "block"
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none ";
+            }
+        }
+
+    }
+
+    function signup() {
+
+
+        // var modal1 = document.getElementById('id01');
+        // modal1.style.display = "none";
+        var modal = document.getElementById('id02');
+
+        modal.style.display = "block";
+        var modal1 = document.getElementById('id01');
+
+        modal1.style.display = "none";
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+    }
+}
+    function school() {
+        document.getElementById('sc').style.display = "block"
+        document.getElementById('cg').style.display = "none"
+        document.getElementById('workingPro').style.display = "none"
+    }
+    
+    function college() {
+        document.getElementById('cg').style.display = "block"
+        document.getElementById('sc').style.display = "none"
+        document.getElementById('workingPro').style.display = "none"
+    }
+    
+    function workp() {
+        document.getElementById('workingPro').style.display = "block"
+        document.getElementById('cg').style.display = "none"
+        document.getElementById('sc').style.display = "none"
+    }
+    </script>
 </body>
 
 </html>
