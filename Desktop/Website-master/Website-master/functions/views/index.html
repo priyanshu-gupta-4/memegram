@@ -2,31 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>MentorMitr</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
-    <script src="/__/firebase/7.14.6/firebase-app.js"></script>
-
-
-    <script src="/__/firebase/7.14.6/firebase-auth.js"></script>
-    <script src="/__/firebase/7.14.6/firebase-firestore.js"></script>
-
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap"
-        rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Open Sans' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-
-
-    <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+    <%-include ("partials/heading.html") %>
     <style>
         .li {
             float: left;
@@ -45,10 +21,6 @@
 
         a.active {
             background-color: #EAB126;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
         }
 
         /* Full-width input fields */
@@ -203,14 +175,13 @@
         .open-button {
             background-color: #fca819;
             color: white;
-            padding: 16px 20px;
             border: none;
             cursor: pointer;
             opacity: 0.8;
             position: fixed;
-            bottom: 23px;
-            right: 28px;
-            width: 280px;
+            bottom: 10%;
+            right:60%;
+            width: auto;
         }
 
         /* The popup chat - hidden by default */
@@ -221,7 +192,7 @@
             bottom: 0;
             right: 15px;
             border: 3px solid #f1f1f1;
-            z-index: 9;
+            z-index: 100;
         }
 
         /* Add styles to the form container */
@@ -279,11 +250,11 @@
 
         .img {
             background: lightblue url("images/image1 1.png");
-            position: absolute;
-            width: 780px;
-            height: 450px;
-            left: 644px;
-            top: 342px;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            left: 10%;
+            top: 10%;
         }
 
         .time {
@@ -375,84 +346,6 @@
             border-radius: 2px;
             color: black;
         }
-    </style>
-    <style>
-        .open-button {
-            background-color: #fca819;
-            color: white;
-            padding: 16px 20px;
-            border: none;
-            cursor: pointer;
-            opacity: 0.8;
-            position: fixed;
-            bottom: 23px;
-            right: 28px;
-            width: 280px;
-        }
-
-        /* The popup chat - hidden by default */
-
-        .chat-popup {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            right: 15px;
-            border: 3px solid #f1f1f1;
-            z-index: 9;
-        }
-
-        /* Add styles to the form container */
-
-        .form-container {
-            max-width: 300px;
-            padding: 10px;
-            background-color: white;
-        }
-
-        /* Full-width textarea */
-
-        .form-container textarea {
-            width: 100%;
-            padding: 15px;
-            margin: 5px 0 22px 0;
-            border: none;
-            background: #f1f1f1;
-            resize: none;
-            min-height: 200px;
-        }
-
-        /* When the textarea gets focus, do something */
-
-        .form-container textarea:focus {
-            background-color: #ddd;
-            outline: none;
-        }
-
-        /* Set a style for the submit/send button */
-
-        .form-container .btn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 16px 20px;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom: 10px;
-            opacity: 0.8;
-        }
-
-        /* Add a red background color to the cancel button */
-
-        .form-container .cancel {
-            background-color: red;
-        }
-
-        /* Add some hover effects to buttons */
-
-        .form-container .btn:hover,
-        .open-button:hover {
-            opacity: 1;
-        }
 
         .card .carousel-item {
             height: 330px;
@@ -497,28 +390,9 @@
 
         body {
             font-family: Arial, Helvetica, sans-serif;
-        }
-
-        /* Full-width input fields */
-
-        input[type=text],
-        input[type=password] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-        }
-
-        /* Set a style for all buttons */
-
-        /* Extra styles for the cancel button */
-
-        .cancelbtn {
-            width: auto;
-            padding: 10px 18px;
-            background-color: #f44336;
+            overflow-x: hidden;
+            margin:0;
+            padding: 0;
         }
 
         /* Center the image and position the close button */
@@ -634,6 +508,62 @@
                 width: 100%;
             }
         }
+
+        .firstimg {
+            height:100%;
+            width:100%;
+            background-color: lightblue;
+        }
+        .firsthead {
+            color: #212353;
+            font-family: Open Sans;
+            font-weight:bold;
+            font-size: 400%;
+            display:flex;
+            line-height: 110%;
+        }
+        .firstheadtxt {
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 160%;
+            color: #4B5D68;
+        }
+
+        .secondhead {
+            
+            font-family: Open sans;
+            font-weight: bold;
+            font-size: 200%;
+            line-height: 130%;
+            display: flex;
+            color: #212353;
+            margin-left:32%;
+        }
+
+        .vid {
+            position:relative;
+            left:30%;
+            margin-top:4%; 
+            height:40%; 
+        }
+        @media screen and (min-width: 760px) {
+            .vid {
+                position: relative;
+                left:0;
+                height: auto;
+            }
+        }
+        .secondtxt {
+            margin-top:4%;
+            padding-left:6%;
+            padding-right:6%;
+            width:100%;
+            font-family: Roboto;
+            font-size: 125%;
+            line-height: 130%;
+        }
     </style>
 </head>
 
@@ -642,630 +572,159 @@
     <%- include ("partials/nav.html") %>
     <%- include ("partials/loginButton.html") %>
     <%-include("partials/chatpop.html") %>
-    <p style="position:absolute;
-width: 645px;
-height: 1px;
-left: 176px;
-top: 250px;
-font-family: Open Sans;
-font-style: normal;
-font-weight: bold;
-font-size: 80px;
-line-height: 110%;
-display: flex;
-align-items: center;
-color: #212353;">Find a Mentor cum
-        Buddy</p>
-    <p style="
-position: absolute;
-width: 392px;
-height: 120px;
-left: 190px;
-top: 400px;
-
-font-family: Roboto;
-font-style: normal;
-font-weight: 500;
-font-size: 24px;
-line-height: 160%;
-
-
-color: #4B5D68;">MentorMitr helps you in journey of life to reach your optimum potential and achieve your goals while
-        enhancing your EQ and performance</p>
-    <img class="img"></img>
-    <div style="position: absolute;
-width: 1247px;
-height: 630px;
-left: 171px;
-top: 900px;
-
-background: rgba(240, 99, 184, 0.15);
-border-radius: 50px;">
-        <p style="position: absolute;
-width: 530.28px;
-height: 112.5px;
-left: 500px;
-
-
-font-family: Open Sans;
-font-style: normal;
-font-weight: bold;
-font-size: 40px;
-line-height: 130%;
-
-display: flex;
-align-items: center;
-
-color: #212353;">Our Methodology</p>
-
-        <div
-            style="display:flex;flex-direction: row-reverse;justify-content:space-around;position: relative;top:200px;align-items: center;">
-            <p style="width:45%;
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 20px;
-line-height: 130%;
-color: #000000;">Mentor Mitr helps students develop life skills to manage complex situations while enhancing their
-                potential and performance to optimal. We prepare them for success through techniques to bolster their
-                Emotional Quotient, and consequently
-                help them set the right goals by facilitating the creation of options to support them in managing their
-                priorities, and time in an efficient manner</p>
-
-            <div class="imgs">
-                <iframe src="https://mentormitr.com/wp-content/uploads/2020/05/MentorMitr_2_HD_1.mp4" width="500"
-                    height="281.25">
-
-                </iframe>
+    <section class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <h1 class="firsthead">FIND A MENTOR CUM BUDDY</h1>
+                <p class="firstheadtxt">MentorMitr helps you in journey of life to reach your optimum potential and achieve your goals while
+                    enhancing your EQ and performance</p>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <img src="images/image1 1.png" class="firstimg">
             </div>
         </div>
+    </section>
+
+    <section>
+        <div class="container" style=" background-color:rgba(240, 99, 184, 0.15); margin-top:8%">
+            <p class="secondhead">Our Methodology</p>
+            <!-- <iframe src="https://mentormitr.com/wp-content/uploads/2020/05/MentorMitr_2_HD_1.mp4" class="vid"></iframe> -->
+            <p class="secondtxt">Mentor Mitr helps students develop life skills to manage complex situations while enhancing their
+                            potential and performance to optimal. We prepare them for success through techniques to bolster their
+                            Emotional Quotient, and consequently
+                            help them set the right goals by facilitating the creation of options to support them in managing their
+                            priorities, and time in an efficient manner
+            </p>    
+        </div>
+    </section>
+    <section class="container">
+        <p style="
+        position:relative;
+        left:30%;
+        font-family: Open Sans;
+        font-weight: bold;
+        font-size: 300%;
+        line-height: 130%;
+        display: flex;
+        text-align: center;
+        color: #212353;">Features</p>
 
 
-    </div>
-
-
-
-    <p style="position: absolute;
-width: 405px;
-height: 52px;
-left: 650.29px;
-top: 1550px;
-font-family: Open Sans;
-font-style: normal;
-font-weight: bold;
-font-size: 40px;
-line-height: 130%;
-/* identical to box height, or 52px */
-
-display: flex;
-align-items: center;
-text-align: center;
-color: #212353;">Features</p>
-
-
-    <p style="position: absolute;
-width: 584px;
-height: 76px;
-left: 500px;
-top: 1650px;
-
-font-family:Roboto;
-font-style: normal;
-font-weight: 500;
-font-size: 24px;
-line-height: 160%;
-
-
-text-align: center;
-
-
-
-color: #4b5d68;">Some of the features and advantages that we provide for those who comes to MentorMitr.</p>
-    <div class="time"></div>
-    <div style="position: absolute;
-width: 442px;
-height: 358px;
-left: 328.28px;
-top: 1873px;
-
-
-
-background: #68C9BA;
-opacity: 0.1;
-border-radius: 50px;">
-    </div>
-    <p style="position: absolute;
-width: 228px;
-height: 50px;
-left: 500px;
-top:1922px;
-
-font-family: Open Sans;
-font-style: normal;
-font-weight: normal;
-font-size: 24px;
-line-height: 130%;
-/* or 31px */
-
-display: flex;
-align-items: center;
-
-color: #212353;">Time Management</p>
-    <button class="open-button" onclick="openForm()">Chat With Us</button>
-
-    <div class="chat-popup" id="myForm">
-
-        <iframe id="mentor" allow="microphone;" width="350" height="330"
-            src="https://console.dialogflow.com/api-client/demo/embedded/3802acc3-6c2e-4875-bea5-e7ee5964988e"></iframe>
-
-        <form action="" class="form-container">
-
-            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-        </form>
-    </div>
-    <p style="position: absolute;
- 
-width: 228px;
-height: 50px;
-left: 500px;
-top:2030px;
-
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 24px;
-line-height: 130%;
-/* or 31px */
-
-display: flex;
-align-items: center;
-
-color: #212353;">Far far away, behind the word mountains, far from the countries Vokalia
-    <p>
-    <div class="emo"></div>
-    <div style="position: absolute;
-width: 442px;
-height: 358px;
-left: 915.28px;
-top: 1873px;
-
-
-
-background: #9C69E2;
-opacity: 0.1;
-border-radius: 20px;">
-    </div>
-    <p style="position: absolute;
-width: 306px;
-height: 50px;
-left: 1027px;
-top: 1922px;
-
-font-family: Open Sans;
-font-style: normal;
-font-weight: normal;
-font-size: 24px;
-line-height: 130%;
-/* or 31px */
-
-display: flex;
-align-items: center;
-
-color: #212353;">Emotional Quotient (EQ)</p>
-    <p style="position: absolute;
-width: 306px;
-height: 50px;
-left: 1057px;
-top: 2032px;
-
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 24px;
-line-height: 130%;
-/* or 31px */
-
-display: flex;
-align-items: center;
-
-color: #212353;">Its a measure of your esteem or real potential or how resilient you are mentally to cope with your
-        environment
-    <p>
-    <div class="per"></div>
-    <div style="position: absolute;
-width: 442px;
-height: 358px;
-left: 328.28px;
-top: 2281px;
-
-/* 4 */
-
-background: #F063B8;
-opacity: 0.1;
-border-radius: 50px;">
-    </div>
-    <p style="position: absolute;
-width: 200px;
-height: 50px;
-left: 494px;
-top: 2330px;
-
-font-family: Open Sans;
-font-style: normal;
-font-weight: normal;
-font-size: 24px;
-line-height: 130%;
-/* or 31px */
-
-display: flex;
-align-items: center;
-
-color: #212353;">Performance Enhancement</p>
-    <p style="position: absolute;
-width: 228px;
-height: 50px;
-left: 500px;
-top:2475px;
-
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 24px;
-line-height: 130%;
-/* or 31px */
-
-display: flex;
-align-items: center;
-
-color: #212353;">What gets measured gets done. One key to improving performance is to measure it with discipline and
-        consistency
-    <p>
-    <div class="soft"></div>
-    <div style="position: absolute;
-width: 442px;
-height: 358px;
-left: 915.28px;
-top: 2281px;
-
-background: #29729C;
-opacity: 0.1;
-border-radius: 20px;">
-    </div>
     <p style="
-position: absolute;
-width: 200px;
-height: 50px;
-left: 1087.28px;
-top: 2330px;
-
-font-family: Open Sans;
-font-style: normal;
-font-weight: normal;
-font-size: 24px;
-line-height: 130%;
-/* or 31px */
-
-display: flex;
-align-items: center;
-
-color: #212353;
-">Soft Skills & Grooming</p>
-    <p style="position: absolute;
-width: 306px;
-height: 50px;
-left: 1080px;
-top: 2470px;
-
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 24px;
-line-height: 130%;
-/* or 31px */
-
-display: flex;
-align-items: center;
-
-color: #212353;">Skills like listening, whilst skillfully agreeing and disagreeing with people; along with harmony
-        management of relationships.
-    <p>
-    <div style="position: absolute;
-width: 442px;
-height: 358px;
-left: 328.28px;
-top: 2681px;
+        font-family:Roboto;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 150%;
+        line-height: 160%;
+        text-align: center;
+        color: #4b5d68;">
+        Some of the features and advantages that we provide for those who comes to MentorMitr.
+    </p>
+    </section>
+    
 
 
+    <section class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
 
-background: #F063B8;
-opacity: 0.1;
-border-radius: 50px;">
-    </div>
-    <p style="position: absolute;
-width: 200px;
-height: 50px;
-left: 494px;
-top: 2730px;
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
 
-font-family: Open Sans;
-font-style: normal;
-font-weight: normal;
-font-size: 24px;
-line-height: 130%;
-/* or 31px */
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
 
-display: flex;
-align-items: center;
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
 
-color: #212353;">Priority Management</p>
-    <p style="position: absolute;
-width: 228px;
-height: 50px;
-left: 500px;
-top:2845px;
-
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 24px;
-line-height: 130%;
-/* or 31px */
-
-display: flex;
-align-items: center;
-
-color: #212353;">Far far away, behind the word mountains, far from the countries Vokalia
-    <p>
-    <div class="pri"></div>
-    <div style="position: absolute;
-width: 442px;
-height: 358px;
-left: 915.28px;
-top: 2681px;
-
-background: #29729C;
-opacity: 0.1;
-border-radius: 20px;">
-    </div>
-    <p style="
-position: absolute;
-width: 200px;
-height: 50px;
-left: 1087.28px;
-top: 2730px;
-
-font-family: Open Sans;
-font-style: normal;
-font-weight: normal;
-font-size: 24px;
-line-height: 130%;
-/* or 31px */
-
-display: flex;
-align-items: center;
-
-color: #212353;
-">Goals</p>
-    <p style="position: absolute;
-width: 306px;
-height: 50px;
-left: 1080px;
-top: 2870px;
-
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 24px;
-line-height: 130%;
-/* or 31px */
-
-display: flex;
-align-items: center;
-
-color: #212353;">The very essence that separates a wish, a dream and a goal;that a goal is a definitive and is to be
-        fulfilled within a stipulated period of time.
-    <p>
-    <div class="goals"></div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
-    <div style="position: absolute;
-width: 1117px;
-height: 560px;
-left: 216px;
-top: 3650px;
+    <section>
+        <div class="container">
+            <div class="row" style="margin-top:10%; background: #F0F0F2;">
+                <div class="col-lg-6 col-md-12"  style="padding:5%">
+                    <h1>SCHOOL STUDENTS</h1>
+                    <p>Are you looking for an outlet to express your concerns about academics? Ever feel like the hard work that you put in
+                        is not really paying off? In today’s world, a student’s work is rarely lauded, unless something ‘colossal’ is
+                        achieved Mentor Mitr’s intervention can help you conquer your true potential in an incremental fashion by
+                        holding your hand, and guide you step-by-step! Our platform will help you develop and abridge a complete
+                        diagnostic stimulation of where you are, and take you where you intend to be. Unleash your limitless potential,
+                        and join us for Mentor Mitr’s Meaningful Student Leaders’ Enablement Program!
+                    </p>
+                    <button class="btn btn-primary">LEARN MORE</button>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <img src="images/5293-removebg-preview.png">
+                </div>
+            </div>
 
-background: rgba(32, 159, 232, 0.13);
-border-radius: 50px;">
-    </div>
-    <div class="student"></div>
-    <p style="position: absolute;
-left: 50.62%;
-right: 26.75%;
-top: 3100.82px;
-bottom: 49.37%;
+            <div class="row" style="margin-top:10%; background: #F0F0F2;">
+                <div class="col-lg-6 col-md-12">
+                    <img src="images/5853-removebg-preview.png">
+                </div>
+                <div class="col-lg-6 col-md-12"  style="padding:5%">
+                    <h1>COLLEGE STUDENTS</h1>
+                    <p>Are you looking for an outlet to express your concerns about academics? Ever feel like the hard work that you put in
+                        is not really paying off? How about a balanced life, wherein, you can pursue the activities of your interest,
+                        while
+                        you also commit to your passion and channel the drive to achieve it in an efficacious manner? In today’s world,
+                        a student’s work is rarely lauded, unless something ‘colossal’ is achieved.Unleash your limitless potential, and
+                        join us for Mentor Mitr’s Meaningful Student Leaders’ Enablement Program !
+                    </p>
+                    <button class="btn btn-warning">LEARN MORE</button>
+                </div>
+            </div>
 
-font-family: Lato;
-font-style: normal;
-font-weight: bold;
-font-size: 48px;
-line-height: 180%;
-/* or 86px */
-
-display: flex;
-align-items: center;
-letter-spacing: 0.01em;
-
-color: #000000;">School Students</p>
-    <p style="position: absolute;
-width: 517px;
-left: 50.62%;
-right: 26.75%;
-top: 3150.82px;
-bottom: 49.37%;
-
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 20px;
-
-
-
-
-
-">Are you looking for an outlet to express your concerns about academics? Ever feel like the hard work that you put in
-        is not really paying off? In today’s world, a student’s work is rarely lauded, unless something ‘colossal’ is
-        achieved Mentor Mitr’s intervention can help you conquer your true potential in an incremental fashion by
-        holding your hand, and guide you step-by-step! Our platform will help you develop and abridge a complete
-        diagnostic stimulation of where you are, and take you where you intend to be. Unleash your limitless potential,
-        and join us for Mentor Mitr’s Meaningful Student Leaders’ Enablement Program!</p>
-    <button type="button" class="btn btn-primary" style="position: relative;
-left: 56.02%;
-right: 35.79%;
-top: 3400.82px;
-bottom: 43.32%;
-font-family: Lato;
-font-style: normal;
-font-weight: 900;
-font-size: 24px;
-line-height: 180%;
-/* or 43px */
-
-display: flex;
-align-items: center;
-letter-spacing: 0.01em;
-border-radius:20px">Learn More</button>
-    <div style="position: absolute;
-width: 1117px;
-height: 560px;
-left: 223px;
-top: 3050.82px;
-
-background: rgba(240, 99, 184, 0.15);
-border-radius: 50px;">
-    </div>
-    <div class="college"></div>
-    <p style="position: absolute;
-
-left: 18%;
-right: 58.19%;
-top: 3700.82px;
-bottom: 38.45%;
-
-font-family: Lato;
-font-style: normal;
-font-weight: bold;
-font-size: 48px;
-line-height: 180%;
-/* or 86px */
-
-display: flex;
-align-items: center;
-letter-spacing: 0.01em;
-
-color: #000000;">College Students</p>
-    <p style="position: absolute;
-width: 517px;
-left: 18%;
-right: 58.19%;
-top: 3750.82px;
-bottom: 38.45%;
-
-font-family:Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 20px;
-">Are you looking for an outlet to express your concerns about academics? Ever feel like the hard work that you put in
-        is not really paying off? How about a balanced life, wherein, you can pursue the activities of your interest,
-        while
-        you also commit to your passion and channel the drive to achieve it in an efficacious manner? In today’s world,
-        a student’s work is rarely lauded, unless something ‘colossal’ is achieved.Unleash your limitless potential, and
-        join us for Mentor Mitr’s Meaningful Student Leaders’ Enablement Program !</p>
-    <button type="button" class="btn btn-primary" style="position: relative;
-
-left: 21.77%;
-right: 70.04%;
-top: 3900px;
-bottom: 32.22%;
-
-font-family: Lato;
-font-style: normal;
-font-weight: 900;
-font-size: 24px;
-line-height: 180%;
-/* or 43px */
-
-display: flex;
-align-items: center;
-letter-spacing: 0.01em;
-
-border-radius:20px">Learn More</button>
-    <div style="
-position: absolute;
-width: 1117px;
-height: 560px;
-left: 236px;
-top: 4237px;
-
-background: rgba(70, 249, 131, 0.13);
-border-radius: 50px;">
-    </div>
-    <div class="work"></div>
-    <p style="position: absolute;
-left: 50.31%;
-right: 18.62%;
-top: 4290.82px;
-bottom: 28.19%;
-
-font-family: Lato;
-font-style: normal;
-font-weight: bold;
-font-size: 48px;
-line-height: 100%;
-/* or 86px */
-
-display: flex;
-align-items: center;
-letter-spacing: 0.01em;
-
-color: #000000;">Working Professionals</p>
-
-    <p style="position: absolute;
-width: 517px;
-left: 50.31%;
-right: 18.62%;
-top: 4330.82px;
-bottom: 28.19%;
-
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 20px;
-
-">Are you looking for an outlet to express your concerns about academics? Ever feel like the hard work that you put in
-        is not really paying off? How about a balanced life, wherein, you can pursue the activities of your interest,
-        while
-        you also commit to your passion and channel the drive to achieve it in an efficacious manner? In today’s world,
-        a student’s work is rarely lauded, unless something ‘colossal’ is achieved.Unleash your limitless potential, and
-        join us for Mentor Mitr’s Meaningful Student Leaders’ Enablement Program !</p>
-    <button type="button" class="btn btn-primary" style="position: relative;
-left: 56.02%;
-right: 35.79%;
-top: 4400.82px;
-bottom: 43.32%;
-font-family: Lato;
-font-style: normal;
-font-weight: 900;
-font-size: 24px;
-line-height: 180%;
-/* or 43px */
-
-display: flex;
-align-items: center;
-letter-spacing: 0.01em;
-border-radius:20px">Learn More</button>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <section id="section1" style="margin-top:-100px;">
+            <div class="row" style="margin-top:10%; background: #F0F0F2;">
+                <div class="col-lg-6 col-md-12" style="padding:5%">
+                    <h1>WORKING PROFESSIONAL</h1>
+                    <p>Are you looking for an outlet to express your concerns about academics? Ever feel like the hard work that you put in
+                        is not really paying off? How about a balanced life, wherein, you can pursue the activities of your interest,
+                        while
+                        you also commit to your passion and channel the drive to achieve it in an efficacious manner? In today’s world,
+                        a student’s work is rarely lauded, unless something ‘colossal’ is achieved.Unleash your limitless potential, and
+                        join us for Mentor Mitr’s Meaningful Student Leaders’ Enablement Program !
+                    </p>
+                    <button class="btn btn-primary">LEARN MORE</button>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <img src="images/wp.jpg">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <section id="section1" style="margin-top:-100px;">
         <div class="container ">
             <div class="row justify-content-center mb-5 pb-2 d-flex ">
 
@@ -1323,7 +782,7 @@ border-radius:20px">Learn More</button>
                                 </div>
                             </div>
 
-                            <!--3rd mentor-->
+                            3rd mentor
                             <div class="carousel-item">
                                 <div class="carousel-caption">
                                     <div class="row">
@@ -1348,7 +807,7 @@ border-radius:20px">Learn More</button>
                                     </div>
                                 </div>
                             </div>
-                            <!--4th mentor-->
+                            4th mentor
                             <div class="carousel-item">
                                 <div class="carousel-caption">
                                     <div class="row">
@@ -1375,7 +834,7 @@ border-radius:20px">Learn More</button>
                                 </div>
                             </div>
 
-                            <!--5th mentor-->
+                            5th mentor
                             <div class="carousel-item">
                                 <div class="carousel-caption">
                                     <div class="row">
@@ -1465,10 +924,11 @@ border-radius:20px">Learn More</button>
 
             </div>
             
-    </section>
+    </section> -->
 
-
-    <%- include("partials/footer.html") %>
+    <div style="margin-top:5%">
+        <%- include("partials/footer.html") %>
+    </div>
     <script src="js/myjs.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
