@@ -254,105 +254,6 @@
         .open-button:hover {
             opacity: 1;
         }
-        
-        .img {
-            background: lightblue url("images/image1 1.png");
-            position: absolute;
-            width: 780px;
-            height: 450px;
-            left: 644px;
-            top: 342px;
-        }
-        
-        .imgs {
-            position: absolute;
-            left: 10.5%;
-            right: 40.5%;
-            top: 25%;
-            bottom: 25%;
-        }
-        
-        .time {
-            position: absolute;
-            width: 241px;
-            height: 185px;
-            left: 220px;
-            top: 1935px;
-            background: url(images/image4.png);
-        }
-        
-        .emo {
-            position: absolute;
-            width: 190px;
-            height: 180px;
-            left: 851px;
-            top: 1980px;
-            background: url(images/3744483.png);
-        }
-        
-        .per {
-            position: absolute;
-            width: 232px;
-            height: 211px;
-            left: 223px;
-            top: 2389px;
-            background: url(images/image3.png);
-        }
-        
-        .pri {
-            position: absolute;
-            width: 232px;
-            height: 211px;
-            left: 223px;
-            top: 2789px;
-            background: url(images/image3.png);
-        }
-        
-        .soft {
-            position: absolute;
-            width: 285px;
-            height: 148px;
-            left: 802px;
-            top: 2400px;
-            background: url(images/3553075.png);
-        }
-        
-        .goals {
-            position: absolute;
-            width: 285px;
-            height: 148px;
-            left: 802px;
-            top: 2800px;
-            background: url(images/3553075.png);
-        }
-        
-        .student {
-            position: absolute;
-            width: 512px;
-            height: 410px;
-            left: 220px;
-            top: 3000.82px;
-            background: url(images/5293-removebg-preview.png);
-        }
-        
-        .college {
-            position: absolute;
-            width: 508px;
-            height: 324px;
-            left: 852px;
-            top: 3610px;
-            background: url(images/5853-removebg-preview.png);
-        }
-        
-        .work {
-            position: absolute;
-            width: 431px;
-            height: 280px;
-            left: 260px;
-            top: 4280px;
-            background: url(images/3372240.png);
-        }
-
         .selected {
             background-color: #ffef96;
         }
@@ -364,16 +265,48 @@
             border-radius: 2px;
             color: black;
         }
+
+        .stud {
+            box-sizing: border-box;
+            align-content: center;
+            text-align: center;
+            background-color: rgba(189, 255, 251, 0.62);
+            border-radius: 25px;
+            padding :10%;
+        }
+
+        .stud h1 {
+            font-weight: bold;
+            font-family:Lato;
+        }
+        .stud p {
+            font-size:150%;
+        }
+
+        .stud ul {
+            line-height: 200%;
+        }
+        body {
+            box-sizing: border-box;
+        }
+        .nav2 {
+            text-align: center;
+            font-size:250%;
+            font-weight:bold;
+            cursor: pointer;
+            background-color: rgba(189, 255, 251, 0.62);
+            font-family: "Lato";
+        }
     </style>
 </head>
 
 <body>
     <%- include ("partials/nav.html") %>
     <%- include ("partials/loginButton.html") %>
+    <%- include ("partials/chatpop.html") %>
 
 
-
-    <p style="margin-left:10px">
+    <!-- <p style="margin-left:10px">
 
         <img src="images/Rectangle 46.svg" style="position: absolute;width: 1133px;height: 70px;left: 113px;top: 196px;background: rgba(189, 255, 251, 0.62);border-radius: 25px;">
         <a>
@@ -394,83 +327,266 @@
             <p style="position: absolute;width: 299px;height: 48px;left: 913px;top: 206px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
 /* identical to box height, or 48px */color: #000000;" onclick="workp()">Working Professional</p>
         </a>
-    </p>
+    </p> -->
+    <section class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-12 nav2" onclick="school()" style="border:2px solid #000000" id="scop">
+                School Students
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 nav2" onclick="college()" style="border:2px solid #000000" id="colop">
+                College Students
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12 nav2" onclick="workp()" style="border:2px solid #000000" id="wpop">
+                Working Professionals
+            </div>
+        </div>
+    </section>
+        
 
-        <div id="sc">
+        <div id="sc" class="container">
             <!-- <p>SCCC</p> -->
-            <p>SCHOOL STUDENTS ARE WELCOME</p>
-            <img src="images/Rectangle 49.svg" style="position: absolute;width: 499px;height: 1010px;left: 122.5px;top: 370px;background: rgba(121, 239, 255, 0.34);border-radius: 50px;">
-    <p style="position: absolute;width: 306px;height: 77px;left: 199px;top: 390px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 48px;line-height: 160%;
-/* identical to box height, or 77px */color: #000000;">Habit Forming</p>
-    <p style="position: absolute;width: 232px;height: 58px;left: 197px;top: 690px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 36px;line-height: 160%;
-/* identical to box height, or 58px */color: #000000;">Specifications</p>
-
-    <img src="images/Rectangle 51.svg" style="position: absolute;width: 305px;height: 50px;left: 216px;top: 1260px;background: rgba(127, 251, 30, 0.54);border-radius: 40px;">
-    <p style="position: absolute;width: 178px;height: 48px;left: 280px;top: 1262px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
-/* identical to box height, or 48px */text-align: center;">Start Journey</p>
-
-    <img src="images/Rectangle 49.svg" style="position: absolute;width: 499px;height: 1010px;left: 763px;top: 370px;background: rgba(121, 239, 255, 0.37);border-radius: 50px;">
-    <p style="position: absolute;width: 221px;height: 77px;left: 840px;top: 380px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 48px;line-height: 160%;
-/* identical to box height, or 77px */color: #000000;">Long Term</p>
-    <p style="position: absolute;width: 232px;height: 58px;left: 847.5px;top: 690px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 36px;line-height: 160%;
-/* identical to box height, or 58px */color: #000000;">Specifications</p>
-    <img src="images/Rectangle 51.svg" style="position: absolute;width: 305px;height: 50px;left: 868px;top: 1261px;background: rgba(127, 251, 30, 0.54);border-radius: 40px;">
-
-    <p style="position: absolute;width: 178px;height: 48px;left: 932px;top: 1262px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
-/* identical to box height, or 48px */text-align: center;color: #000000;">Start Journey</p>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12" style="margin-top:5%;">
+                    <div class="stud">
+                        <h1>
+                            Compass Engagement
+                        </h1>
+                        <p>
+                            Program is designed to assess your abilities and create a clear for your performance enhancement plan that you follow yourself later 
+                        </p>
+                        <h1>
+                            Specification
+                        </h1>
+                        <ul>
+                            <li>
+                                Psychometric Analysis of the student through a standard test online and report identifying their strengths and development areas Counseling session-1  to set the course and Course Correction
+                            </li>
+                            <li>
+                                Competitive Ability Mapping : Through an Onboarding Questionnaire that helps understand academic ability of student and his environment with respect to his peers, inspirations , support structure so that he can be counseled well for optimization , Counseling Session 2
+                            </li>
+                            <li>
+                                Tracks and Options Template : Based on students ability his various tracks are laid out digitally
+                            </li>
+                            <li>
+                                24x7 Chat bot access for 1 month
+                            </li>
+                            <li>
+                                1 Month Free access to our webinars
+                            </li>
+                        </ul>
+                        <h1>PRICING:<br>RS:5000/(USD:75) FOR 1 MONTH</h1>
+                        <button style="border-radius: 20%;">Start Your Journey</button>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12" style="margin-top:5%;">
+                    <div class="stud">
+                        <h1>
+                            Compass Engagement
+                        </h1>
+                        <p>
+                            Program is designed to assess your abilities and create a clear for your performance enhancement plan that you follow yourself later 
+                        </p>
+                        <h1>
+                            Specification
+                        </h1>
+                        <ul>
+                            <li>
+                                Psychometric Analysis of the student through a standard test online and report identifying their strengths and development areas Counseling session-1  to set the course and Course Correction
+                            </li>
+                            <li>
+                                Competitive Ability Mapping : Through an Onboarding Questionnaire that helps understand academic ability of student and his environment with respect to his peers, inspirations , support structure so that he can be counseled well for optimization , Counseling Session 2
+                            </li>
+                            <li>
+                                Tracks and Options Template : Based on students ability his various tracks are laid out digitally
+                            </li>
+                            <li>
+                                24x7 Chat bot access for 1 month
+                            </li>
+                            <li>
+                                1 Month Free access to our webinars
+                            </li>
+                        </ul>
+                        <h1>PRICING:<br>RS:5000/(USD:75) FOR 1 MONTH</h1>
+                        <button style="border-radius: 20%;">Start Your Journey</button>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12" style="margin-top:5%;">
+                    <div class="stud">
+                        <h1>
+                            Compass Engagement
+                        </h1>
+                        <p>
+                            Program is designed to assess your abilities and create a clear for your performance enhancement plan that you follow yourself later 
+                        </p>
+                        <h1>
+                            Specification
+                        </h1>
+                        <ul>
+                            <li>
+                                Psychometric Analysis of the student through a standard test online and report identifying their strengths and development areas Counseling session-1  to set the course and Course Correction
+                            </li>
+                            <li>
+                                Competitive Ability Mapping : Through an Onboarding Questionnaire that helps understand academic ability of student and his environment with respect to his peers, inspirations , support structure so that he can be counseled well for optimization , Counseling Session 2
+                            </li>
+                            <li>
+                                Tracks and Options Template : Based on students ability his various tracks are laid out digitally
+                            </li>
+                            <li>
+                                24x7 Chat bot access for 1 month
+                            </li>
+                            <li>
+                                1 Month Free access to our webinars
+                            </li>
+                        </ul>
+                        <h1>PRICING:<br>RS:5000/(USD:75) FOR 1 MONTH</h1>
+                        <button style="border-radius: 20%;">Start Your Journey</button>
+                    </div>
+                </div>
+            </div>
 
     </div>
 
 
-    <div id="cg" style="display:none;">
-        <p>COLLEGE STUDENTS ARE WELCOME</p>
-        <img src="images/Rectangle 49.svg" style="position: absolute;width: 499px;height: 1010px;left: 122.5px;top: 370px;background: rgba(121, 239, 255, 0.34);border-radius: 50px;">
-        </p>
-        <p style="position: absolute;width: 306px;height: 77px;left: 199px;top: 390px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 48px;line-height: 160%;
-/* identical to box height, or 77px */color: #000000;">Habit Forming</p>
-        <p style="position: absolute;width: 232px;height: 58px;left: 197px;top: 690px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 36px;line-height: 160%;
-/* identical to box height, or 58px */color: #000000;">Specifications</p>
+    <div class="container" id="cg" style="display:none;">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top:5%;">
+                <div class="stud">
+                    <h1>
+                        Compass Engagement
+                    </h1>
+                    <p>
+                        Program is designed to assess your abilities and create a clear for your performance enhancement plan that you follow yourself later 
+                    </p>
+                    <h1>
+                        Specification
+                    </h1>
+                    <ul>
+                        <li>
+                            Psychometric Analysis of the student through a standard test online and report identifying their strengths and development areas Counseling session-1  to set the course and Course Correction
+                        </li>
+                        <li>
+                            Competitive Ability Mapping : Through an Onboarding Questionnaire that helps understand academic ability of student and his environment with respect to his peers, inspirations , support structure so that he can be counseled well for optimization , Counseling Session 2
+                        </li>
+                        <li>
+                            Tracks and Options Template : Based on students ability his various tracks are laid out digitally
+                        </li>
+                        <li>
+                            24x7 Chat bot access for 1 month
+                        </li>
+                        <li>
+                            1 Month Free access to our webinars
+                        </li>
+                    </ul>
+                    <h1>PRICING:<br>RS:5000/(USD:75) FOR 1 MONTH</h1>
+                    <button style="border-radius: 20%;">Start Your Journey</button>
+                </div>
+            </div>
 
-        <img src="images/Rectangle 51.svg" style="position: absolute;width: 305px;height: 50px;left: 216px;top: 1260px;background: rgba(127, 251, 30, 0.54);border-radius: 40px;">
-        <p style="position: absolute;width: 178px;height: 48px;left: 280px;top: 1262px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
-/* identical to box height, or 48px */text-align: center;">Start Journey</p>
-
-        <img src="images/Rectangle 49.svg" style="position: absolute;width: 499px;height: 1010px;left: 763px;top: 370px;background: rgba(121, 239, 255, 0.37);border-radius: 50px;">
-        <p style="position: absolute;width: 221px;height: 77px;left: 840px;top: 380px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 48px;line-height: 160%;
-/* identical to box height, or 77px */color: #000000;">Long Term</p>
-        <p style="position: absolute;width: 232px;height: 58px;left: 847.5px;top: 690px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 36px;line-height: 160%;
-/* identical to box height, or 58px */color: #000000;">Specifications</p>
-        <img src="images/Rectangle 51.svg" style="position: absolute;width: 305px;height: 50px;left: 868px;top: 1261px;background: rgba(127, 251, 30, 0.54);border-radius: 40px;">
-
-        <p style="position: absolute;width: 178px;height: 48px;left: 932px;top: 1262px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
-/* identical to box height, or 48px */text-align: center;color: #000000;">Start Journey</p>
+            <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top:5%;">
+                <div class="stud">
+                    <h1>
+                        Compass Engagement
+                    </h1>
+                    <p>
+                        Program is designed to assess your abilities and create a clear for your performance enhancement plan that you follow yourself later 
+                    </p>
+                    <h1>
+                        Specification
+                    </h1>
+                    <ul>
+                        <li>
+                            Psychometric Analysis of the student through a standard test online and report identifying their strengths and development areas Counseling session-1  to set the course and Course Correction
+                        </li>
+                        <li>
+                            Competitive Ability Mapping : Through an Onboarding Questionnaire that helps understand academic ability of student and his environment with respect to his peers, inspirations , support structure so that he can be counseled well for optimization , Counseling Session 2
+                        </li>
+                        <li>
+                            Tracks and Options Template : Based on students ability his various tracks are laid out digitally
+                        </li>
+                        <li>
+                            24x7 Chat bot access for 1 month
+                        </li>
+                        <li>
+                            1 Month Free access to our webinars
+                        </li>
+                    </ul>
+                    <h1>PRICING:<br>RS:5000/(USD:75) FOR 1 MONTH</h1>
+                    <button style="border-radius: 20%;">Start Your Journey</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
-    <div id="workingPro" style="display:none;">
-        <p>WORKING PROFESSIONAL ARE WELCOME</p>
-        <img src="images/Rectangle 49.svg" style="position: absolute;width: 499px;height: 1010px;left: 122.5px;top: 370px;background: rgba(121, 239, 255, 0.34);border-radius: 50px;">
-        <p style="position: absolute;width: 306px;height: 77px;left: 199px;top: 390px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 48px;line-height: 160%;
-    /* identical to box height, or 77px */color: #000000;">Habit Forming</p>
-        <p style="position: absolute;width: 232px;height: 58px;left: 197px;top: 690px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 36px;line-height: 160%;
-    /* identical to box height, or 58px */color: #000000;">Specifications</p>
-    
-        <img src="images/Rectangle 51.svg" style="position: absolute;width: 305px;height: 50px;left: 216px;top: 1260px;background: rgba(127, 251, 30, 0.54);border-radius: 40px;">
-        <p style="position: absolute;width: 178px;height: 48px;left: 280px;top: 1262px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
-    /* identical to box height, or 48px */text-align: center;">Start Journey</p>
-    
-        <img src="images/Rectangle 49.svg" style="position: absolute;width: 499px;height: 1010px;left: 763px;top: 370px;background: rgba(121, 239, 255, 0.37);border-radius: 50px;">
-        <p style="position: absolute;width: 221px;height: 77px;left: 840px;top: 380px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 48px;line-height: 160%;
-    /* identical to box height, or 77px */color: #000000;">Long Term</p>
-        <p style="position: absolute;width: 232px;height: 58px;left: 847.5px;top: 690px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 36px;line-height: 160%;
-    /* identical to box height, or 58px */color: #000000;">Specifications</p>
-        <img src="images/Rectangle 51.svg" style="position: absolute;width: 305px;height: 50px;left: 868px;top: 1261px;background: rgba(127, 251, 30, 0.54);border-radius: 40px;">
-    
-        <p style="position: absolute;width: 178px;height: 48px;left: 932px;top: 1262px;font-family: Lato;font-style: normal;font-weight: bold;font-size: 30px;line-height: 160%;
-    /* identical to box height, or 48px */text-align: center;color: #000000;">Start Journey</p>
+    <div class="container" id="workingPro" style="display:none;">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top:5%;">
+                <div class="stud">
+                    <h1>
+                        Compass Engagement
+                    </h1>
+                    <p>
+                        Program is designed to assess your abilities and create a clear for your performance enhancement plan that you follow yourself later 
+                    </p>
+                    <h1>
+                        Specification
+                    </h1>
+                    <ul>
+                        <li>
+                            Psychometric Analysis of the student through a standard test online and report identifying their strengths and development areas Counseling session-1  to set the course and Course Correction
+                        </li>
+                        <li>
+                            Competitive Ability Mapping : Through an Onboarding Questionnaire that helps understand academic ability of student and his environment with respect to his peers, inspirations , support structure so that he can be counseled well for optimization , Counseling Session 2
+                        </li>
+                        <li>
+                            Tracks and Options Template : Based on students ability his various tracks are laid out digitally
+                        </li>
+                        <li>
+                            24x7 Chat bot access for 1 month
+                        </li>
+                        <li>
+                            1 Month Free access to our webinars
+                        </li>
+                    </ul>
+                    <h1>PRICING:<br>RS:5000/(USD:75) FOR 1 MONTH</h1>
+                    <button style="border-radius: 20%;">Start Your Journey</button>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top:5%;">
+                <div class="stud">
+                    <h1>
+                        Compass Engagement
+                    </h1>
+                    <p>
+                        Program is designed to assess your abilities and create a clear for your performance enhancement plan that you follow yourself later 
+                    </p>
+                    <h1>
+                        Specification
+                    </h1>
+                    <ul>
+                        <li>
+                            Psychometric Analysis of the student through a standard test online and report identifying their strengths and development areas Counseling session-1  to set the course and Course Correction
+                        </li>
+                        <li>
+                            Competitive Ability Mapping : Through an Onboarding Questionnaire that helps understand academic ability of student and his environment with respect to his peers, inspirations , support structure so that he can be counseled well for optimization , Counseling Session 2
+                        </li>
+                        <li>
+                            Tracks and Options Template : Based on students ability his various tracks are laid out digitally
+                        </li>
+                        <li>
+                            24x7 Chat bot access for 1 month
+                        </li>
+                        <li>
+                            1 Month Free access to our webinars
+                        </li>
+                    </ul>
+                    <h1>PRICING:<br>RS:5000/(USD:75) FOR 1 MONTH</h1>
+                    <button style="border-radius: 20%;">Start Your Journey</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    
     <%- include("partials/footer.html") %>
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -532,19 +648,36 @@
         document.getElementById('sc').style.display = "block"
         document.getElementById('cg').style.display = "none"
         document.getElementById('workingPro').style.display = "none"
+        document.getElementById('scop').style.backgroundColor = "blue"
+        document.getElementById('colop').style.backgroundColor = "rgba(189, 255, 251, 0.62)"
+        document.getElementById('wpop').style.backgroundColor = "rgba(189, 255, 251, 0.62)"
     }
     
     function college() {
         document.getElementById('cg').style.display = "block"
         document.getElementById('sc').style.display = "none"
         document.getElementById('workingPro').style.display = "none"
+        document.getElementById('scop').style.backgroundColor = "rgba(189, 255, 251, 0.62)"
+        document.getElementById('colop').style.backgroundColor = "blue"
+        document.getElementById('wpop').style.backgroundColor = "rgba(189, 255, 251, 0.62)"
     }
     
     function workp() {
         document.getElementById('workingPro').style.display = "block"
         document.getElementById('cg').style.display = "none"
         document.getElementById('sc').style.display = "none"
+        document.getElementById('scop').style.backgroundColor = "rgba(189, 255, 251, 0.62)"
+        document.getElementById('colop').style.backgroundColor = "rgba(189, 255, 251, 0.62)"
+        document.getElementById('wpop').style.backgroundColor = "blue"
     }
+
+    function openForm() {
+		document.getElementById("myForm").style.display = "block";
+	}
+	
+	function closeForm() {
+		document.getElementById("myForm").style.display = "none";
+	}
     </script>
 </body>
 
