@@ -25,11 +25,11 @@ app.use(require('./routes/user'));
 
 if (process.env.NODE_ENV === "production") {
 
-    app.use(express.static('client/built'));
+    const root = require('path').join(__dirname, 'client', 'build')
+    app.use(express.static(root));
     app.get("*", (req, res) => {
-        res.sendFile(require('path')
-            .resolve(__dirname, 'client', 'build', 'index.html'));
-    })
+    res.sendFile('index.html', { root });
+})
 }
 
 app.listen(PORT,()=>{
