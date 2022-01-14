@@ -8,6 +8,7 @@
     "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "heroku-run-build-script":true,
+  "homepage": "https://myapp.herokuapp.com/",
   "author": "pg",
   "license": "ISC",
   "dependencies": {
