@@ -60,8 +60,8 @@ router.post('/login',(req,res)=>{     //signin route
             if(result) {
                 // res.json({message:"login successfull"});
                 const token = jwt.sign({_id:savedUser._id},JWT_SECRET)                  // generate token using jwt                                                    
-                const {_id,name,email,followers,following,pic} = savedUser
-                res.json({token,user:{_id,name,email,followers,following,pic}});
+                const {_id,name,email,followers,following,pic,status} = savedUser
+                res.json({token,user:{_id,name,email,followers,following,pic,status}});
             }
             else res.status(404).json({error:"incorrect email/password"});
         })
