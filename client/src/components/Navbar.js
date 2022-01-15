@@ -7,11 +7,10 @@ function Navbar (){
     const renderList = ()=>{
       if(state){
         return[
-          <li><i className='material-icons'>search</i></li>,
-            <li><Link to="/createpost" className="black-text">Create Post</Link></li>,
-            <li><Link to="/subpost" className="black-text">Explore</Link></li>,
-            <li><Link to="/profile"><img src={state.pic} style={{height:"50px",width:"80px",borderRadius:"100%",position:"relative",top:"10px"}}></img></Link></li>,
-            <button className="btn waves-effect waves-light #64b5f6 red"
+            <li><Link to="/createpost" className="black-text"><i class="material-icons">add</i></Link></li>,
+            <li><Link to="/profile" className="black-text"><img src={state.pic} style={{width:"30px",height:"30px",borderRadius:"100%",position:"relative",top:"10px"}}></img></Link></li>,          
+            <li><Link to="/subpost" className="black-text"><i class="material-icons">explore</i></Link></li>,          
+            <button className="btn waves-effect waves-light #64b5f6 red darken-1"
               onClick={()=>{
                 localStorage.clear()
                 dispatch({type:"CLEAR"})

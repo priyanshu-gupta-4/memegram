@@ -73,7 +73,7 @@ const SignUp = ()=>{
     return (
         <div>
             <div className="card auth-card">
-                <h2 className="mylogo">Instagram</h2>
+                <h2 className="mylogo">memegram</h2>
                 <input placeholder="email" type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}}></input>
                 <input placeholder="name" type="text" value={name} onChange={(e)=>{setName(e.target.value)}}></input>
                 <input placeholder="password" type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}></input>

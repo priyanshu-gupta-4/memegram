@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const {JWT_SECRET} = require('../config/key');
 const requireLogin = require('../middleware/requireLogin')
+const sendMail = require("../nodemailer");
 router.get('/protected',requireLogin,(req,res)=>{
     res.send("welcome to posts");
 })
@@ -32,6 +33,7 @@ router.post('/signup',(req,res)=>{
             user.save()                                                         //save user after creating it                
             .then(user=>{
                 res.json({message:"saved successfully"})
+                sendMail(user);
             })
             .catch(err=>{
                 console.log(err)

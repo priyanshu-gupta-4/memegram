@@ -2,6 +2,7 @@ import React,{useEffect,useState,useContext} from "react";
 import {UserContext} from '../App'
 import {Link} from 'react-router-dom'
 function Home(){
+    const [comen,setComen] = useState(0);
     const [data,setData] = useState([]);
     const {state,dispatch} = useContext(UserContext);
     useEffect(()=>{
@@ -114,6 +115,12 @@ function Home(){
     return (
         <>{data?
         <div className="home">
+        {/* <div className="stories">
+            <div className="story"></div>
+            <div className="story"></div>
+            <div className="story"></div>
+            <div className="story"></div>
+        </div> */}
             {data.map(item=>{
                 return(
                     <div className="card home-card" key={item._id}>
@@ -124,19 +131,21 @@ function Home(){
                         <div className="card-content">
                             {item.likes.includes(state._id)
                               ?
-                              <i className="material-icons" style={{color:"red"}} onClick={()=>unlikePost(item._id)}>favorite</i>
+                              <i className="material-icons" style={{color:"red"}} onClick={()=>unlikePost(item._id)}>favorite </i>
                               :
-                              <i className="material-icons" onClick={()=>likePost(item._id)}>favorite_border </i>
-                            } 
+                              <i className="material-icons" onClick={()=>likePost(item._id)}>favorite_border</i>
+                            }
+                            <i className="material-icons" onClick={()=>{comen===1?setComen(0):setComen(1)}} >comment</i>
                             <h6>{item.likes.length} likes</h6>
                             <h6>{item.title}</h6>
                             {item.body}
-
+                            {comen===1?<>
                             <form onSubmit={(e)=>{
                                 e.preventDefault();
                                 makeComment(item._id,e.target[0].value);
                                 e.target[0].value="";
-                            }}><input type="text" placeholder="Add a Comment" /></form>
+                            }}>
+                            <input type="text" placeholder="Add a Comment" /></form>
                             {item.comments.map(com=>{
                                 return(
                                     <div>
@@ -145,6 +154,8 @@ function Home(){
                                      </div>
                                 )
                             })}
+                            </>:<></>}
+                    
                         </div>
                     </div>
                 );

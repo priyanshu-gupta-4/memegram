@@ -28,7 +28,6 @@ const Login = ()=>{
                 M.toast({html:data.error,classes:"#c62828 red darken-3"})
             }
             else{
-                console.log(data)
                 localStorage.setItem("jwt",data.token)
                 localStorage.setItem("user",JSON.stringify(data.user))
                 dispatch({type:"USER",payload:data.user}) 
@@ -43,7 +42,7 @@ const Login = ()=>{
     return(
             <div>
                 <div className="card auth-card">
-                    <h2 className="mylogo">Instagram</h2>
+                    <h2 className="mylogo">memegram</h2>
                     <input placeholder="email" type="text" value={email} onChange={(e)=>{setEmail(e.target.value)}}></input>
                     <input placeholder="password" type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}></input>
                     <button className="waves-effect waves-light btn blue lighten-2" onClick={()=>{PostData()}}>Login</button><br /><br />

@@ -71,4 +71,12 @@ router.put('/updatepic',requireLogin,(req,res)=>{
         res.json(result)
     }).select("-password")
 })
+router.put('/updatestatus',requireLogin,(req,res)=>{
+    User.findByIdAndUpdate(req.user._id,{$set:{status:req.body.status}},{new:true},(err,result)=>{
+        if(err){
+            return res.status(422).json({error:err})
+        }
+        res.json(result)
+    }).select("-password")
+})
 module.exports = router

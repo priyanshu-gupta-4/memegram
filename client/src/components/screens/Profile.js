@@ -4,6 +4,9 @@ const Profile = ()=>{
     const [posts,setPosts] = useState([]);
     const {state,dispatch} = useContext(UserContext);
     const [image,setImage] = useState();
+    const [st,editst]=useState(0);
+    const [entVal,setVal]=useState(); 
+    const [status,setStatus] = useState();
     useEffect(()=>{
         fetch('/mypost',{
             headers:{
@@ -38,13 +41,12 @@ const Profile = ()=>{
             })
             .then(res=>res.json())
             .then(result=>{
-                console.log(result)
+                console.log(result); 
                 return result
             })
             .then((result)=>{
-                console.log(result);
                 dispatch({type:"UPDATEPIC",payload:result.pic});
-                localStorage.setItem("user",JSON.stringify({...state,pic:result.url}))
+                localStorage.setItem("user",JSON.stringify({...state,pic:result.pic}))
             })
             .catch(err=>console.log(err))
         })
@@ -54,8 +56,32 @@ const Profile = ()=>{
 
         }
     },[image])
+    useEffect(()=>{
+        if(status){
+            fetch("/updatestatus",{
+                method:"put",
+                headers:{
+                    "Content-Type":"application/json",
+                    "Authorization":"Bearer "+localStorage.getItem("jwt")
+                },
+                body:JSON.stringify({
+                    status
+                })
+            })
+            .then(res=>res.json())
+            .then((result)=>{
+                dispatch({type:"UPDATESTATUS",payload:result.status});
+                localStorage.setItem("user",JSON.stringify({...state,status:result.status}))
+                editst(0);
+            })
+            .catch(err=>console.log(err))
+        }
+    },[status])
     const updatePhoto=(f)=>{
         setImage(f)
+    }
+    const updateStatus=(s)=>{
+        setStatus(s);
     }
     return(
     <>
@@ -86,10 +112,12 @@ const Profile = ()=>{
                 </div>
                 <div>
                     <h4>{state.name}</h4>
-                    <div style={{display:"flex",justifyContent:"space-between"}}>
-                        <h6 style={{margin:" 10px"}}>{state.followers.length} followers </h6>
-                        <h6 style={{margin:"10px"}}>{state.following.length} following </h6>
-                        <h6 style={{margin:"10px"}}>{posts.length} posts</h6>
+                    <h6>{state.status?state.status+" ":"No status "}<i className="material-icons" onClick={()=>{st===0?editst(1):editst(0)}}>edit</i></h6>
+                    {st==1?<><input type="text" onChange={(e)=>{setVal(e.target.value)}} ></input><button className="btn blue" onClick={()=>{updateStatus(entVal)}}>update</button></>:<></>}
+                    <div style={{display:"flex"}}>
+                        <h6>{state.followers.length} followers</h6>
+                        <h6>{state.following.length} following </h6>
+                        <h6>{posts.length} posts</h6>
                     </div>
                 </div>
             </div>
