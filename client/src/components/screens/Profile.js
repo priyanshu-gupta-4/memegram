@@ -56,6 +56,7 @@ const Profile = ()=>{
 
         }
     },[image])
+
     useEffect(()=>{
         if(status){
             fetch("/updatestatus",{
@@ -114,10 +115,10 @@ const Profile = ()=>{
                     <h4>{state.name}</h4>
                     <h6>{state.status?state.status+" ":"No status "}<i className="material-icons" onClick={()=>{st===0?editst(1):editst(0)}}>edit</i></h6>
                     {st==1?<><input type="text" onChange={(e)=>{setVal(e.target.value)}} ></input><button className="btn blue" onClick={()=>{updateStatus(entVal)}}>update</button></>:<></>}
-                    <div style={{display:"flex"}}>
-                        <h6>{state.followers.length} followers</h6>
-                        <h6>{state.following.length} following </h6>
-                        <h6>{posts.length} posts</h6>
+                    <div style={{display:"flex",justifyContent:"space-between"}}>
+                        <h6 style={{margin:"10px"}}>{state.followers.length} followers</h6>
+                        <h6 style={{margin:"10px"}}>{state.following.length} following </h6>
+                        <h6 style={{margin:"10px"}}>{posts.length} posts</h6>
                     </div>
                 </div>
             </div>

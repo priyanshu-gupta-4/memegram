@@ -11,12 +11,13 @@ function Navbar (){
             <li><Link to="/profile" className="black-text"><img src={state.pic} style={{width:"30px",height:"30px",borderRadius:"100%",position:"relative",top:"10px"}}></img></Link></li>,          
             <li><Link to="/subpost" className="black-text"><i class="material-icons">explore</i></Link></li>,          
             <button className="btn waves-effect waves-light #64b5f6 red darken-1"
+              style={{height:"20%"}}
               onClick={()=>{
                 localStorage.clear()
                 dispatch({type:"CLEAR"})
                 navigate("/signin")
               }}
-            >Logout</button>
+            ><i class="material-icons" style={{fontSize:"20px"}}>power_settings_new</i></button>
           ];
       }
       else {

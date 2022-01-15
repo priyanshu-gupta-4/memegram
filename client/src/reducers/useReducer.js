@@ -17,5 +17,11 @@ export const reducer =(state,action)=>{
             pic:action.payload
         }
     }
+    if(action.type==="UPDATESTATUS"){
+        return{
+            ...state,
+            status:action.payload
+        }
+    }
     return state;
 }
