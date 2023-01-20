@@ -73,6 +73,7 @@ const UserProfile = ()=>{
                 </div>
                 <div>
                     <h4>{profile.name}</h4>
+                    <h6>{profile.status}</h6>
                     <div style={{display:"flex",justifyContent:"space-between"}}>
                         <h6 style={{margin:"10px"}}>{profile.followers.length} followers</h6>
                         <h6 style={{margin:"10px"}}> {profile.following.length} following </h6>

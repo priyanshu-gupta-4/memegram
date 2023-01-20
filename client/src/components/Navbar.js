@@ -7,6 +7,7 @@ function Navbar (){
     const renderList = ()=>{
       if(state){
         return[
+            <li><Link to="/search" className="black-text"><i class="material-icons">search</i></Link></li>,  
             <li><Link to="/createpost" className="black-text"><i class="material-icons">add</i></Link></li>,
             <li><Link to="/profile" className="black-text"><img src={state.pic} style={{width:"30px",height:"30px",borderRadius:"100%",position:"relative",top:"10px"}}></img></Link></li>,          
             <li><Link to="/subpost" className="black-text"><i class="material-icons">explore</i></Link></li>,          

@@ -79,7 +79,8 @@ const SignUp = ()=>{
                 <input placeholder="password" type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}></input>
                 <div className="file-field input-field">
                     <div className="btn blue">
-                        <span>Upload pic</span>
+                        <span>Upload pic </span>
+                        (optional)
                         <input type="file" onChange={(e)=>{setImage(e.target.files[0])}}/>
                     </div>
                     <div className="file-path-wrapper">

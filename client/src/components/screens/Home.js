@@ -111,21 +111,15 @@ function Home(){
             setData(newData);
         })
     }
-
     return (
-        <>{data?
+        <>
+        {data?
         <div className="home">
-        {/* <div className="stories">
-            <div className="story"></div>
-            <div className="story"></div>
-            <div className="story"></div>
-            <div className="story"></div>
-        </div> */}
             {data.map(item=>{
                 return(
                     <div className="card home-card" key={item._id}>
                         <h5 style={{padding:"1%"}}><Link to={"/profile/"+item.postedBy._id} style={{color:"black"}}><img src={item.postedBy.pic} style={{height:"30px",width:"30px",borderRadius:"100%",margin:"5px 0 0 0"}}></img> {item.postedBy.name}</Link>{item.postedBy._id == state._id&&<i className="material-icons" onClick={()=>{deletePost(item._id)}} style={{float:"right"}}>delete</i>}</h5>
-                        <div className="card-image postimg">
+                        <div className="card-image">
                             <a href={item.photo}><img src={item.photo} /></a>
                         </div>
                         <div className="card-content">
@@ -149,8 +143,7 @@ function Home(){
                             {item.comments.map(com=>{
                                 return(
                                     <div>
-                                        <h6 key={com._id} style={{fontWeight:"500"}}>{com.postedBy.name}</h6>
-                                        {com.text}
+                                    <Link key={com._id} to={"/profile/"+com.postedBy._id} style={{color:"black"}}><h6>{com.postedBy.name}</h6></Link> {com.text}
                                      </div>
                                 )
                             })}
@@ -161,7 +154,8 @@ function Home(){
                 );
             })}
         </div>
-        :<h2>Loading....</h2>}
+        :<h2>Loading....</h2>
+        }
         </>
     );
 }

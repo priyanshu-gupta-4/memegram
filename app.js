@@ -3,7 +3,13 @@ const app = express();
 const PORT = process.env.PORT||5000;
 const mongoose = require('mongoose');
 const {MONGOURL} = require('./config/key');   //get hosting URL of atlas host from key.js that exports them
-
+const cors=require("cors");
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
+}
+app.use(cors(corsOptions))
 app.use(express.json());    //let express accept data in req body by telling it type of data
 
 

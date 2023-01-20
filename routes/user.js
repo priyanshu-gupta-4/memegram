@@ -23,6 +23,29 @@ router.get("/profile/:id",requireLogin,(req,res)=>{
     })
 })
 
+router.get("/alluser",(req,res)=>{
+    User.find()
+    .select("-password -followers -following -status")
+    .then(users=>{
+        res.json({users})
+    })
+    .catch(err=>{
+        res.json({err})
+    })
+})
+
+router.get("/searchUser/:ustr",(req,res)=>{
+    const reg=new RegExp("^"+req.params.ustr+".*");
+    User.find({name:{ $regex: reg, $options: 'i'}})
+    .select("-password -followers -following -status")
+    .then(users=>{
+        res.json({users})
+    })
+    .catch(err=>{
+        res.json({err})
+    })
+})
+
 router.put("/follow",requireLogin,(req,res)=>{
     User.findByIdAndUpdate(req.user._id,{
         $push:{following:req.body.followId}

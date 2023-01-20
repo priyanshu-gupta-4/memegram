@@ -17,6 +17,7 @@ router.post("/createpost",requireLogin,(req,res)=>{
     })
     Post.save().then(result=>{
         res.json({post:result})
+        res.redirect("/")
     })
     .catch(err=>{
         console.log(err)
@@ -102,6 +103,30 @@ router.put("/unlike",requireLogin,(req,res)=>{
 
 })
 
+const {openaikey}=require("../config/key");
+const { Configuration, OpenAIApi } = require("openai");
+const configuration = new Configuration({
+  apiKey: openaikey,
+});
+const openai = new OpenAIApi(configuration);
+router.post('/generateImg',(req,res)=>{
+    const Creater=async ()=>{
+        try{
+            const result=await openai.createImage({
+                prompt:req.body.txt,
+                n:1,
+                size:'256x256'
+            })
+            const img_url=result.data.data[0].url;
+            res.send({url:img_url});
+        }
+        catch(err){
+            res.send(err);
+        }
+    }
+    Creater()
+})
+
 router.put("/comment",requireLogin,(req,res)=>{
     const comment ={text:req.body.text,postedBy:req.user._id}
     post.findByIdAndUpdate(req.body.postId,{
@@ -116,5 +141,23 @@ router.put("/comment",requireLogin,(req,res)=>{
     })
 })
 
-
+// router.delete("/deleteComm/:postId/:commId",requireLogin,(req,res)=>{
+//     post.findOne({_id:req.params.postId})
+//     .populate("postedBy","_id","comments")
+//     .exec((err,post)=>{
+//         if(err|| !post){
+//             return res.status(422).json({error:err})
+//         }
+//         post.comments.forEach(element => {
+//             if(element._id===req.params.commId&&element.postedBy._id.toString()===req.user._id.toString()){
+//                 const idx=post.comments.indexOf(element);
+//                 if(idx>-1) post.comments.splice(idx,1);
+//                 res.json("deleted comment");
+//             }
+//             else {
+//                 res.status(402).json("unauthorized");
+//             }
+//         });
+//     })
+// })
 module.exports = router

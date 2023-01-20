@@ -22,5 +22,9 @@ const postSchema = mongoose.Schema({
         type:ObjectId,
         ref:"User"
     }
+    ,
+    postedOn:{
+        type:Date
+    }
 })
 mongoose.model('Post',postSchema);
