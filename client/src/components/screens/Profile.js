@@ -29,7 +29,7 @@ const Profile = ()=>{
         })
         .then(res=>res.json())
         .then(data=>{
-            fetch("/updatepic",{
+            fetch("https://memegram.onrender.com/updatepic",{
                 method:"put",
                 headers:{
                     "Content-Type":"application/json",
@@ -59,7 +59,7 @@ const Profile = ()=>{
 
     useEffect(()=>{
         if(status){
-            fetch("/updatestatus",{
+            fetch("https://memegram.onrender.com/updatestatus",{
                 method:"put",
                 headers:{
                     "Content-Type":"application/json",

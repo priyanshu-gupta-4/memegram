@@ -7,7 +7,7 @@ const UserProfile = ()=>{
     const [posts,setPosts] = useState([]);
     const {userid} = useParams();
     useEffect(()=>{
-        fetch(`/profile/${userid}`,{
+        fetch(`https://memegram.onrender.com/profile/${userid}`,{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")
             }
@@ -20,7 +20,7 @@ const UserProfile = ()=>{
     },[])
 
     const follow = (followId)=>{
-        fetch("/follow",{
+        fetch("https://memegram.onrender.com/follow",{
             method:"put",
             headers:{
                 "Content-Type":"application/json",
@@ -38,7 +38,7 @@ const UserProfile = ()=>{
         })
     }
     const unfollow = (followId)=>{
-        fetch("/unfollow",{
+        fetch("https://memegram.onrender.com/unfollow",{
             method:"put",
             headers:{
                 "Content-Type":"application/json",

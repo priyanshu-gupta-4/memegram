@@ -36,7 +36,7 @@ const SignUp = ()=>{
             return
         }
         
-        fetch("/signup",{
+        fetch("https://memegram.onrender.com/signup",{
             method:"post",
             headers:{
                 "Content-Type":"application/json"

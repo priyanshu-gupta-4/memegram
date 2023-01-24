@@ -20,7 +20,7 @@ function Home(){
     },[])
 
     const likePost=(id)=>{
-        fetch("/like",{
+        fetch("https://memegram.onrender.com/like",{
             method:"put",
             headers:{
                 "Content-Type":"application/json",
@@ -46,7 +46,7 @@ function Home(){
 
 
     const unlikePost=(id)=>{
-        fetch("/unlike",{
+        fetch("https://memegram.onrender.com/unlike",{
             method:"put",
             headers:{
                 "Content-Type":"application/json",
@@ -71,7 +71,7 @@ function Home(){
     }
 
     const makeComment=(id,com)=>{
-        fetch("/comment",{
+        fetch("https://memegram.onrender.com/comment",{
             method:"put",
             headers:{
                 "Content-Type":"application/json",
@@ -97,7 +97,7 @@ function Home(){
     }
 
     const deletePost = (postid)=>{
-        fetch(`/deletepost/${postid}`,{
+        fetch(`https://memegram.onrender.com/deletepost/${postid}`,{
             method:"delete",
             headers:{
                 Authorization:"Bearer "+localStorage.getItem("jwt")
