@@ -1,5 +1,5 @@
 module.exports = {
-    MONGOURL : process.env.MONGOURI,
+    MONGOURL : process.env.MONGOURL,
     JWT_SECRET:process.env.JWT_SEC,
     Gmail:process.env.GMAIL,
     pass:process.env.PASS
