@@ -3,5 +3,5 @@ module.exports = {
     JWT_SECRET:process.env.JWT_SEC,
     Gmail:process.env.GMAIL,
     pass:process.env.PASS,
-    openaikey:process.env.openaikey
+    openaikey:process.env.OPENAI
 }
