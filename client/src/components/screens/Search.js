@@ -19,7 +19,7 @@ function Search(){
             }
             else{
                     const t=setTimeout(()=>{
-                    fetch('/searchUser/'+search,{
+                    fetch('https://memegram.onrender.com/searchUser/'+search,{
                         method:"get",
                         headers:{
                             "Content-Type":"application/json",

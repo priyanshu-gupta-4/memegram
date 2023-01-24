@@ -5,7 +5,7 @@ function Home(){
     const [data,setData] = useState([]);
     const {state,dispatch} = useContext(UserContext);
     useEffect(()=>{
-        fetch('/subposts',{
+        fetch('https://memegram.onrender.com/subposts',{
             method:"get",
             headers:{
                 "Content-Type":"application/json",

@@ -8,7 +8,7 @@ const Profile = ()=>{
     const [entVal,setVal]=useState(); 
     const [status,setStatus] = useState();
     useEffect(()=>{
-        fetch('/mypost',{
+        fetch('https://memegram.onrender.com/mypost',{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")
             }
