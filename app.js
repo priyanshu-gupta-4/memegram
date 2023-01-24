@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const {MONGOURL} = require('./config/key');   //get hosting URL of atlas host from key.js that exports them
 const cors=require("cors");
 const corsOptions ={
-   origin:'https://memegram-eight.vercel.app', 
+   origin:'*', 
    credentials:true,            //access-control-allow-credentials:true
    optionSuccessStatus:200,
 }
