@@ -46,7 +46,7 @@ const Login = ()=>{
                     <input placeholder="email" type="text" value={email} onChange={(e)=>{setEmail(e.target.value)}}></input>
                     <input placeholder="password" type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}}></input>
                     <button className="waves-effect waves-light btn blue lighten-2" onClick={()=>{PostData()}}>Login</button><br /><br />
-                    New to Instagram ? <Link to="/signup">SIGN UP</Link>
+                    New to memegram ? <Link to="/signup">SIGN UP</Link>
                 </div>
             </div>
         );
