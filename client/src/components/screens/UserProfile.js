@@ -65,30 +65,26 @@ const UserProfile = ()=>{
                 margin: "20px auto",
                 borderBottom: "1px solid grey",
             }}>
-                <div><img style={{
-                    width: "160px",
-                    height: "160px",
-                    borderRadius: "50%"
-                }} src={profile.pic} />
-                </div>
+                <img class="profileImg" src={profile.pic} />
                 <div>
                     <h4>{profile.name}</h4>
-                    <h6>{profile.status}</h6>
-                    <div style={{display:"flex",justifyContent:"space-between"}}>
-                        <h6 style={{margin:"10px"}}>{profile.followers.length} followers</h6>
-                        <h6 style={{margin:"10px"}}> {profile.following.length} following </h6>
-                        <h6 style={{margin:"10px"}}> {posts.length} posts</h6>
-                    </div>
+                    
                     {profile.followers.includes(state._id)?
                     <button onClick={()=>{unfollow(profile._id)}} className="btn waves-effect waves-light #64b5f6 blue darken-1">Unfollow</button>
                     :
                     <button onClick={()=>{follow(profile._id)}} className="btn waves-effect waves-light #64b5f6 blue darken-1">Follow</button>}
+                    <h6>{profile.status}</h6>
+                    <div style={{display:"flex",justifyContent:"space-between"}}>
+                        <h6>{profile.followers.length} followers</h6>
+                        <h6 style={{margin:"10px"}}> {profile.following.length} following </h6>
+                        <h6> {posts.length} posts</h6>
+                    </div>
                 </div>
             </div>
             <div className="gallery">
             {posts.map((post)=>{
                 return (
-                        <img key={post._id} className="item" src={post.photo} alt={post.title} />
+                        <a className="item" href={post.photo}><img style={{width:"100%" ,height:"100%"}} key={post._id} src={post.photo} alt={post.title} /></a>
                 );
         })}
         </div>   

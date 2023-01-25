@@ -5,6 +5,7 @@ const Profile = ()=>{
     const {state,dispatch} = useContext(UserContext);
     const [image,setImage] = useState();
     const [st,editst]=useState(0);
+    const [EditIm,setEditIm]=useState(0);
     const [entVal,setVal]=useState(); 
     const [status,setStatus] = useState();
     useEffect(()=>{
@@ -84,6 +85,21 @@ const Profile = ()=>{
     const updateStatus=(s)=>{
         setStatus(s);
     }
+    const deletePost = (postid)=>{
+        fetch(`https://memegram.onrender.com/deletepost/${postid}`,{
+            method:"delete",
+            headers:{
+                Authorization:"Bearer "+localStorage.getItem("jwt")
+            }
+        })
+        .then(res=>res.json())
+        .then(result=>{
+            const newData = posts.filter(item=>{
+                return item._id !==result._id
+            })
+            setPosts(newData);
+        })
+    }
     return(
     <>
     {state?
@@ -95,21 +111,20 @@ const Profile = ()=>{
                 borderBottom: "1px solid grey",
             }}>
                 <div>
-                <div><img style={{
-                    width: "160px",
-                    height: "160px",
-                    borderRadius: "50%"
-                }} src={state.pic}  />
-                </div>
-                <div className="file-field input-field">
-                    <div className="btn blue">
-                        <span>Update pic</span>
-                        <input type="file" onChange={(e)=>{updatePhoto(e.target.files[0])}}/>
-                    </div>
-                    <div className="file-path-wrapper">
-                        <input className="file-path validate" type="text" />
-                    </div>
-                </div>
+                    <img class="profileImg" src={state.pic} onClick={()=>{
+                        setEditIm(!EditIm)
+                    }}/>
+                    {EditIm?
+                    <div className="file-field input-field">
+                        <div className="btn blue">
+                        <i className="material-icons">edit</i>
+                            <input type="file" onChange={(e)=>{updatePhoto(e.target.files[0])}}/>
+                        </div>
+                        <div className="file-path-wrapper">
+                            <input className="file-path validate" type="text" />
+                        </div>
+                    </div>:<></>
+                    }
                 </div>
                 <div>
                     <h4>{state.name}</h4>
@@ -125,7 +140,7 @@ const Profile = ()=>{
             <div className="gallery">
             {posts.map((post)=>{
                 return (
-                    <img key={post._id} className="item" src={post.photo} alt={post.title} />
+                    <a className="item" href={post.photo}><img style={{width:"100%" ,height:"100%"}} key={post._id} src={post.photo} alt={post.title} /></a>
                 );
         })}
         </div>   

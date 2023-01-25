@@ -15,6 +15,7 @@ function Home(){
         })
         .then(res=>res.json())
         .then(result=>{
+            result.posts.reverse();
             setData(result.posts)
         })
     },[])
@@ -120,7 +121,7 @@ function Home(){
                     <div className="card home-card" key={item._id}>
                         <h5 style={{padding:"1%"}}><Link to={"/profile/"+item.postedBy._id} style={{color:"black"}}><img src={item.postedBy.pic} style={{height:"30px",width:"30px",borderRadius:"100%",margin:"5px 0 0 0"}}></img> {item.postedBy.name}</Link>{item.postedBy._id == state._id&&<i className="material-icons" onClick={()=>{deletePost(item._id)}} style={{float:"right"}}>delete</i>}</h5>
                         <div className="card-image">
-                            <a href={item.photo}><img src={item.photo} /></a>
+                            <a href={item.photo}><img src={item.photo} style={{maxHeight:"600px"}} /></a>
                         </div>
                         <div className="card-content">
                             {item.likes.includes(state._id)
