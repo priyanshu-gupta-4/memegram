@@ -55,7 +55,7 @@ router.post('/login',(req,res)=>{     //signin route
     User.findOne({email:email})                                                         //if user is found it compare password using bcrypt and if password is correct it issue a JWT to the User to allow user to access protected resource        
     .then((savedUser)=>{
         if(!savedUser)  return res.status(404).json({error:"incorrect email/password"})
-        bcrypt.compare(password,savedUser.password)
+        bcrypt.compare(password,savedUser.password) 
         .then((result)=>{
             if(result) {
                 // res.json({message:"login successfull"});
