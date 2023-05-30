@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { UserContext } from '../../App'
-import {io} from "socket.io-client"
+import { io } from "socket.io-client"
 import './messenger.css'
 import Conversation from './conversation'
 import Message from './message'
@@ -13,12 +13,12 @@ export default function Messaging() {
   const [arrivalMsg, setArrivalMsg] = useState(null);
   const { state } = useContext(UserContext);
   // const {socket} = useRef(io("ws://localhost:8900"))
-  const [socket,setSocket] = useState(null)
-  useEffect(()=>{
+  const [socket, setSocket] = useState(null)
+  useEffect(() => {
     const fetchData = async () => {
       const socket = io("ws://localhost:5000");
       setSocket(socket);
-  
+
       socket.on("getMessage", (data) => {
         setArrivalMsg({
           sender: data.senderId,
@@ -27,24 +27,24 @@ export default function Messaging() {
         });
       });
     };
-  
+
     fetchData();
-  },[])
+  }, [])
 
-  useEffect(()=>{
-    arrivalMsg&&currentChat?.members.includes(arrivalMsg.sender)&&setMessages((prev)=>[...prev,arrivalMsg])
-  },[arrivalMsg,currentChat])
+  useEffect(() => {
+    arrivalMsg && currentChat?.members.includes(arrivalMsg.sender) && setMessages((prev) => [...prev, arrivalMsg])
+  }, [arrivalMsg, currentChat])
 
-  useEffect(()=>{
-    if(socket){
-      socket.emit("addUser",state._id)
-      socket.on("getUsers",users=>{
+  useEffect(() => {
+    if (socket) {
+      socket.emit("addUser", state._id)
+      socket.on("getUsers", users => {
         console.log(users)
       })
     }
-  },[socket])
+  }, [socket])
   useEffect(() => {
-    fetch('http://localhost:5000/conversations', {
+    fetch('/conversations', {
       method: "get",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +59,7 @@ export default function Messaging() {
 
   useEffect(() => {
     currentChat ?
-      fetch('http://localhost:5000/messages/' + currentChat._id, {
+      fetch('/messages/' + currentChat._id, {
         method: "get",
         headers: {
           "Content-Type": "application/json",
@@ -73,32 +73,32 @@ export default function Messaging() {
   }, [currentChat])
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(newMsg!=""){
-    const message = {
-      text: newMsg,
-      ConversationId: currentChat._id
-    }
-    const recieverId = currentChat.members.find(member=>member!==state._id)
-    socket.emit("sendMessage",{
-      senderId:state._id,
-      recieverId,
-      text:newMsg
-    })
-    fetch('http://localhost:5000/messages/' + currentChat._id, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("jwt")
-      },
-      body: JSON.stringify({
-        message
+    if (newMsg != "") {
+      const message = {
+        text: newMsg,
+        ConversationId: currentChat._id
+      }
+      const recieverId = currentChat.members.find(member => member !== state._id)
+      socket.emit("sendMessage", {
+        senderId: state._id,
+        recieverId,
+        text: newMsg
       })
-    })
-      .then(res => res.json())
-      .then(result => {
-        setMessages([...messages,result])
-        setNewMsg("")
+      fetch('/messages/' + currentChat._id, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + localStorage.getItem("jwt")
+        },
+        body: JSON.stringify({
+          message
+        })
       })
+        .then(res => res.json())
+        .then(result => {
+          setMessages([...messages, result])
+          setNewMsg("")
+        })
     }
   }
   return (
@@ -119,7 +119,7 @@ export default function Messaging() {
             <div className='chatBoxTop'>
               {messages.map(m => {
                 var isown = m.Sender === state._id
-                return(<div> <Message own={isown} message={m} /></div>)
+                return (<div> <Message own={isown} message={m} /></div>)
               })}
             </div>
             <div className='chatBoxBottom'>

@@ -8,7 +8,7 @@ export default function Conversation({ conversation }) {
 
   useEffect(() => {
     const friendId = conversation.members.find(m => m !== state._id);
-    fetch('http://localhost:5000/profile/' + friendId, {
+    fetch('/profile/' + friendId, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
