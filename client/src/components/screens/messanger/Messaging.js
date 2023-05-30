@@ -15,7 +15,7 @@ export default function Messaging() {
   const { socket } = useRef()
   const scrollRef = useRef();
   useEffect(() => {
-    socket.current = io("ws://memegram.onrender.com");
+    socket.current = io("wss://memegram.onrender.com");
     socket.current.on("getMessage", (data) => {
       setArrivalMsg({
         sender: data.senderId,
