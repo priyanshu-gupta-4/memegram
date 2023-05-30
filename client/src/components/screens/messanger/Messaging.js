@@ -23,6 +23,10 @@ export default function Messaging() {
         createdAt: Date.now(),
       });
     });
+
+    return () => {
+      socket.current.disconnect();
+    };
   }, [])
 
   useEffect(() => {
