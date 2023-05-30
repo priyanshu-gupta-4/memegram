@@ -12,22 +12,17 @@ export default function Messaging() {
   const [newMsg, setNewMsg] = useState("");
   const [arrivalMsg, setArrivalMsg] = useState(null);
   const { state } = useContext(UserContext);
-  //const { socket } = useRef()
+  const { socket } = useRef()
   const scrollRef = useRef();
-  const [socket,setSocket] = useState(null)
   useEffect(() => {
-    const fetchData = async () => {
-      setSocket(io("wss://memegram.onrender.com/"));
-      socket.on("getMessage", (data) => {
-        setArrivalMsg({
-          sender: data.senderId,
-          text: data.text,
-          createdAt: Date.now(),
-        });
+    socket.current = io("ws://memegram.onrender.com");
+    socket.current.on("getMessage", (data) => {
+      setArrivalMsg({
+        sender: data.senderId,
+        text: data.text,
+        createdAt: Date.now(),
       });
-    };
-
-    fetchData();
+    });
   }, [])
 
   useEffect(() => {
@@ -39,14 +34,11 @@ export default function Messaging() {
   }, [messages]);
 
   useEffect(() => {
-    if (socket) {
-      console.log(socket)
-      socket.emit("addUser", state._id)
-      socket.on("getUsers", users => {
-        console.log(users)
-      })
-    }
-  }, [socket])
+    socket.current.emit("addUser", state._id)
+    socket.current.on("getUsers", users => {
+      console.log(users)
+    })
+  }, [state])
   useEffect(() => {
     fetch('/conversations', {
       method: "get",
@@ -83,7 +75,7 @@ export default function Messaging() {
         ConversationId: currentChat._id
       }
       const recieverId = currentChat.members.find(member => member !== state._id)
-      socket.emit("sendMessage", {
+      socket.current.emit("sendMessage", {
         senderId: state._id,
         recieverId,
         text: newMsg
