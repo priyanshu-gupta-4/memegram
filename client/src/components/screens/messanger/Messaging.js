@@ -128,14 +128,14 @@ export default function Messaging() {
           </> : <span classname="noConversation">click on a chat to start a conversation</span>}
         </div>
       </div>
-      <div className='chatOnline'>
+      {/* <div className='chatOnline'>
         <div className='chatOnlineWrapper'>
           <ChatOnline />
           <ChatOnline />
           <ChatOnline />
           <ChatOnline />
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
