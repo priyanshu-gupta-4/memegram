@@ -15,7 +15,7 @@ export default function Messaging() {
   const { socket } = useRef()
   useEffect(() => {
     const fetchData = async () => {
-      socket.current = io("ws://localhost:8900");
+      socket.current = io("wss://https://memegram.onrender.com/");
       socket.current.on("getMessage", (data) => {
         setArrivalMsg({
           sender: data.senderId,
