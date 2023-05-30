@@ -12,7 +12,7 @@ export default function Messaging() {
   const [newMsg, setNewMsg] = useState("");
   const [arrivalMsg, setArrivalMsg] = useState(null);
   const { state } = useContext(UserContext);
-  const { socket } = useRef()
+  const socket  = useRef()
   const scrollRef = useRef();
   useEffect(() => {
     socket.current = io("wss://memegram.onrender.com");
