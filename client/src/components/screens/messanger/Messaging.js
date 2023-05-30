@@ -16,7 +16,7 @@ export default function Messaging() {
   const [socket, setSocket] = useState(null)
   useEffect(() => {
     const fetchData = async () => {
-      const socket = io("ws://memegram.onrender.com:10000");
+      const socket = io("wss://memegram.onrender.com:10000");
       setSocket(socket);
 
       socket.on("getMessage", (data) => {
