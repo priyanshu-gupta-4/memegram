@@ -34,10 +34,12 @@ export default function Messaging() {
   }, [messages]);
 
   useEffect(() => {
+    if(state){
     socket.current.emit("addUser", state._id)
     socket.current.on("getUsers", users => {
       console.log(users)
     })
+  }
   }, [state])
   useEffect(() => {
     fetch('/conversations', {
