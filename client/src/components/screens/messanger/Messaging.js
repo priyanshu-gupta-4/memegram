@@ -13,6 +13,7 @@ export default function Messaging() {
   const [arrivalMsg, setArrivalMsg] = useState(null);
   const { state } = useContext(UserContext);
   //const { socket } = useRef()
+  const scrollRef = useRef();
   const [socket,setSocket] = useState(null)
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +33,10 @@ export default function Messaging() {
   useEffect(() => {
     arrivalMsg && currentChat?.members.includes(arrivalMsg.sender) && setMessages((prev) => [...prev, arrivalMsg])
   }, [arrivalMsg, currentChat])
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   useEffect(() => {
     if (socket) {
@@ -118,7 +123,7 @@ export default function Messaging() {
             <div className='chatBoxTop'>
               {messages.map(m => {
                 var isown = m.Sender === state._id
-                return (<div> <Message own={isown} message={m} /></div>)
+                return (<div ref={scrollRef}> <Message own={isown} message={m} /></div>)
               })}
             </div>
             <div className='chatBoxBottom'>
