@@ -19,7 +19,7 @@ const addUser = (userId, socketId) => {
 }
 const remUser = (socketId) => {
     console.log(socketId)
-    users = users.filter(user => { user.socketId !== socketId })
+    users = users.filter((user) =>{  return user.socketId !== socketId } )
 }
 const getUser = (userId) => {
     return users.filter(user => user.userId === userId)
