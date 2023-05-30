@@ -34,6 +34,7 @@ export default function Messaging() {
 
   useEffect(() => {
     if (socket) {
+      console.log(socket)
       socket.current.emit("addUser", state._id)
       socket.current.on("getUsers", users => {
         console.log(users)
