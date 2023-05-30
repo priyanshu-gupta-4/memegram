@@ -28,7 +28,7 @@ io.on("connection", (socket) => {
     socket.on("addUser", (userId) => {
         console.log("adding user")
         addUser(userId, socket.id);
-        console.log(getUser(userId));
+        console.log(users);
         io.emit("getUsers", users);
     })
 
