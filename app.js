@@ -24,7 +24,7 @@ const getUser = (userId) => {
     return users.filter(user => user.userId === userId)
 }
 io.on("connection", (socket) => {
-    console.log(socket)
+    
     socket.on("addUser", (userId) => {
         console.log("adding user")
         addUser(userId, socket.id);
