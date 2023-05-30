@@ -26,7 +26,7 @@ const Routing = ()=>{
     else{
       navigate('/signin');
     }
-  },[])
+  },[navigate])
   return(
     <Routes>
     <Route exact path='/' element={<Home />} />
