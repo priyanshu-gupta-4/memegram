@@ -5,7 +5,7 @@ function Search(){
     const [search,setSearch]=useState("");
     useEffect(()=>{
             if(search===""){
-                fetch("https://memegram.onrender.com/alluser",{
+                fetch("/alluser",{
                     method:"get",
                     headers:{
                         "Content-Type":"application/json",
@@ -19,7 +19,7 @@ function Search(){
             }
             else{
                     const t=setTimeout(()=>{
-                    fetch('https://memegram.onrender.com/searchUser/'+search,{
+                    fetch('/searchUser/'+search,{
                         method:"get",
                         headers:{
                             "Content-Type":"application/json",

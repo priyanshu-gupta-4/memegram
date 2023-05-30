@@ -10,7 +10,8 @@ function Navbar (){
             <li><Link to="/search" className="black-text"><i class="material-icons">search</i></Link></li>,  
             <li><Link to="/createpost" className="black-text"><i class="material-icons">add</i></Link></li>,
             <li><Link to="/profile" className="black-text"><img src={state.pic} style={{width:"30px",height:"30px",borderRadius:"100%",position:"relative",top:"10px"}}></img></Link></li>,          
-            <li><Link to="/subpost" className="black-text"><i class="material-icons">explore</i></Link></li>,          
+            <li><Link to="/subpost" className="black-text"><i class="material-icons">explore</i></Link></li>,
+            <li><Link to="/messaging" className="black-text"><i>m</i></Link></li>,          
             <button className="btn waves-effect waves-light #64b5f6 red darken-1"
               style={{height:"20%"}}
               onClick={()=>{

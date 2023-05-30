@@ -9,7 +9,7 @@ const Profile = ()=>{
     const [entVal,setVal]=useState(); 
     const [status,setStatus] = useState();
     useEffect(()=>{
-        fetch('https://memegram.onrender.com/mypost',{
+        fetch('/mypost',{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")
             }
@@ -30,7 +30,7 @@ const Profile = ()=>{
         })
         .then(res=>res.json())
         .then(data=>{
-            fetch("https://memegram.onrender.com/updatepic",{
+            fetch("/updatepic",{
                 method:"put",
                 headers:{
                     "Content-Type":"application/json",
@@ -60,7 +60,7 @@ const Profile = ()=>{
 
     useEffect(()=>{
         if(status){
-            fetch("https://memegram.onrender.com/updatestatus",{
+            fetch("/updatestatus",{
                 method:"put",
                 headers:{
                     "Content-Type":"application/json",

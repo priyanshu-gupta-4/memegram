@@ -11,6 +11,7 @@ import UserProfile from './screens/UserProfile';
 import SubUserPost from './screens/SubUserPost';
 import Search from './screens/Search';
 import {reducer,initialState} from '../reducers/useReducer'
+import Messaging from './screens/messanger/Messaging';
 
 export const UserContext = createContext()
 
@@ -36,6 +37,7 @@ const Routing = ()=>{
     <Route exact path='/profile/:userid' element={<UserProfile />} />
     <Route exact path='/subpost' element={<SubUserPost/>} />
     <Route exact path='/search' element={<Search/>} />
+    <Route exact path='/messaging' element={<Messaging/>} />  
     </Routes>
   );
 }

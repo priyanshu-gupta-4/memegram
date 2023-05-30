@@ -6,7 +6,7 @@ function Home(){
     const [data,setData] = useState([]);
     const {state,dispatch} = useContext(UserContext);
     useEffect(()=>{
-        fetch('https://memegram.onrender.com/allposts',{
+        fetch('/allposts',{
             method:"get",
             headers:{
                 "Content-Type":"application/json",
@@ -21,7 +21,7 @@ function Home(){
     },[])
 
     const likePost=(id)=>{
-        fetch("https://memegram.onrender.com/like",{
+        fetch("/like",{
             method:"put",
             headers:{
                 "Content-Type":"application/json",
@@ -47,7 +47,7 @@ function Home(){
 
 
     const unlikePost=(id)=>{
-        fetch("https://memegram.onrender.com/unlike",{
+        fetch("/unlike",{
             method:"put",
             headers:{
                 "Content-Type":"application/json",
@@ -72,7 +72,7 @@ function Home(){
     }
 
     const makeComment=(id,com)=>{
-        fetch("https://memegram.onrender.com/comment",{
+        fetch("/comment",{
             method:"put",
             headers:{
                 "Content-Type":"application/json",

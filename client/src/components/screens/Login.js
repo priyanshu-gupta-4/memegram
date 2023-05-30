@@ -12,7 +12,7 @@ const Login = ()=>{
             M.toast({ html: "Invalid Email", classes: "red" })
             return
         }
-        fetch("https://memegram.onrender.com/login",{
+        fetch("/login",{
             method:"post",
             headers:{
                 "Content-Type":"application/json"

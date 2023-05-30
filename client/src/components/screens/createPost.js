@@ -12,7 +12,7 @@ const CreatePost = ()=>{
     const [aiurl,setaiurl]=useState("");
     useEffect(()=>{
         if(url){
-        fetch('https://memegram.onrender.com/createpost',{
+        fetch('/createpost',{
             method:"post",
             headers:{
                 "Content-Type":"application/json",
@@ -91,7 +91,6 @@ const CreatePost = ()=>{
                 setaiurl("")
             }
             setaiurl(data.url);
-            console.log(data.url);
         })
         .catch(err=>{
             console.log(err);

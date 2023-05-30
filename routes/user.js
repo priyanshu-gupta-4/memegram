@@ -46,6 +46,18 @@ router.get("/searchUser/:ustr",(req,res)=>{
     })
 })
 
+router.get("/followers", requireLogin, async (req, res) => {
+    try {
+      const user = await User.findById(req.user._id);
+      const followerPromises = user.followers.map((follower) =>
+        User.findById(follower._id.toString()).select("-password -followers -following -status")
+      );
+      const followers = await Promise.all(followerPromises);
+      res.json(followers);
+    } catch (err) {
+      res.json({ err });
+    }
+});
 router.put("/follow",requireLogin,(req,res)=>{
     User.findByIdAndUpdate(req.user._id,{
         $push:{following:req.body.followId}

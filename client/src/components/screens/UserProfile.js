@@ -20,7 +20,7 @@ const UserProfile = ()=>{
     },[])
 
     const follow = (followId)=>{
-        fetch("https://memegram.onrender.com/follow",{
+        fetch("/follow",{
             method:"put",
             headers:{
                 "Content-Type":"application/json",
@@ -38,7 +38,7 @@ const UserProfile = ()=>{
         })
     }
     const unfollow = (followId)=>{
-        fetch("https://memegram.onrender.com/unfollow",{
+        fetch("/unfollow",{
             method:"put",
             headers:{
                 "Content-Type":"application/json",
