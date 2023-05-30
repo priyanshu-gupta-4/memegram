@@ -12,15 +12,12 @@ export default function Messaging() {
   const [newMsg, setNewMsg] = useState("");
   const [arrivalMsg, setArrivalMsg] = useState(null);
   const { state } = useContext(UserContext);
-  // const {socket} = useRef(io("ws://localhost:8900"))
-  const [socket, setSocket] = useState(null)
+  const { socket } = useRef()
   useEffect(() => {
     const fetchData = async () => {
-      const socket = io("wss://memegram.onrender.com");
-      setSocket(socket);
-
-      socket.on("getMessage", (data) => {
-        setArrivalMsg({
+      socket.current = io("ws://localhost:8900");
+      socket.current.on("getMessage", (data) => {
+        setArrivalMessage({
           sender: data.senderId,
           text: data.text,
           createdAt: Date.now(),
@@ -37,8 +34,8 @@ export default function Messaging() {
 
   useEffect(() => {
     if (socket) {
-      socket.emit("addUser", state._id)
-      socket.on("getUsers", users => {
+      socket.current.emit("addUser", state._id)
+      socket.current.on("getUsers", users => {
         console.log(users)
       })
     }
@@ -79,7 +76,7 @@ export default function Messaging() {
         ConversationId: currentChat._id
       }
       const recieverId = currentChat.members.find(member => member !== state._id)
-      socket.emit("sendMessage", {
+      socket.current.emit("sendMessage", {
         senderId: state._id,
         recieverId,
         text: newMsg
