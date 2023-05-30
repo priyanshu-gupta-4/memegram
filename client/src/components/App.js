@@ -26,6 +26,17 @@ const Routing = ()=>{
     else{
       navigate('/signin');
     }
+
+    const handleBeforeUnload = () => {
+      window.location.href = '/';
+    };
+
+    window.onbeforeunload = handleBeforeUnload;
+
+    return () => {
+      window.onbeforeunload = null;
+    };
+    
   },[navigate])
   return(
     <Routes>
