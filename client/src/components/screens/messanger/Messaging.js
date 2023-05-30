@@ -44,7 +44,7 @@ export default function Messaging() {
       console.log(users)
     })
   }
-  }, [])
+  }, [state])
   useEffect(() => {
     fetch('/conversations', {
       method: "get",
