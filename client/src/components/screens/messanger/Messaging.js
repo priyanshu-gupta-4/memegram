@@ -17,7 +17,7 @@ export default function Messaging() {
     const fetchData = async () => {
       socket.current = io("ws://localhost:8900");
       socket.current.on("getMessage", (data) => {
-        setArrivalMessage({
+        setArrivalMsg({
           sender: data.senderId,
           text: data.text,
           createdAt: Date.now(),
