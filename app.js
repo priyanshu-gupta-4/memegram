@@ -33,7 +33,7 @@ io.on("connection", (socket) => {
     socket.on("sendMessage", ({ senderId, recieverId, text }) => {
         
         const user = getUser(recieverId);
-        if(user){
+        if(user[0]){
            io.to(user[0].socketId).emit("getMessage", {
                 senderId, text
             })
