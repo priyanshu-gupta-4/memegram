@@ -110,6 +110,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 router.post('/generateImg',(req,res)=>{
+    console.log("generation request")
     const Creater=async ()=>{
         try{
             const result=await openai.createImage({

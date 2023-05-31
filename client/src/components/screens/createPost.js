@@ -86,6 +86,7 @@ const CreatePost = ()=>{
         })
         .then(res=>res.json())
         .then(data=>{
+            console.log(data)
             if(!data.url){
                 M.toast({html:"no data found",classes:"#c62828 red darken-3"})
                 setaiurl("")
