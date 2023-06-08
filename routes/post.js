@@ -118,12 +118,13 @@ router.post('/generateImg',(req,res)=>{
                 n:1,
                 size:'256x256'
             })
+            console.log(result)
             const img_url=result.data.data[0].url;
             console.log(img_url);
             res.send({url:img_url});
         }
         catch(err){
-            console.log(err);
+            console.log("error")
             res.send(err);
         }
     }
