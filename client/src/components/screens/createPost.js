@@ -84,7 +84,7 @@ const CreatePost = ()=>{
                     M.toast({ html: "no data found", classes: "#c62828 red darken-3" });
                     setaiurl("");
                 }
-                let x=Math.floor(Math.random()*10)
+                let x=Math.floor(Math.random()*data.images.length)
                 setaiurl(data.images[x].src);
             })
             .catch(error => {
