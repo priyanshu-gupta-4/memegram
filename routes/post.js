@@ -124,12 +124,38 @@ router.post('/generateImg',(req,res)=>{
             res.send({url:img_url});
         }
         catch(err){
-            console.log("error")
+            console.log(err)
             res.send(err);
         }
     }
     Creater()
 })
+
+const deepai = require('deepai');
+
+deepai.setApiKey('141fc7ab-e439-4a6a-b756-c7ce2da11bc8');
+
+router.post('/generateImg2',(req,res)=>{
+    console.log("generation request")
+    const Creater=async ()=>{
+        try{
+            const result=await deepai.callStandardApi("text2img",{
+                text:req.body.txt,
+            })
+            console.log(result)
+            const img_url=result.data.data[0].url;
+            console.log(img_url);
+            res.send({url:img_url});
+        }
+        catch(err){
+            console.log(err)
+            res.send(err);
+        }
+    }
+    Creater()
+})
+
+
 
 router.put("/comment",requireLogin,(req,res)=>{
     const comment ={text:req.body.text,postedBy:req.user._id}
