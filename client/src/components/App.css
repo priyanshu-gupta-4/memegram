@@ -65,3 +65,8 @@ nav{
     height: 160px;
     border-radius: 50%;
 }
+
+.aiImg{
+    width: 250px;
+    height: 250px;
+}

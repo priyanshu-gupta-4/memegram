@@ -110,7 +110,7 @@ const CreatePost = ()=>{
                         <span>{aimg?"Cancel":"AI IMAGE"}</span>
                 </div>
                 {aimg?<div><input type="text" onChange={(e)=>setaitxt(e.target.value)}></input><button className="btn blue" onClick={()=>{handleGen()}}>get Image</button></div>:<></>}
-                {aiurl?<img src={aiurl}></img>:<></>}
+                {aiurl?<img className="aiImg" src={aiurl}></img>:<></>}
             <br></br><br></br><button className="btn blue" onClick={()=>{postDetails()}}>SUBMIT POST</button>
         </div>
     )
