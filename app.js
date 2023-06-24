@@ -77,6 +77,8 @@ require('./models/conversation')
 mongoose.model('Conversation')
 require('./models/message')
 mongoose.model('Message')
+require('./models/userOtp')
+mongoose.model('UserOtp')
 
 //import routes
 app.use(require("./routes/auth"));  //import route from file and register them using app.use()

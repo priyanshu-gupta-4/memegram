@@ -16,6 +16,7 @@ const userSchema = mongoose.Schema({
     status:String,
     followers:[{type:ObjectId,ref:"User"}],
     following:[{type:ObjectId,ref:"User"}],
-    pic:{type:String,default:"https://res.cloudinary.com/pg1/image/upload/v1640000851/avatar_hxtthr.png"}
+    pic:{type:String,default:"https://res.cloudinary.com/pg1/image/upload/v1640000851/avatar_hxtthr.png"},
+    verified:Boolean
 })
 mongoose.model("User",userSchema )

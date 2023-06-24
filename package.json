@@ -6,6 +6,7 @@
   "author": "pg",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.7.0",
     "axios": "^1.4.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
