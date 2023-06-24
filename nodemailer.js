@@ -1,27 +1,33 @@
-const sgMail = require('@sendgrid/mail');
-const {sendgridKey} = require("./config/key")
+const {Gmail} = require("./config/key");
+const {pass} = require("./config/key");
+const nodemailer = require("nodemailer");
 // async..await is not allowed in global scope, must use a wrapper
 function sendMail (obj,otp){
+async function main() {
 
-  sgMail.setApiKey(sendgridKey)
-  const msg = {
-    to: obj.email, // Change to your recipient
-    from: 'samyak.jain.e21@nsut.ac.in', // Change to your verified sender
-    subject: 'Welcome to memegram ' + obj.name,
-    text: 'welcome to worlds largest meme creating and sharing platform otp for user verification is : ' + otp,
-    html: '<strong>welcome to worlds largest meme creating and sharing platform otp for user verification is : '+otp+'</strong>',
-  }
-  console.log(msg);
-  sgMail
-    .send(msg)
-    .then(() => {
-      console.log('Email sent')
-  })
-  .catch((error) => {
-    console.error(error)
-  })
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: Gmail,
+      pass: pass,
+    },
+  });
 
+  // send mail with defined transport object
+  let info = await transporter.sendMail({
+    from:'"memogram " <memogram@gmail.com>',
+    to:obj.email,
+    subject:"sign up success",
+    text:"welcoming "+obj.name + " to India's largest meme sharing platform your otp is "+otp
+  });
 
+  console.log("Message sent: %s", info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.co
+}
+main().catch(console.error);
 }
 
-module.exports = sendMail
+module.exports = sendMail;
