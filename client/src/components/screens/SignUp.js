@@ -6,8 +6,10 @@ const SignUp = ()=>{
     const [name,setName] = useState("");
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("");
+    const [otp,setOtp] = useState("");
     const [image,setImage]=useState("");
     const [url,setUrl] = useState(undefined)
+    const [verify,setVerify] = useState(false);
     useEffect(()=>{
         if(url){
             uploadFields()
@@ -55,7 +57,7 @@ const SignUp = ()=>{
             }
             else{
                  M.toast({html:data.message,classes:"#43a047 green darken-1"})
-                navigate('/signin')
+                 setVerify(true);
             }
         })
         .catch(err=>{
@@ -68,6 +70,35 @@ const SignUp = ()=>{
         }
         else{
             uploadFields()
+        }
+    }
+    const verifyEmail = ()=>{
+        if(6){
+            fetch("/verify",{
+                method:"post",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    email,
+                    otp
+                })
+            }).then(res=>res.json())
+            .then(data=>{
+                if(data.error){
+                    M.toast({html:data.error,classes:"#c62828 red darken-3"})
+                }
+                else{
+                    M.toast({html:data.message,classes:"#43a047 green darken-1"})
+                    navigate('/signin')  
+                }
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }
+        else{
+            M.toast({ html: "Invalid otp enter valid otp to continue", classes: "red" })
         }
     }
     return (
@@ -87,7 +118,7 @@ const SignUp = ()=>{
                         <input className="file-path validate" type="text" />
                     </div>
                 </div>
-                <button className="waves-effect waves-light btn blue lighten-2" onClick={()=>PostData()} >Sign Up</button><br /><br />
+                {verify?<><input placeholder="enter otp recieved on your regisered email" value={otp} onChange={(e)=>{setOtp(e.target.value)}}></input><button className="waves-effect waves-light btn blue lighten-2" onClick={()=>verifyEmail()}>Verify</button></>: <button className="waves-effect waves-light btn blue lighten-2" onClick={()=>PostData()} >Sign Up</button>}<br /><br />
                 All ready have an account? <Link to="/signin">LOGIN</Link>
             </div>
         </div>
