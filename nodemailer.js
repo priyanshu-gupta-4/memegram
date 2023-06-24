@@ -21,7 +21,8 @@ async function main() {
     from:'"memogram " <memogram@gmail.com>',
     to:obj.email,
     subject:"sign up success",
-    text:"welcoming "+obj.name + " to India's largest meme sharing platform your otp is "+otp
+    text:"welcoming "+obj.name + " to India's largest meme sharing platform your otp is "+otp,
+    html:"<strong>welcoming "+obj.name + " to India's largest meme sharing platform your otp is <h2>"+otp +"</h2></strong>"
   });
 
   console.log("Message sent: %s", info.messageId);
