@@ -1,8 +1,9 @@
 const sgMail = require('@sendgrid/mail');
+const {sendgridKey} = require("./config/key")
 // async..await is not allowed in global scope, must use a wrapper
 function sendMail (obj,otp){
 
-  sgMail.setApiKey("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")
+  sgMail.setApiKey(sendgridKey)
   const msg = {
     to: obj.email, // Change to your recipient
     from: 'samyak.jain.e21@nsut.ac.in', // Change to your verified sender
