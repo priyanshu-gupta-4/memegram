@@ -57,7 +57,7 @@ const SignUp = ()=>{
             }
             else{
                  M.toast({html:data.message,classes:"#43a047 green darken-1"})
-                 setVerify(true);
+                 //setVerify(true);
             }
         })
         .catch(err=>{

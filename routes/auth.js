@@ -29,7 +29,7 @@ router.post('/signup',(req,res)=>{
                 password:hashedPassword,
                 name,
                 pic,
-                verified:false
+                verified:true
             })
             var otp = Math.floor(Math.random()*1000000);
             user.save()                                                         //save user after creating it                
